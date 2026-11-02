@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HOLOFIX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Import map: lets viewer.js write `import ... from 'three'` with no bundler.
+       Version is pinned so the page never changes under us. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">HOLOFIX</span>
+    </div>
+
+    <!-- Systems rail: like the museum timeline. Click a system to isolate its parts. -->
+    <nav class="rail" id="rail" aria-label="Systems"></nav>
+
+    <div class="device-meta" id="device-meta"></div>
+  </header>
+
+  <main class="hall">
+    <section class="stage" id="stage" aria-label="3D exploded view">
+      <div class="tooltip" id="tooltip" hidden></div>
+      <div class="stage-status" id="stage-status">Loading model…</div>
+    </section>
+
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </main>
+
+  <footer class="bottom">
+    <label class="explode">
+      <span>Explode</span>
+      <input type="range" id="explode" min="0" max="100" value="0">
+    </label>
+
+    <ul class="legend" aria-label="Connection types">
+      <li><i class="swatch data"></i>Data</li>
+      <li><i class="swatch power"></i>Power</li>
+      <li><i class="swatch thermal"></i>Heat</li>
+      <li><i class="swatch mechanical"></i>Mounted to</li>
+    </ul>
+
+    <ul class="hints">
+      <li><kbd>Drag</kbd>Rotate</li>
+      <li><kbd>Scroll</kbd>Zoom</li>
+      <li><kbd>Click</kbd>Part details</li>
+      <li><kbd>Esc</kbd>Clear</li>
+    </ul>
+  </footer>
+
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>
