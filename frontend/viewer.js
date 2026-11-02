@@ -3,16 +3,18 @@
  *
  * Pipeline, top to bottom:
  *   1. load JSON                       (loadGraph)
- *   2. one Three.js object per part    (buildPart: coarse shape from `shape` + `size`)
- *   3. place parts by layer            (layoutParts: explode = move up along the layer axis)
- *   4. fibres for real connections     (buildFibres / updateFibres)
- *   5. interaction: hover, click, isolate a system, explode slider
- *   6. render loop with bloom          (the "glow" is a post-processing pass, not a texture)
+ *   2. device frame from real dimensions (buildDevice: wedge profile, hinged lid)
+ *   3. one Three.js object per part    (buildPart -> shapes.js)
+ *   4. place parts + explode           (layoutParts)
+ *   5. fibres for real connections     (buildFibres / updateFibres)
+ *   6. interaction: hover, click, isolate a system, explode slider
+ *   7. render loop with bloom          (the "glow" is a post-processing pass, not a texture)
  *
- * Coordinate convention: Three.js has Y pointing up.
- *   JSON position.x (0..1, left→right)  -> scene X
- *   JSON position.y (0..1, front→back)  -> scene Z (front = +Z, towards the viewer)
- *   JSON layer (0 = bottom)              -> scene Y
+ * A device has two assemblies:
+ *   base -> lies on the plinth. position.x: left→right, position.y: front→back, layer: bottom→top.
+ *   lid  -> its own frame, rotated open on the hinge. position.y: 0 at the hinge → 1 at the top edge;
+ *           layer 0 = outer back cover, higher layers = towards the user (panel, glass).
+ * Three.js has Y pointing up; the front of the device faces the camera (+Z).
  */
 
 import * as THREE from 'three';
@@ -21,6 +23,7 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { buildShape, ABSOLUTE_SHAPES } from './shapes.js';
 
 // ---------- Settings ----------
 
@@ -28,11 +31,17 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 const DATA_URL = new URLSearchParams(location.search).get('data')
   || '../data/samples/macbook_air_m1_2020.json';
 
-// Device bounding box in scene units (1 unit ≈ 10 cm). A real M1 Air is 30.4 × 21.2 × 1.6 cm;
-// thickness is exaggerated ×2.5 so the closed stack is still readable.
-const DEVICE = { W: 3.04, D: 2.12, H: 0.4 };
-const LAYER_GAP = 0.6;           // extra height per layer when fully exploded
-const START_EXPLODE = 0.6;       // the load animation opens the model to 60 %
+// Scene scale: 1 unit = 10 cm, so millimetres × 0.01.
+const MM = 0.01;
+// Used when the graph has no dimensions (e.g. a generic template): a typical 13" laptop.
+const FALLBACK_DIMENSIONS = { width: 300, depth: 210, height_min: 5, height_max: 16 };
+
+const LID_OPEN_DEG = 108;        // how far the screen is opened
+const LAYER_GAP = 0.34;          // base: extra height per layer when fully exploded
+const SPREAD = 0.22;             // base: parts also move outwards from the centre (armor feel)
+const LID_GAP = 0.35;            // lid: each layer moves towards the viewer
+const STAGGER = 0.35;            // outer layers start moving before inner ones
+const START_EXPLODE = 0.75;      // the load animation opens the model to 75 %
 
 const COLORS = {
   holo: new THREE.Color('#6fe7f0'),
@@ -64,7 +73,7 @@ const state = {
   hoveredId: null,
   selectedId: null,
   isolatedSystem: null, // system id or null for "all"
-  maxLayer: 1,
+  dev: null,            // device frame: sizes, wedge function, lid pivot (see buildDevice)
 };
 
 // ---------- Scene setup ----------
@@ -84,13 +93,13 @@ const scene = new THREE.Scene();
 // composer the clear colour gets gamma-encoded twice and the dark stage turns grey.
 scene.background = new THREE.Color('#070a0e');
 const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
-camera.position.set(4.4, 3.6, 5.2);
+camera.position.set(4.6, 2.9, 5.6);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.minDistance = 2.5;
 controls.maxDistance = 14;
-controls.target.set(0, 1, 0);
+controls.target.set(0, 0.8, -0.3);
 
 // Bloom = render the scene, then blur its bright pixels and add them back -> glow.
 // (strength 0.6, radius 0.3, threshold 0.12: higher values wash the dark stage out.)
@@ -112,7 +121,7 @@ new ResizeObserver(resize).observe(stageEl);
 
 // The plinth: two faint rings under the exhibit, like a museum pedestal.
 function buildPlinth() {
-  for (const r of [2.3, 2.55]) {
+  for (const r of [2.4, 2.65]) {
     const pts = new THREE.EllipseCurve(0, 0, r, r).getPoints(128);
     const geo = new THREE.BufferGeometry().setFromPoints(pts.map(p => new THREE.Vector3(p.x, -0.05, p.y)));
     const mat = new THREE.LineBasicMaterial({ color: COLORS.plinth, transparent: true, opacity: r < 2.4 ? 0.14 : 0.06 });
@@ -128,60 +137,58 @@ async function loadGraph(url) {
   return res.json();
 }
 
-// ---------- 2. Parts -> geometry ----------
+// ---------- 2. Device frame ----------
 
-/** Real size of a part in scene units. */
-function partSize(part) {
+/**
+ * Everything that depends on the real device dimensions. The base is a wedge: thin at the front,
+ * thick at the back (like the M1 Air: 4.1 mm → 16.1 mm with the lid closed). The lid is a constant
+ * thickness slab that takes ~70 % of the thinnest edge.
+ */
+function buildDevice(graph) {
+  const dims = graph.device.dimensions_mm || FALLBACK_DIMENSIONS;
+  const W = dims.width * MM, D = dims.depth * MM;
+  const lidT = dims.height_min * 0.7 * MM;
+  const baseFront = dims.height_min * MM - lidT;
+  const baseBack = dims.height_max * MM - lidT;
+
+  // Height of the base's top surface at depth z (z = +D/2 is the front edge).
+  const baseTopAt = (z) => {
+    const t = THREE.MathUtils.clamp((D / 2 - z) / D, 0, 1);  // 0 at the front, 1 at the back
+    return baseFront + (baseBack - baseFront) * t;
+  };
+
+  // Top-case cut-outs = footprints of the big input parts (keyboard, trackpad) in the base.
+  const cutouts = graph.parts
+    .filter(p => (p.assembly || 'base') === 'base' && p.system_id === 'input' && p.size.w * p.size.d > 0.02)
+    .map(p => ({ x: (p.position.x - 0.5) * W, z: (0.5 - p.position.y) * D, w: p.size.w * W, d: p.size.d * D }));
+
+  // The lid hangs from a pivot on the back edge of the base and is rotated open.
+  const lidPivot = new THREE.Group();
+  lidPivot.rotation.x = -THREE.MathUtils.degToRad(LID_OPEN_DEG);
+  scene.add(lidPivot);
+
+  const maxLayer = (assembly) => Math.max(1, ...graph.parts.filter(p => (p.assembly || 'base') === assembly).map(p => p.layer));
+
   return {
-    w: part.size.w * DEVICE.W,
-    d: part.size.d * DEVICE.D,
-    h: Math.max(part.size.h * DEVICE.H, 0.012),
+    W, D, lidT, baseBack, baseTopAt, cutouts, lidPivot,
+    radius: Math.min(W, D) * 0.045, wall: 0.03, deckThickness: 0.012,
+    maxLayer: { base: maxLayer('base'), lid: maxLayer('lid') },
   };
 }
 
-/** One coarse primitive per shape type. Resemblance, not replica. */
-function makeGeometry(part) {
-  const { w, d, h } = partSize(part);
-  switch (part.shape) {
-    case 'cylinder': {
-      const r = Math.min(w, d) / 2;
-      return new THREE.CylinderGeometry(r, r, h, 32);
-    }
-    case 'screw':
-      return new THREE.CylinderGeometry(w / 2, w / 2, h, 12);
-    case 'frame': {
-      // A rectangle with a rectangular hole, extruded upwards.
-      const outer = new THREE.Shape();
-      outer.moveTo(-w / 2, -d / 2); outer.lineTo(w / 2, -d / 2);
-      outer.lineTo(w / 2, d / 2); outer.lineTo(-w / 2, d / 2); outer.closePath();
-      const hole = new THREE.Path();
-      const iw = w * 0.42, id = d * 0.36;   // inner opening, offset towards the back (keyboard well)
-      hole.moveTo(-iw, -id + d * 0.1); hole.lineTo(iw, -id + d * 0.1);
-      hole.lineTo(iw, id + d * 0.1); hole.lineTo(-iw, id + d * 0.1); hole.closePath();
-      outer.holes.push(hole);
-      const geo = new THREE.ExtrudeGeometry(outer, { depth: h, bevelEnabled: false });
-      geo.rotateX(-Math.PI / 2);          // extrusion now points up (+Y)
-      return geo;
-    }
-    case 'cable': {
-      // A flat S-curve tube across the part's footprint.
-      const curve = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(-w / 2, 0, 0),
-        new THREE.Vector3(-w / 6, 0, d / 2),
-        new THREE.Vector3(w / 6, 0, -d / 2),
-        new THREE.Vector3(w / 2, 0, 0),
-      ]);
-      return new THREE.TubeGeometry(curve, 48, Math.max(h / 2, 0.012), 6, false);
-    }
-    default: // slab, board, chip, box
-      return new THREE.BoxGeometry(w, h, d);
-  }
+// ---------- 3. Parts -> 3D objects ----------
+
+/** Real size of a part in scene units. Heights are relative to the base (or lid) thickness. */
+function partSize(part) {
+  const { W, D, baseBack, lidT } = state.dev;
+  const H = (part.assembly || 'base') === 'lid' ? lidT : baseBack;
+  return { w: part.size.w * W, d: part.size.d * D, h: Math.max(part.size.h * H, 0.006) };
 }
 
 /** Builds the hologram object for one part: a faint fill (also used for picking) + glowing edges. */
 function buildPart(part) {
   const color = part.hazard ? COLORS.hazard : COLORS.holo;
-  const geo = makeGeometry(part);
+  const { geo, lines, centreLine } = buildShape(part.shape, partSize(part), state.dev);
 
   const fill = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
     color, transparent: true, opacity: LOOK.idle[0],
@@ -189,62 +196,77 @@ function buildPart(part) {
   }));
   fill.userData.partId = part.id;
 
-  // Edges: cables use their own centre line; everything else uses the outline of the mesh.
-  const edgeGeo = part.shape === 'cable'
-    ? new THREE.BufferGeometry().setFromPoints(geo.parameters.path.getPoints(64))
-    : new THREE.EdgesGeometry(geo, 20);
-  const EdgeType = part.shape === 'cable' ? THREE.Line : THREE.LineSegments;
-  const edges = new EdgeType(edgeGeo, new THREE.LineBasicMaterial({
-    color, transparent: true, opacity: LOOK.idle[1],
-  }));
+  // Edges: cables draw their centre line; everything else draws the mesh outline
+  // (EdgesGeometry keeps only edges where faces meet at > 20°, so curves stay clean).
+  const edges = centreLine
+    ? new THREE.Line(new THREE.BufferGeometry().setFromPoints(centreLine), new THREE.LineBasicMaterial({ color, transparent: true }))
+    : new THREE.LineSegments(new THREE.EdgesGeometry(geo, 20), new THREE.LineBasicMaterial({ color, transparent: true }));
 
-  // Boards get a fine inner grid so they read as "circuit" rather than "slab".
   const group = new THREE.Group();
   group.add(fill, edges);
-  if (part.shape === 'board') group.add(boardTraces(part, color));
-  scene.add(group);
-  return { part, group, fill, edges };
-}
-
-function boardTraces(part, color) {
-  const { w, d, h } = partSize(part);
-  const pts = [];
-  const n = 5;
-  for (let i = 1; i < n; i++) {
-    const x = -w / 2 + (w * i) / n;
-    pts.push(new THREE.Vector3(x, h / 2 + 0.001, -d / 2), new THREE.Vector3(x, h / 2 + 0.001, d / 2));
-    const z = -d / 2 + (d * i) / n;
-    pts.push(new THREE.Vector3(-w / 2, h / 2 + 0.001, z), new THREE.Vector3(w / 2, h / 2 + 0.001, z));
+  if (lines) {   // detail lines: board traces, screen area, camera
+    const detail = new THREE.LineSegments(lines, new THREE.LineBasicMaterial({ color, transparent: true }));
+    detail.userData.isTrace = true;
+    group.add(detail);
   }
-  const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.18 });
-  const lines = new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), mat);
-  lines.userData.isTrace = true;
-  return lines;
+
+  // Lid parts live inside the rotated lid frame; base parts directly in the scene.
+  ((part.assembly || 'base') === 'lid' ? state.dev.lidPivot : scene).add(group);
+
+  // Anchor = centre of the part's geometry; fibres attach here.
+  geo.computeBoundingBox();
+  const anchor = geo.boundingBox.getCenter(new THREE.Vector3());
+  return { part, group, fill, edges, anchor };
 }
 
-// ---------- 3. Layout: the explode is one formula ----------
+// ---------- 4. Layout: where every part sits for the current explode value ----------
 
 /**
- * y = (closed height of the layer) + explode × layer × gap
- * Closed: layers share the device thickness. Exploded: each layer lifts in proportion to its index,
- * so the stack opens like an accordion and parts keep their order.
+ * Staggered explode: the slider value E (0..1) is turned into a per-part value e (0..1).
+ * Outer layers (high rank) start immediately, inner ones start later — plates peel off
+ * first, like armor coming apart. rank = layer / max layer of the part's assembly.
  */
-function layerY(layer) {
-  const closed = (layer / state.maxLayer) * DEVICE.H;
-  return closed + state.explode * layer * LAYER_GAP;
+function staggered(E, rank) {
+  const delay = STAGGER * (1 - rank);
+  return THREE.MathUtils.clamp((E - delay) / (1 - STAGGER), 0, 1);
 }
 
 function layoutParts() {
+  const { W, D, lidT, baseTopAt, deckThickness, maxLayer, lidPivot } = state.dev;
+  const E = state.explode;
+
   for (const { part, group } of state.parts.values()) {
-    const x = (part.position.x - 0.5) * DEVICE.W;
-    const z = (0.5 - part.position.y) * DEVICE.D;   // front of the device faces the viewer (+Z)
-    const { h } = partSize(part);
-    // Frames are extruded from their base; the others are centred on their origin.
-    const y = layerY(part.layer) + (part.shape === 'frame' ? 0 : h / 2);
-    group.position.set(x, y, z);
+    const assembly = part.assembly || 'base';
+    const e = staggered(E, part.layer / maxLayer[assembly]);
+    const s = partSize(part);
+
+    if (assembly === 'lid') {
+      // Lid frame: x across, z from the hinge (0) to the top edge (D), y through the lid thickness.
+      const x = (part.position.x - 0.5) * W;
+      const z = part.position.y * D;
+      const yClosed = lidT * (1 - (part.layer + 0.5) / (maxLayer.lid + 1));
+      group.position.set(x, yClosed - e * part.layer * LID_GAP, z);   // -y = towards the user
+      continue;
+    }
+
+    if (ABSOLUTE_SHAPES.has(part.shape)) {
+      // Shells are modelled in device coordinates; they only move up.
+      group.position.set(0, e * part.layer * LAYER_GAP, 0);
+      continue;
+    }
+
+    // Internal part: sits on the floor inside the wedge, stacked a little by layer when closed.
+    const x0 = (part.position.x - 0.5) * W;
+    const z0 = (0.5 - part.position.y) * D;
+    const room = baseTopAt(z0) - deckThickness - 0.008;
+    const yClosed = 0.008 + s.h / 2 + Math.max(0, part.layer - 1) * room * 0.25;
+    // Exploded: up by layer, and outwards from the centre.
+    group.position.set(x0 * (1 + e * SPREAD), yClosed + e * part.layer * LAYER_GAP, z0 * (1 + e * SPREAD));
   }
-  // Keep the camera looking at the middle of the stack as it grows.
-  controls.target.y = (layerY(state.maxLayer) + DEVICE.H * 0.3) / 2;
+
+  // The lid moves back and up as the base opens, so the two never collide.
+  lidPivot.position.set(0, baseTopAt(-D / 2) + E * 0.3, -D / 2 - E * 1.7);
+
   updateFibres();
 }
 
@@ -274,11 +296,12 @@ function buildFibres() {
 
 /** Recompute every fibre's curve from the current part positions (called on every explode change). */
 function updateFibres() {
+  scene.updateMatrixWorld(true);   // lid parts are nested in the rotated lid, so use world positions
   for (const f of state.fibres) {
     const a = state.parts.get(f.conn.source), b = state.parts.get(f.conn.target);
     if (!a || !b) continue;
-    const start = a.group.position.clone();
-    const end = b.group.position.clone();
+    const start = a.group.localToWorld(a.anchor.clone());
+    const end = b.group.localToWorld(b.anchor.clone());
     // Control point lifted above the midpoint so the fibre arcs instead of cutting through parts.
     const mid = start.clone().add(end).multiplyScalar(0.5);
     mid.y += 0.25 + start.distanceTo(end) * 0.12;
@@ -299,7 +322,7 @@ function setLook(entry, look) {
   entry.fill.material.opacity = fillOpacity;
   entry.edges.material.opacity = edgeOpacity;
   for (const child of entry.group.children) {
-    if (child.userData.isTrace) child.material.opacity = edgeOpacity * 0.25;
+    if (child.userData.isTrace) child.material.opacity = edgeOpacity * 0.35;
   }
 }
 
@@ -542,7 +565,7 @@ async function main() {
   document.getElementById('stage-status').remove();
 
   const g = state.graph;
-  state.maxLayer = Math.max(1, ...g.parts.map(p => p.layer));
+  state.dev = buildDevice(g);
   document.title = `HOLOFIX · ${g.device.model_name}`;
   document.getElementById('device-meta').innerHTML =
     `<strong>${escapeHtml(g.device.model_name)}</strong><span>${escapeHtml(Object.values(g.device.configuration).slice(1).join(', '))}</span>`;

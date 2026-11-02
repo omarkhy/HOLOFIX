@@ -8,178 +8,585 @@
       "chip": "Apple M1, 8-core CPU, 7-core GPU",
       "memory": "8 GB",
       "storage": "256 GB"
+    },
+    "dimensions_mm": {
+      "width": 304.1,
+      "depth": 212.4,
+      "height_min": 4.1,
+      "height_max": 16.1
     }
   },
   "provenance": "generated",
   "systems": [
-    { "id": "enclosure", "name": "Enclosure", "parent_id": null },
-    { "id": "display", "name": "Display", "parent_id": null },
-    { "id": "power", "name": "Power", "parent_id": null },
-    { "id": "compute", "name": "Compute", "parent_id": null },
-    { "id": "thermal", "name": "Cooling", "parent_id": null },
-    { "id": "io", "name": "Ports", "parent_id": null },
-    { "id": "audio", "name": "Audio", "parent_id": null },
-    { "id": "input", "name": "Input", "parent_id": null }
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "parent_id": null
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "parent_id": null
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "parent_id": null
+    },
+    {
+      "id": "compute",
+      "name": "Compute",
+      "parent_id": null
+    },
+    {
+      "id": "thermal",
+      "name": "Cooling",
+      "parent_id": null
+    },
+    {
+      "id": "io",
+      "name": "Ports",
+      "parent_id": null
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "parent_id": null
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "parent_id": null
+    }
   ],
   "parts": [
     {
-      "id": "bottom_case", "name": "Bottom case",
+      "id": "bottom_case",
+      "name": "Bottom case",
       "function": "Aluminium lower shell that closes the machine and protects the internals.",
-      "system_id": "enclosure", "layer": 0, "shape": "slab",
-      "size": { "w": 1.0, "d": 1.0, "h": 0.08 }, "position": { "x": 0.5, "y": 0.5 },
-      "serviceability": "replaceable", "specs": { "material": "Aluminium" },
-      "hazard": null, "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020", "confidence": 0.8
+      "system_id": "enclosure",
+      "layer": 0,
+      "shape": "shell_base",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "Aluminium"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
+      "confidence": 0.8,
+      "assembly": "base"
     },
     {
-      "id": "battery", "name": "Battery",
+      "id": "battery",
+      "name": "Battery",
       "function": "Stores the energy that runs the laptop when it is unplugged.",
-      "system_id": "power", "layer": 1, "shape": "slab",
-      "size": { "w": 0.78, "d": 0.44, "h": 0.35 }, "position": { "x": 0.5, "y": 0.27 },
-      "serviceability": "glued", "specs": { "capacity": "49.9 Wh", "chemistry": "Lithium-polymer" },
+      "system_id": "power",
+      "layer": 1,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.78,
+        "d": 0.42,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.25
+      },
+      "serviceability": "glued",
+      "specs": {
+        "capacity": "49.9 Wh",
+        "chemistry": "Lithium-polymer"
+      },
       "hazard": "lithium_battery",
       "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
-      "confidence": 0.85
+      "confidence": 0.85,
+      "assembly": "base"
     },
     {
-      "id": "logic_board", "name": "Logic board",
+      "id": "logic_board",
+      "name": "Logic board",
       "function": "Main circuit board. Carries the M1 chip, storage and every connector.",
-      "system_id": "compute", "layer": 1, "shape": "board",
-      "size": { "w": 0.36, "d": 0.3, "h": 0.06 }, "position": { "x": 0.52, "y": 0.8 },
-      "serviceability": "replaceable", "specs": { "note": "Replaced as a whole board; chip, memory and storage come with it" },
-      "hazard": null, "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020", "confidence": 0.75
-    },
-    {
-      "id": "m1_soc", "name": "Apple M1 chip",
-      "function": "System-on-chip: CPU, GPU, Neural Engine and unified memory in one package.",
-      "system_id": "compute", "layer": 2, "shape": "chip",
-      "size": { "w": 0.07, "d": 0.09, "h": 0.12 }, "position": { "x": 0.47, "y": 0.79 },
-      "serviceability": "soldered",
-      "specs": { "CPU": "8-core", "GPU": "7-core", "memory": "8 GB unified, inside the chip package" },
-      "hazard": null,
-      "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
-      "confidence": 0.9
-    },
-    {
-      "id": "ssd_nand", "name": "SSD storage",
-      "function": "Flash storage chips that hold the operating system and your files.",
-      "system_id": "compute", "layer": 2, "shape": "chip",
-      "size": { "w": 0.06, "d": 0.05, "h": 0.1 }, "position": { "x": 0.62, "y": 0.81 },
-      "serviceability": "soldered", "specs": { "capacity": "256 GB" },
-      "hazard": null,
-      "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
-      "confidence": 0.9
-    },
-    {
-      "id": "heat_spreader", "name": "Heat spreader",
-      "function": "Passive aluminium plate that pulls heat from the M1 chip. There is no fan.",
-      "system_id": "thermal", "layer": 3, "shape": "slab",
-      "size": { "w": 0.2, "d": 0.16, "h": 0.05 }, "position": { "x": 0.48, "y": 0.79 },
-      "serviceability": "replaceable", "specs": { "cooling": "Fanless" },
-      "hazard": null, "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020", "confidence": 0.7
-    },
-    {
-      "id": "usb_c_board", "name": "USB-C port board",
-      "function": "Daughter board with the two USB-C ports, used for charging and data.",
-      "system_id": "io", "layer": 1, "shape": "board",
-      "size": { "w": 0.08, "d": 0.13, "h": 0.06 }, "position": { "x": 0.06, "y": 0.82 },
-      "serviceability": "replaceable", "specs": { "ports": "2 × Thunderbolt / USB 4" },
-      "hazard": null,
-      "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
-      "confidence": 0.7
-    },
-    {
-      "id": "audio_board", "name": "Headphone jack board",
-      "function": "Small board carrying the 3.5 mm headphone jack.",
-      "system_id": "io", "layer": 1, "shape": "board",
-      "size": { "w": 0.05, "d": 0.07, "h": 0.06 }, "position": { "x": 0.95, "y": 0.82 },
-      "serviceability": "replaceable", "specs": {},
-      "hazard": null, "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020", "confidence": 0.6
-    },
-    {
-      "id": "speaker_left", "name": "Left speaker",
-      "function": "Stereo speaker, left channel.",
-      "system_id": "audio", "layer": 1, "shape": "box",
-      "size": { "w": 0.07, "d": 0.24, "h": 0.25 }, "position": { "x": 0.05, "y": 0.55 },
-      "serviceability": "replaceable", "specs": {},
-      "hazard": null, "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020", "confidence": 0.55
-    },
-    {
-      "id": "speaker_right", "name": "Right speaker",
-      "function": "Stereo speaker, right channel.",
-      "system_id": "audio", "layer": 1, "shape": "box",
-      "size": { "w": 0.07, "d": 0.24, "h": 0.25 }, "position": { "x": 0.95, "y": 0.55 },
-      "serviceability": "replaceable", "specs": {},
-      "hazard": null, "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020", "confidence": 0.55
-    },
-    {
-      "id": "trackpad", "name": "Force Touch trackpad",
-      "function": "Pressure-sensing trackpad with haptic feedback instead of a mechanical click.",
-      "system_id": "input", "layer": 2, "shape": "slab",
-      "size": { "w": 0.42, "d": 0.27, "h": 0.1 }, "position": { "x": 0.5, "y": 0.16 },
-      "serviceability": "replaceable", "specs": {},
-      "hazard": null, "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020", "confidence": 0.75
-    },
-    {
-      "id": "keyboard", "name": "Keyboard",
-      "function": "Backlit scissor-switch keyboard.",
-      "system_id": "input", "layer": 3, "shape": "slab",
-      "size": { "w": 0.86, "d": 0.36, "h": 0.08 }, "position": { "x": 0.5, "y": 0.6 },
-      "serviceability": "not_serviceable", "specs": { "note": "Riveted to the top case; replaced together with it" },
-      "hazard": null, "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020", "confidence": 0.65
-    },
-    {
-      "id": "touch_id", "name": "Touch ID sensor",
-      "function": "Fingerprint sensor in the power button.",
-      "system_id": "input", "layer": 3, "shape": "chip",
-      "size": { "w": 0.04, "d": 0.04, "h": 0.1 }, "position": { "x": 0.94, "y": 0.93 },
-      "serviceability": "replaceable", "specs": { "note": "Paired to the logic board; a swapped sensor needs Apple's pairing to work" },
-      "hazard": null, "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020", "confidence": 0.6
-    },
-    {
-      "id": "top_case", "name": "Top case",
-      "function": "Upper shell and palm rest. Most internal parts are screwed into it.",
-      "system_id": "enclosure", "layer": 4, "shape": "frame",
-      "size": { "w": 1.0, "d": 1.0, "h": 0.1 }, "position": { "x": 0.5, "y": 0.5 },
-      "serviceability": "replaceable", "specs": { "material": "Aluminium" },
-      "hazard": null, "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020", "confidence": 0.7
-    },
-    {
-      "id": "display_cable", "name": "Display cable",
-      "function": "Flex cable carrying the video signal from the logic board through the hinge.",
-      "system_id": "display", "layer": 4, "shape": "cable",
-      "size": { "w": 0.14, "d": 0.08, "h": 0.04 }, "position": { "x": 0.5, "y": 0.96 },
-      "serviceability": "replaceable", "specs": { "note": "Part of the display assembly" },
-      "hazard": null, "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020", "confidence": 0.55
-    },
-    {
-      "id": "display_assembly", "name": "Display assembly",
-      "function": "The whole lid: Retina panel, glass, webcam and hinges.",
-      "system_id": "display", "layer": 5, "shape": "slab",
-      "size": { "w": 1.0, "d": 0.96, "h": 0.3 }, "position": { "x": 0.5, "y": 0.5 },
+      "system_id": "compute",
+      "layer": 1,
+      "shape": "board",
+      "size": {
+        "w": 0.36,
+        "d": 0.3,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.52,
+        "y": 0.8
+      },
       "serviceability": "replaceable",
-      "specs": { "panel": "13.3-inch Retina, IPS", "resolution": "2560 × 1600", "camera": "720p FaceTime HD" },
+      "specs": {
+        "note": "Replaced as a whole board; chip, memory and storage come with it"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
+      "confidence": 0.75,
+      "assembly": "base"
+    },
+    {
+      "id": "m1_soc",
+      "name": "Apple M1 chip",
+      "function": "System-on-chip: CPU, GPU, Neural Engine and unified memory in one package.",
+      "system_id": "compute",
+      "layer": 2,
+      "shape": "chip",
+      "size": {
+        "w": 0.07,
+        "d": 0.09,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.47,
+        "y": 0.79
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "CPU": "8-core",
+        "GPU": "7-core",
+        "memory": "8 GB unified, inside the chip package"
+      },
       "hazard": null,
       "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
-      "confidence": 0.85
+      "confidence": 0.9,
+      "assembly": "base"
+    },
+    {
+      "id": "ssd_nand",
+      "name": "SSD storage",
+      "function": "Flash storage chips that hold the operating system and your files.",
+      "system_id": "compute",
+      "layer": 2,
+      "shape": "chip",
+      "size": {
+        "w": 0.06,
+        "d": 0.05,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.62,
+        "y": 0.81
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "capacity": "256 GB"
+      },
+      "hazard": null,
+      "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
+      "confidence": 0.9,
+      "assembly": "base"
+    },
+    {
+      "id": "heat_spreader",
+      "name": "Heat spreader",
+      "function": "Passive aluminium plate that pulls heat from the M1 chip. There is no fan.",
+      "system_id": "thermal",
+      "layer": 3,
+      "shape": "slab",
+      "size": {
+        "w": 0.2,
+        "d": 0.16,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.48,
+        "y": 0.79
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "cooling": "Fanless"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
+      "confidence": 0.7,
+      "assembly": "base"
+    },
+    {
+      "id": "usb_c_board",
+      "name": "USB-C port board",
+      "function": "Daughter board with the two USB-C ports, used for charging and data.",
+      "system_id": "io",
+      "layer": 1,
+      "shape": "board",
+      "size": {
+        "w": 0.08,
+        "d": 0.13,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.06,
+        "y": 0.82
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "ports": "2 \u00d7 Thunderbolt / USB 4"
+      },
+      "hazard": null,
+      "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
+      "confidence": 0.7,
+      "assembly": "base"
+    },
+    {
+      "id": "audio_board",
+      "name": "Headphone jack board",
+      "function": "Small board carrying the 3.5 mm headphone jack.",
+      "system_id": "io",
+      "layer": 1,
+      "shape": "board",
+      "size": {
+        "w": 0.05,
+        "d": 0.07,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.95,
+        "y": 0.82
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
+      "confidence": 0.6,
+      "assembly": "base"
+    },
+    {
+      "id": "speaker_left",
+      "name": "Left speaker",
+      "function": "Stereo speaker, left channel.",
+      "system_id": "audio",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.07,
+        "d": 0.22,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.05,
+        "y": 0.55
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
+      "confidence": 0.55,
+      "assembly": "base"
+    },
+    {
+      "id": "speaker_right",
+      "name": "Right speaker",
+      "function": "Stereo speaker, right channel.",
+      "system_id": "audio",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.07,
+        "d": 0.22,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.95,
+        "y": 0.55
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
+      "confidence": 0.55,
+      "assembly": "base"
+    },
+    {
+      "id": "trackpad",
+      "name": "Force Touch trackpad",
+      "function": "Pressure-sensing trackpad with haptic feedback instead of a mechanical click.",
+      "system_id": "input",
+      "layer": 2,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.42,
+        "d": 0.27,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.17
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
+      "confidence": 0.75,
+      "assembly": "base"
+    },
+    {
+      "id": "keyboard",
+      "name": "Keyboard",
+      "function": "Backlit scissor-switch keyboard.",
+      "system_id": "input",
+      "layer": 3,
+      "shape": "keyboard",
+      "size": {
+        "w": 0.86,
+        "d": 0.37,
+        "h": 0.25
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.6
+      },
+      "serviceability": "not_serviceable",
+      "specs": {
+        "note": "Riveted to the top case; replaced together with it"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
+      "confidence": 0.65,
+      "assembly": "base"
+    },
+    {
+      "id": "touch_id",
+      "name": "Touch ID sensor",
+      "function": "Fingerprint sensor in the power button.",
+      "system_id": "input",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.035,
+        "d": 0.04,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.9,
+        "y": 0.77
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "note": "Paired to the logic board; a swapped sensor needs Apple's pairing to work"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
+      "confidence": 0.6,
+      "assembly": "base"
+    },
+    {
+      "id": "top_case",
+      "name": "Top case",
+      "function": "Upper shell and palm rest. Most internal parts are screwed into it.",
+      "system_id": "enclosure",
+      "layer": 4,
+      "shape": "shell_deck",
+      "size": {
+        "w": 1,
+        "d": 1,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "Aluminium"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
+      "confidence": 0.7,
+      "assembly": "base"
+    },
+    {
+      "id": "display_cable",
+      "name": "Display cable",
+      "function": "Flex cable carrying the video signal from the logic board through the hinge.",
+      "system_id": "display",
+      "layer": 2,
+      "shape": "cable",
+      "size": {
+        "w": 0.14,
+        "d": 0.08,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "note": "Part of the display assembly"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
+      "confidence": 0.55,
+      "assembly": "base"
+    },
+    {
+      "id": "display_back_cover",
+      "name": "Display back cover",
+      "function": "Aluminium outer shell of the lid. Holds the panel, hinges and antennas.",
+      "system_id": "display",
+      "layer": 0,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 1,
+        "d": 1,
+        "h": 0.45
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "not_serviceable",
+      "specs": {
+        "note": "Sold only as part of the complete display assembly"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
+      "confidence": 0.7,
+      "assembly": "lid"
+    },
+    {
+      "id": "display_panel",
+      "name": "Display panel",
+      "function": "The Retina screen and its glass, with the 720p camera in the top bezel.",
+      "system_id": "display",
+      "layer": 1,
+      "shape": "screen",
+      "size": {
+        "w": 0.985,
+        "d": 0.975,
+        "h": 0.35
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "not_serviceable",
+      "specs": {
+        "panel": "13.3-inch Retina, IPS",
+        "resolution": "2560 \u00d7 1600",
+        "camera": "720p FaceTime HD",
+        "note": "Replaced as the complete display assembly"
+      },
+      "hazard": null,
+      "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
+      "confidence": 0.85,
+      "assembly": "lid"
     }
   ],
   "connections": [
-    { "source": "battery", "target": "logic_board", "kind": "power", "label": "Battery connector" },
-    { "source": "usb_c_board", "target": "logic_board", "kind": "power", "label": "USB-C flex (charging)" },
-    { "source": "usb_c_board", "target": "logic_board", "kind": "data", "label": "USB-C flex (data)" },
-    { "source": "logic_board", "target": "display_cable", "kind": "data", "label": "Display connector" },
-    { "source": "display_cable", "target": "display_assembly", "kind": "data", "label": "Through the hinge" },
-    { "source": "trackpad", "target": "logic_board", "kind": "data", "label": "Trackpad flex" },
-    { "source": "keyboard", "target": "logic_board", "kind": "data", "label": "Keyboard flex" },
-    { "source": "touch_id", "target": "logic_board", "kind": "data", "label": "Touch ID flex" },
-    { "source": "audio_board", "target": "logic_board", "kind": "data", "label": "Audio flex" },
-    { "source": "speaker_left", "target": "logic_board", "kind": "data", "label": "Speaker cable" },
-    { "source": "speaker_right", "target": "logic_board", "kind": "data", "label": "Speaker cable" },
-    { "source": "m1_soc", "target": "ssd_nand", "kind": "data", "label": "Storage bus" },
-    { "source": "m1_soc", "target": "heat_spreader", "kind": "thermal", "label": "Thermal paste contact" },
-    { "source": "battery", "target": "top_case", "kind": "mechanical", "label": "Adhesive strips" },
-    { "source": "logic_board", "target": "top_case", "kind": "mechanical", "label": "Screwed to top case" },
-    { "source": "trackpad", "target": "top_case", "kind": "mechanical", "label": "Screwed to top case" }
+    {
+      "source": "battery",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "Battery connector"
+    },
+    {
+      "source": "usb_c_board",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "USB-C flex (charging)"
+    },
+    {
+      "source": "usb_c_board",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "USB-C flex (data)"
+    },
+    {
+      "source": "logic_board",
+      "target": "display_cable",
+      "kind": "data",
+      "label": "Display connector"
+    },
+    {
+      "source": "display_cable",
+      "target": "display_panel",
+      "kind": "data",
+      "label": "Through the hinge"
+    },
+    {
+      "source": "trackpad",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Trackpad flex"
+    },
+    {
+      "source": "keyboard",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Keyboard flex"
+    },
+    {
+      "source": "touch_id",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Touch ID flex"
+    },
+    {
+      "source": "audio_board",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Audio flex"
+    },
+    {
+      "source": "speaker_left",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Speaker cable"
+    },
+    {
+      "source": "speaker_right",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Speaker cable"
+    },
+    {
+      "source": "m1_soc",
+      "target": "ssd_nand",
+      "kind": "data",
+      "label": "Storage bus"
+    },
+    {
+      "source": "m1_soc",
+      "target": "heat_spreader",
+      "kind": "thermal",
+      "label": "Thermal paste contact"
+    },
+    {
+      "source": "battery",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Adhesive strips"
+    },
+    {
+      "source": "logic_board",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Screwed to top case"
+    },
+    {
+      "source": "trackpad",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Screwed to top case"
+    },
+    {
+      "source": "display_panel",
+      "target": "display_back_cover",
+      "kind": "mechanical",
+      "label": "Glued into the back cover"
+    }
   ],
   "repair_paths": [],
   "sources": [

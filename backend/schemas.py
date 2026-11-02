@@ -30,7 +30,14 @@ ID_PATTERN = r"^[a-z0-9_]+$"  # snake_case ids, e.g. "logic_board"
 # ---------- Enums: closed vocabularies the LLM must pick from ----------
 
 class ShapeType(str, Enum):
-    """Which procedural primitive the viewer draws. Resemblance, not replica."""
+    """Which procedural shape the viewer draws (frontend/shapes.js). Resemblance, not replica."""
+    # Recognisable shapes: these carry the silhouette of the device.
+    shell_base = "shell_base"      # bottom case: wedge tray built from Device.dimensions_mm
+    shell_deck = "shell_deck"      # top case: deck plate with cut-outs for keyboard/trackpad
+    keyboard = "keyboard"          # plate + rows of keys
+    screen = "screen"              # display panel with visible area and camera
+    rounded_slab = "rounded_slab"  # battery, trackpad, lid cover
+    # Generic primitives for internal parts.
     slab = "slab"            # flat rectangle: battery cell, display panel, chassis
     board = "board"          # PCB with chip bumps on top
     chip = "chip"            # small square: SoC, RAM, SSD controller
@@ -79,6 +86,20 @@ class Difficulty(str, Enum):
 
 # ---------- Building blocks ----------
 
+class Assembly(str, Enum):
+    """Which rigid frame a part belongs to. Laptops: the lid rotates on the hinge."""
+    base = "base"
+    lid = "lid"
+
+
+class Dimensions(BaseModel):
+    """Official outer dimensions (spec sheet). They drive the shell shape in the viewer."""
+    width: float = Field(..., gt=0, description="mm, left to right")
+    depth: float = Field(..., gt=0, description="mm, front to back")
+    height_min: float = Field(..., gt=0, description="mm, thinnest point (closed)")
+    height_max: float = Field(..., gt=0, description="mm, thickest point (closed)")
+
+
 class Device(BaseModel):
     model_name: str = Field(..., description="As typed/resolved, e.g. 'MacBook Air (M1, 2020)'")
     variant_id: str = Field(..., pattern=ID_PATTERN, description="e.g. 'macbook_air_m1_2020'")
@@ -87,6 +108,7 @@ class Device(BaseModel):
         default_factory=dict,
         description="Purchase-time options, e.g. {'ram': '8 GB', 'storage': '256 GB'}",
     )
+    dimensions_mm: Optional[Dimensions] = None
 
 
 class System(BaseModel):
@@ -105,7 +127,8 @@ class Size(BaseModel):
 
 
 class Position(BaseModel):
-    """Centre of the part on the device footprint, 0..1 from front-left corner.
+    """Centre of the part on its assembly's footprint, 0..1.
+    base: x left→right, y front→back.  lid: x left→right, y from the hinge (0) to the top edge (1).
     Vertical placement comes from Part.layer, not from here."""
     x: float = Field(..., ge=0, le=1)
     y: float = Field(..., ge=0, le=1)
@@ -116,7 +139,8 @@ class Part(BaseModel):
     name: str
     function: str = Field(..., description="One sentence: what it does")
     system_id: str
-    layer: int = Field(..., ge=0, description="Stack order, 0 = bottom. Explode moves along this axis.")
+    assembly: Assembly = Assembly.base
+    layer: int = Field(..., ge=0, description="Stack order within the assembly. base: 0 = bottom. lid: 0 = outer back cover.")
     shape: ShapeType
     size: Size
     position: Position
