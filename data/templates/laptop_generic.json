@@ -1,0 +1,580 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "Generic laptop",
+    "variant_id": "generic_laptop",
+    "category": "laptop",
+    "configuration": {},
+    "dimensions_mm": {
+      "width": 300,
+      "depth": 210,
+      "height_min": 5,
+      "height_max": 16
+    },
+    "color": {
+      "name": "Silver",
+      "hex": "#D6D7D9"
+    },
+    "summary": null,
+    "key_specs": {}
+  },
+  "provenance": "generated",
+  "systems": [
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "parent_id": null
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "parent_id": null
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "parent_id": null
+    },
+    {
+      "id": "compute",
+      "name": "Compute",
+      "parent_id": null
+    },
+    {
+      "id": "thermal",
+      "name": "Cooling",
+      "parent_id": null
+    },
+    {
+      "id": "io",
+      "name": "Ports",
+      "parent_id": null
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "parent_id": null
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "bottom_case",
+      "name": "Bottom case",
+      "function": "Aluminium lower shell that closes the machine and protects the internals.",
+      "system_id": "enclosure",
+      "layer": 0,
+      "shape": "shell_base",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "body"
+    },
+    {
+      "id": "battery",
+      "name": "Battery",
+      "function": "Stores the energy that runs the laptop when it is unplugged.",
+      "system_id": "power",
+      "layer": 1,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.78,
+        "d": 0.42,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.25
+      },
+      "serviceability": "glued",
+      "specs": {},
+      "hazard": "lithium_battery",
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "internal"
+    },
+    {
+      "id": "logic_board",
+      "name": "Logic board",
+      "function": "Main circuit board. Carries the M1 chip, storage and every connector.",
+      "system_id": "compute",
+      "layer": 1,
+      "shape": "board",
+      "size": {
+        "w": 0.36,
+        "d": 0.3,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.52,
+        "y": 0.8
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "internal"
+    },
+    {
+      "id": "cpu_soc",
+      "name": "Processor",
+      "function": "Main processor (CPU/SoC). On many laptops it is soldered to the board.",
+      "system_id": "compute",
+      "layer": 2,
+      "shape": "chip",
+      "size": {
+        "w": 0.07,
+        "d": 0.09,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.47,
+        "y": 0.79
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "internal"
+    },
+    {
+      "id": "storage",
+      "name": "Storage",
+      "function": "Stores the system and your files. Soldered on some models, a removable SSD on others.",
+      "system_id": "compute",
+      "layer": 2,
+      "shape": "chip",
+      "size": {
+        "w": 0.06,
+        "d": 0.05,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.62,
+        "y": 0.81
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "internal"
+    },
+    {
+      "id": "heatsink",
+      "name": "Cooling",
+      "function": "Moves heat away from the processor (heat spreader or heat pipe + fan).",
+      "system_id": "thermal",
+      "layer": 3,
+      "shape": "slab",
+      "size": {
+        "w": 0.2,
+        "d": 0.16,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.48,
+        "y": 0.79
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "internal"
+    },
+    {
+      "id": "usb_c_board",
+      "name": "USB-C port board",
+      "function": "Daughter board with the two USB-C ports, used for charging and data.",
+      "system_id": "io",
+      "layer": 1,
+      "shape": "board",
+      "size": {
+        "w": 0.08,
+        "d": 0.13,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.06,
+        "y": 0.82
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "internal"
+    },
+    {
+      "id": "audio_board",
+      "name": "Headphone jack board",
+      "function": "Small board carrying the 3.5 mm headphone jack.",
+      "system_id": "io",
+      "layer": 1,
+      "shape": "board",
+      "size": {
+        "w": 0.05,
+        "d": 0.07,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.95,
+        "y": 0.82
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "internal"
+    },
+    {
+      "id": "speaker_left",
+      "name": "Left speaker",
+      "function": "Stereo speaker, left channel.",
+      "system_id": "audio",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.07,
+        "d": 0.22,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.05,
+        "y": 0.55
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "internal"
+    },
+    {
+      "id": "speaker_right",
+      "name": "Right speaker",
+      "function": "Stereo speaker, right channel.",
+      "system_id": "audio",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.07,
+        "d": 0.22,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.95,
+        "y": 0.55
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "internal"
+    },
+    {
+      "id": "trackpad",
+      "name": "Force Touch trackpad",
+      "function": "Pressure-sensing trackpad with haptic feedback instead of a mechanical click.",
+      "system_id": "input",
+      "layer": 3,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.42,
+        "d": 0.27,
+        "h": 0.4
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.17
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "body"
+    },
+    {
+      "id": "keyboard",
+      "name": "Keyboard",
+      "function": "Backlit scissor-switch keyboard.",
+      "system_id": "input",
+      "layer": 3,
+      "shape": "keyboard",
+      "size": {
+        "w": 0.86,
+        "d": 0.37,
+        "h": 0.6
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.6
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "keys"
+    },
+    {
+      "id": "touch_id",
+      "name": "Touch ID sensor",
+      "function": "Fingerprint sensor in the power button.",
+      "system_id": "input",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.035,
+        "d": 0.04,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.9,
+        "y": 0.77
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "internal"
+    },
+    {
+      "id": "top_case",
+      "name": "Top case",
+      "function": "Upper shell and palm rest. Most internal parts are screwed into it.",
+      "system_id": "enclosure",
+      "layer": 4,
+      "shape": "shell_deck",
+      "size": {
+        "w": 1,
+        "d": 1,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "body"
+    },
+    {
+      "id": "display_cable",
+      "name": "Display cable",
+      "function": "Flex cable carrying the video signal from the logic board through the hinge.",
+      "system_id": "display",
+      "layer": 2,
+      "shape": "cable",
+      "size": {
+        "w": 0.14,
+        "d": 0.08,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "base",
+      "finish": "internal"
+    },
+    {
+      "id": "display_back_cover",
+      "name": "Display back cover",
+      "function": "Aluminium outer shell of the lid. Holds the panel, hinges and antennas.",
+      "system_id": "display",
+      "layer": 0,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 1,
+        "d": 1,
+        "h": 0.45
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "lid",
+      "finish": "body"
+    },
+    {
+      "id": "display_panel",
+      "name": "Display panel",
+      "function": "The Retina screen and its glass, with the 720p camera in the top bezel.",
+      "system_id": "display",
+      "layer": 1,
+      "shape": "screen",
+      "size": {
+        "w": 0.985,
+        "d": 0.975,
+        "h": 0.35
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3,
+      "assembly": "lid",
+      "finish": "screen"
+    }
+  ],
+  "connections": [
+    {
+      "source": "battery",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "Battery connector"
+    },
+    {
+      "source": "usb_c_board",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "USB-C flex (charging)"
+    },
+    {
+      "source": "usb_c_board",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "USB-C flex (data)"
+    },
+    {
+      "source": "logic_board",
+      "target": "display_cable",
+      "kind": "data",
+      "label": "Display connector"
+    },
+    {
+      "source": "display_cable",
+      "target": "display_panel",
+      "kind": "data",
+      "label": "Through the hinge"
+    },
+    {
+      "source": "trackpad",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Trackpad flex"
+    },
+    {
+      "source": "keyboard",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Keyboard flex"
+    },
+    {
+      "source": "touch_id",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Touch ID flex"
+    },
+    {
+      "source": "audio_board",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Audio flex"
+    },
+    {
+      "source": "speaker_left",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Speaker cable"
+    },
+    {
+      "source": "speaker_right",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Speaker cable"
+    },
+    {
+      "source": "cpu_soc",
+      "target": "storage",
+      "kind": "data",
+      "label": "Storage bus"
+    },
+    {
+      "source": "cpu_soc",
+      "target": "heatsink",
+      "kind": "thermal",
+      "label": "Thermal paste contact"
+    },
+    {
+      "source": "battery",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Adhesive strips"
+    },
+    {
+      "source": "logic_board",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Screwed to top case"
+    },
+    {
+      "source": "trackpad",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Screwed to top case"
+    },
+    {
+      "source": "display_panel",
+      "target": "display_back_cover",
+      "kind": "mechanical",
+      "label": "Glued into the back cover"
+    }
+  ],
+  "repair_paths": [],
+  "sources": []
+}

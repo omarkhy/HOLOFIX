@@ -35,7 +35,7 @@ T = TypeVar("T", bound=BaseModel)
 _client = httpx.Client(
     base_url=config.META_API_BASE,
     headers={"Authorization": f"Bearer {config.META_API_KEY}", "Content-Type": "application/json"},
-    timeout=180,
+    timeout=300,   # extraction answers are long; web search can take a minute or two
 )
 
 

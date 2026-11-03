@@ -677,7 +677,9 @@ async function main() {
   const g = state.graph;
   state.dev = buildDevice(g);
   document.title = `HOLOFIX · ${g.device.model_name}`;
-  const metaBits = [g.device.color?.name, ...Object.values(g.device.configuration).slice(1)].filter(Boolean);
+  // Colour + the configuration values (skipping the chip line and anything repeated, e.g. the colour).
+  const metaBits = [...new Set([g.device.color?.name, ...Object.entries(g.device.configuration)
+    .filter(([k]) => k !== 'chip').map(([, v]) => v)].filter(Boolean))];
   document.getElementById('device-meta').innerHTML =
     `<strong>${escapeHtml(g.device.model_name)}</strong><span>${escapeHtml(metaBits.join(', '))}</span>`;
 
