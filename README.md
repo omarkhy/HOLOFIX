@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/logo.gif" width="120" alt="HOLOFIX logo"></p>
+<p align="center"><img src="docs/lockup.gif" width="360" alt="HOLOFIX"></p>
 
 ```
     ████████████        ▀▀      ▀▀    ▀▀▀▀▀▀    ▀▀            ▀▀▀▀▀▀      ██████████  ██████  ██      ██

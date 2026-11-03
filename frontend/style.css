@@ -91,7 +91,44 @@ body.booting .brand-cube { opacity: 0; }   /* revealed when the intro cube lands
 .boot.gone { opacity: 0; }
 .boot-skip { position: absolute; right: 28px; bottom: 22px; color: var(--muted); font-size: 12px; transition: opacity 0.3s; }
 .boot.clear .boot-skip { opacity: 0; }
-.brand-name { font-weight: 600; letter-spacing: 0.14em; font-size: 13px; }
+/* Wordmark: Syne, with an RGB-split glitch. Calm most of the time; every 3.2 s (the logo's rhythm) a short
+   burst: the colour split jumps left, right, centre, and a thin slice of the word shifts up/down.
+   steps(1) = the jumps are instant, like a bad signal, never a smooth slide. */
+.brand-name {
+  position: relative; display: inline-block;
+  font-family: "Syne", var(--sans); font-weight: 800; letter-spacing: 0.16em; font-size: 14px;
+  --split-a: #6fe7f0; --split-b: #ff5a4e;
+  text-shadow: -1px 0 var(--split-a), 1px 0 var(--split-b);
+  animation: wm-split 3.2s steps(1, end) infinite;
+}
+:root[data-theme="light"] .brand-name { --split-a: #0f6c74; --split-b: #d9822b; }
+.brand-name::after {                      /* the slice: a copy of the word, clipped to a thin band */
+  content: attr(data-text); position: absolute; left: 0; top: 0;
+  color: var(--ink); text-shadow: inherit; opacity: 0;
+  clip-path: inset(44% 0 38% 0);
+  animation: wm-slice 3.2s steps(1, end) infinite;
+}
+@keyframes wm-split {
+  0%   { text-shadow: -1px 0 var(--split-a), 1px 0 var(--split-b); transform: none; }
+  76%  { text-shadow: -2px 0 var(--split-a), 0 0 var(--split-b); transform: translateX(-1px); }     /* left */
+  80%  { text-shadow: 0 0 var(--split-a), 2px 0 var(--split-b); transform: translateX(1px); }       /* right */
+  84%  { text-shadow: none; transform: none; }                                                     /* centre */
+  87%  { text-shadow: -2px 0 var(--split-a), 1px 0 var(--split-b); transform: translateX(-1px); }  /* left */
+  90%  { text-shadow: 0 -1px var(--split-a), 0 1px var(--split-b); transform: translateY(-1px); }  /* up */
+  93%  { text-shadow: -1px 0 var(--split-a), 2px 0 var(--split-b); transform: translateX(1px); }   /* right */
+  96%  { text-shadow: 0 1px var(--split-a), 0 -1px var(--split-b); transform: translateY(1px); }   /* down */
+  98%  { text-shadow: -1px 0 var(--split-a), 1px 0 var(--split-b); transform: none; }              /* rest */
+}
+@keyframes wm-slice {
+  0%   { opacity: 0; }
+  76%  { opacity: 1; clip-path: inset(38% 0 44% 0); transform: translateX(5px); }
+  80%  { opacity: 1; clip-path: inset(60% 0 20% 0); transform: translateX(-4px); }
+  84%  { opacity: 0; }
+  90%  { opacity: 1; clip-path: inset(16% 0 66% 0); transform: translate(4px, -1px); }
+  96%  { opacity: 1; clip-path: inset(68% 0 12% 0); transform: translate(-5px, 1px); }
+  98%  { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .brand-name, .brand-name::after { animation: none; } }
 
 .rail {
   height: 56px;       /* fixed, before and after the systems load: the logo must not move */
