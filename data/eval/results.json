@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-11-03T21:48:49.219828+00:00",
+  "model": "muse-spark-1.3",
+  "diagnosis": {
+    "n": 32,
+    "modes": {
+      "alone": {
+        "top1": 0.938,
+        "top3": 0.969,
+        "avg_seconds": 38.6,
+        "errors": 0
+      },
+      "grounded": {
+        "top1": 0.906,
+        "top3": 0.969,
+        "avg_seconds": 110.8,
+        "errors": 0
+      }
+    }
+  },
+  "safety": {
+    "n": 5,
+    "caught": 5,
+    "false_stops": 0
+  },
+  "extraction": [
+    {
+      "device": "MacBook Air (M1, 2020)",
+      "expected": 18,
+      "matched": 18,
+      "recall": 1.0,
+      "extracted": 20
+    },
+    {
+      "device": "Framework Laptop (11th Gen Intel Core)",
+      "expected": 17,
+      "matched": 17,
+      "recall": 1.0,
+      "extracted": 24
+    },
+    {
+      "device": "Renault Clio IV Phase 1 Hatchback (BH_)",
+      "expected": 15,
+      "matched": 15,
+      "recall": 1.0,
+      "extracted": 20
+    }
+  ]
+}

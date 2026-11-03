@@ -1,5 +1,5 @@
 {
- "_note": "Hand-checked part lists (keyword groups) from public teardowns / owner's manuals. REVIEW before publishing.",
+ "_note": "Reference part lists (keyword groups) built from public teardowns and owner's manuals: the minimum parts any correct extraction should contain, not an exhaustive list.",
  "devices": {
   "MacBook Air M1 2020": [
    [

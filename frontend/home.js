@@ -223,6 +223,23 @@ function renderDiagnoses() {
 
 // ---------- Method & accuracy page ----------
 
+// Plain-language reading of the numbers, computed from the results so it can never contradict the table.
+function readingNotes(r) {
+  const a = r.diagnosis.modes.alone, g = r.diagnosis.modes.grounded;
+  if (!a || !g) return '';
+  const gap = Math.round((g.top3 - a.top3) * 100);
+  const grounding = Math.abs(gap) <= 3
+    ? `Searching repair sources did <b>not</b> change how often the right part is found (top-3 ${Math.round(a.top3 * 100)}% alone, ${Math.round(g.top3 * 100)}% with sources), and it is about ${Math.round(g.avg_seconds / a.avg_seconds)}× slower. What it adds is evidence: every answer links the guides and forums it is based on, and repair steps cite their source.`
+    : `Searching repair sources changed top-3 accuracy by ${gap > 0 ? '+' : ''}${gap} points (${Math.round(a.top3 * 100)}% alone, ${Math.round(g.top3 * 100)}% with sources), at about ${Math.round(g.avg_seconds / a.avg_seconds)}× the time.`;
+  return `<h3>How to read these numbers</h3>
+    <ul class="rules">
+      <li>${grounding}</li>
+      <li>The cases are documented, common failures written by the developer with AI assistance; real-world symptoms are messier, so expect lower accuracy on unusual faults.</li>
+      <li>The dangerous cases were written alongside the safety rules, so the safety score is a regression test of those rules, not proof they catch every phrasing.</li>
+      <li>The reference part lists are a minimum (the parts any correct extraction must contain), so 100% means nothing essential was missed, not that every part is perfect.</li>
+    </ul>`;
+}
+
 async function renderMethod() {
   const box = document.getElementById('method');
   let r = null;
@@ -240,9 +257,10 @@ async function renderMethod() {
     <h3>Safety: dangerous cases stopped</h3>
     <p>${r.safety.caught} of ${r.safety.n} dangerous cases (swollen battery, smoke, airbag, brakes, fuel…) were stopped with “see a professional” and no steps. ${bar(r.safety.n ? r.safety.caught / r.safety.n : 0, 'g')}<br>
       <span class="quiet">False alarms on ordinary cases: ${r.safety.false_stops} of ${r.diagnosis.n - r.safety.n}.</span></p>
-    ${r.extraction?.length ? `<h3>Parts lists against hand-checked teardowns</h3>
-    <table class="eval"><thead><tr><th>Device</th><th>Found (recall)</th><th>Correct (precision)</th></tr></thead><tbody>
-      ${r.extraction.map(e => `<tr><th>${esc(e.device)}</th><td>${bar(e.recall)}${pct(e.recall)} <small>${e.matched}/${e.expected}</small></td><td>${bar(e.precision, 'b')}${pct(e.precision)}</td></tr>`).join('')}
+    ${readingNotes(r)}
+    ${r.extraction?.length ? `<h3>Parts lists against reference teardown lists</h3>
+    <table class="eval"><thead><tr><th>Device</th><th>Reference parts found</th><th>Parts extracted</th></tr></thead><tbody>
+      ${r.extraction.map(e => `<tr><th>${esc(e.device)}</th><td>${bar(e.recall)}${pct(e.recall)} <small>${e.matched}/${e.expected}</small></td><td>${e.extracted}</td></tr>`).join('')}
     </tbody></table>` : ''}` : `<h2>Measured accuracy</h2><p class="quiet">The evaluation has not been run on this copy yet: <code>python -m eval.run_eval</code>.</p>`;
 
   box.innerHTML = `

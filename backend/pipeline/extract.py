@@ -89,7 +89,7 @@ URLs found:
 
 PART_HINTS = {
     "laptop": "Include the enclosure halves, display assembly, battery, main board, chips that matter for "
-              "repair (CPU/SoC, RAM, storage), cooling, ports boards, speakers, input devices.",
+              "repair (CPU/SoC, RAM, storage), cooling, ports boards, speakers, microphones, camera, wireless card and antennas, input devices.",
     "car": "Work at SYSTEM level, as an owner would: body, chassis/floor, four wheels, engine, gearbox, 12 V "
            "battery, starter motor, alternator, engine-bay fuse/relay box and cabin fuse box (with their location "
            "from the owner's manual), engine ECU, radiator, fuel tank and pump, exhaust, brake system, airbags, "

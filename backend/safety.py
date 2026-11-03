@@ -16,9 +16,11 @@ from typing import Optional
 
 # (pattern, message). Patterns are matched case-insensitively against the user's own words.
 DANGER = [
-    (r"swell|swollen|bulg|puff|pillow|lifting (the )?(trackpad|case|keyboard)",
+    (r"swell|swollen|bulg|puff|pillow|(lift(ed|ing)?|raised|pushed up) (the )?(trackpad|case|keyboard)"
+     r"|(trackpad|case|keyboard)\b.{0,30}\b(raised|lifted|lifting|pushed up)",
      "A swollen lithium battery can catch fire. Stop using and charging the device, keep it away from anything flammable, and take it to a repair professional. Do not press on it or puncture it."),
-    (r"smoke|smoking|burning smell|smells? (like )?burn|fire|flame|spark",
+    # \b: "misfire" and "spark plug" are not emergencies.
+    (r"smoke|smoking|burning smell|smells? (like )?burn|\bfire\b|\bflames?\b|\bsparks?\b(?! plugs?)",
      "Smoke, sparks or a burning smell mean a possible short circuit or battery failure. Unplug it if it is safe to do so, move it away from flammable things, and have it checked by a professional."),
     (r"punctur|pierc|crushed battery|leak(ing)? (from )?(the )?battery|battery (is )?(hot|very hot|leak)",
      "A damaged or overheating lithium battery is a fire risk. Do not use or charge the device; take it to a professional."),

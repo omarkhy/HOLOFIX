@@ -1,5 +1,5 @@
 {
- "_note": "Each case: a symptom phrased as an owner would, and keywords that identify the expected part. A diagnosis counts as correct if a suspect part's name or id contains one keyword. Written from standard, widely documented failure patterns; REVIEW each case before publishing results.",
+ "_note": "Each case: a symptom phrased as an owner would, keywords identifying the expected part (matched at the start of a word, so 'board' does not match 'keyboard'), and a source where the answer depends on how that specific device is built. Generic failures (a grinding fan is the fan) have no source.",
  "cases": [
   {
    "device": "MacBook Air M1 2020",
@@ -9,10 +9,12 @@
     "port",
     "charg",
     "i/o board",
-    "io board"
+    "io board",
+    "logic board"
    ],
-   "why": "Charging path fault with known-good adapters points to the USB-C port board",
-   "expect_stop": false
+   "why": "Charging fault with known-good adapters: the USB-C (I/O) board, or the USB-C controller on the logic board",
+   "expect_stop": false,
+   "source": "https://support.apple.com/en-am/100591 ; https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+USB-C+Board+Replacement/142552"
   },
   {
    "device": "MacBook Air M1 2020",
@@ -51,7 +53,7 @@
     "screen",
     "panel",
     "lcd",
-    "cable"
+    "display cable"
    ],
    "why": "Internal display or its cable; the GPU output works externally",
    "expect_stop": false
@@ -124,11 +126,14 @@
    "device": "Dell XPS 13 9310",
    "symptom": "The laptop is completely dead: no lights, no fan, even when plugged in",
    "expect": [
-    "board",
     "motherboard",
+    "system board",
     "mainboard",
-    "power",
-    "battery"
+    "logic board",
+    "battery",
+    "charg",
+    "dc-in",
+    "power input"
    ],
    "why": "No power at all: board-level or power input fault",
    "expect_stop": false
@@ -182,9 +187,10 @@
    "expect": [
     "display cable",
     "edp",
-    "cable",
     "hinge",
-    "display"
+    "display",
+    "screen",
+    "panel"
    ],
    "why": "Display cable wearing at the hinge",
    "expect_stop": false
@@ -196,8 +202,7 @@
     "expansion card",
     "port",
     "usb",
-    "mainboard",
-    "input"
+    "mainboard"
    ],
    "why": "Worn port: on the Framework the USB-C expansion card / mainboard port",
    "expect_stop": false
@@ -207,19 +212,18 @@
    "symptom": "The trackpad cursor jumps around and clicks randomly",
    "expect": [
     "touchpad",
-    "trackpad",
-    "input cover"
+    "trackpad"
    ],
-   "why": "Faulty touchpad (part of the input cover)",
-   "expect_stop": false
+   "why": "Faulty touchpad (a separate module on the Framework 13)",
+   "expect_stop": false,
+   "source": "https://guides.frame.work/Guide/Touchpad+Replacement+Guide/90"
   },
   {
    "device": "Framework Laptop 13",
    "symptom": "The webcam image is black but the camera light turns on",
    "expect": [
     "camera",
-    "webcam",
-    "display"
+    "webcam"
    ],
    "why": "Camera module in the display bezel",
    "expect_stop": false
@@ -229,7 +233,7 @@
    "symptom": "The touchscreen registers touches I never made",
    "expect": [
     "display",
-    "touch",
+    "touchscreen",
     "digitizer",
     "screen",
     "panel"
@@ -243,10 +247,21 @@
    "expect": [
     "hinge",
     "display",
-    "lid",
-    "bezel"
+    "lid"
    ],
    "why": "Broken hinge / display assembly mounts",
+   "expect_stop": false
+  },
+  {
+   "device": "Renault Clio IV 2016",
+   "symptom": "The engine misfires and shakes at idle, and the engine light flashes",
+   "expect": [
+    "engine",
+    "ignition",
+    "coil",
+    "spark plug"
+   ],
+   "why": "Ignition fault (coil or spark plug); also a false-alarm test: 'misfire' must not trigger the fire stop",
    "expect_stop": false
   },
   {
@@ -279,12 +294,12 @@
   },
   {
    "device": "Renault Clio IV 2016",
-   "symptom": "The headlights and the radio stopped working at the same time",
+   "symptom": "Only the left headlight stopped working, the right one is fine",
    "expect": [
-    "fuse",
-    "relay"
+    "headlight",
+    "bulb"
    ],
-   "why": "Shared fuse / fuse box",
+   "why": "One-sided failure = that headlight's bulb or unit",
    "expect_stop": false
   },
   {
@@ -324,8 +339,7 @@
    "symptom": "There is a strong smell of petrol near the rear of the car",
    "expect": [
     "fuel",
-    "tank",
-    "pump"
+    "tank"
    ],
    "why": "Fuel leak",
    "expect_stop": true
