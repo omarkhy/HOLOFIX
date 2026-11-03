@@ -1,0 +1,653 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "Generic car",
+    "variant_id": "generic_car",
+    "category": "car",
+    "configuration": {},
+    "dimensions_mm": {
+      "width": 1750,
+      "depth": 4100,
+      "height_min": 1450,
+      "height_max": 1450
+    },
+    "color": {
+      "name": "Grey",
+      "hex": "#8A8F96"
+    },
+    "summary": null,
+    "key_specs": {}
+  },
+  "provenance": "generated",
+  "systems": [
+    {
+      "id": "body",
+      "name": "Body",
+      "parent_id": null
+    },
+    {
+      "id": "chassis",
+      "name": "Chassis",
+      "parent_id": null
+    },
+    {
+      "id": "engine",
+      "name": "Engine",
+      "parent_id": null
+    },
+    {
+      "id": "electrical",
+      "name": "Electrical",
+      "parent_id": null
+    },
+    {
+      "id": "cooling",
+      "name": "Cooling",
+      "parent_id": null
+    },
+    {
+      "id": "fuel",
+      "name": "Fuel",
+      "parent_id": null
+    },
+    {
+      "id": "safety",
+      "name": "Safety",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "body",
+      "name": "Body shell",
+      "function": "Painted steel body: doors, bonnet, roof, tailgate.",
+      "system_id": "body",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 4,
+      "shape": "car_body",
+      "size": {
+        "w": 1,
+        "d": 1,
+        "h": 1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "floor",
+      "name": "Chassis floor",
+      "function": "Structural floor pan that everything is mounted to.",
+      "system_id": "chassis",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 0,
+      "shape": "slab",
+      "size": {
+        "w": 0.9,
+        "d": 0.9,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "wheel_fl",
+      "name": "Front left wheel",
+      "function": "Tyre and rim.",
+      "system_id": "chassis",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 0,
+      "shape": "wheel",
+      "size": {
+        "w": 0.11,
+        "d": 0.15,
+        "h": 0.42
+      },
+      "position": {
+        "x": 0.09,
+        "y": 0.215
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "wheel_fr",
+      "name": "Front right wheel",
+      "function": "Tyre and rim.",
+      "system_id": "chassis",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 0,
+      "shape": "wheel",
+      "size": {
+        "w": 0.11,
+        "d": 0.15,
+        "h": 0.42
+      },
+      "position": {
+        "x": 0.91,
+        "y": 0.215
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "wheel_rl",
+      "name": "Rear left wheel",
+      "function": "Tyre and rim.",
+      "system_id": "chassis",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 0,
+      "shape": "wheel",
+      "size": {
+        "w": 0.11,
+        "d": 0.15,
+        "h": 0.42
+      },
+      "position": {
+        "x": 0.09,
+        "y": 0.775
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "wheel_rr",
+      "name": "Rear right wheel",
+      "function": "Tyre and rim.",
+      "system_id": "chassis",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 0,
+      "shape": "wheel",
+      "size": {
+        "w": 0.11,
+        "d": 0.15,
+        "h": 0.42
+      },
+      "position": {
+        "x": 0.91,
+        "y": 0.775
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "radiator",
+      "name": "Radiator",
+      "function": "Cools the engine coolant with outside air.",
+      "system_id": "cooling",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "slab",
+      "size": {
+        "w": 0.6,
+        "d": 0.025,
+        "h": 0.28
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.03
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "engine",
+      "name": "Engine",
+      "function": "Turns fuel into motion.",
+      "system_id": "engine",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.42,
+        "d": 0.13,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.13
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "gearbox",
+      "name": "Gearbox",
+      "function": "Transfers engine power to the front wheels.",
+      "system_id": "engine",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.16,
+        "d": 0.1,
+        "h": 0.2
+      },
+      "position": {
+        "x": 0.28,
+        "y": 0.16
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "starter",
+      "name": "Starter motor",
+      "function": "Spins the engine to start it.",
+      "system_id": "electrical",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.07,
+        "d": 0.06,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.33,
+        "y": 0.21
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "alternator",
+      "name": "Alternator",
+      "function": "Recharges the 12 V battery while the engine runs.",
+      "system_id": "electrical",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.07,
+        "d": 0.07,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.66,
+        "y": 0.1
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "battery_12v",
+      "name": "12 V battery",
+      "function": "Powers the starter and the electrics when the engine is off.",
+      "system_id": "electrical",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.14,
+        "d": 0.07,
+        "h": 0.16
+      },
+      "position": {
+        "x": 0.8,
+        "y": 0.11
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "engine_fuse_box",
+      "name": "Engine-bay fuse and relay box",
+      "function": "Protects the main engine-bay circuits (starter, fans, ECU).",
+      "system_id": "electrical",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.12,
+        "d": 0.06,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.18,
+        "y": 0.08
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "cabin_fuse_box",
+      "name": "Cabin fuse box",
+      "function": "Protects the cabin circuits (lights, radio, sockets).",
+      "system_id": "electrical",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.1,
+        "d": 0.05,
+        "h": 0.07
+      },
+      "position": {
+        "x": 0.22,
+        "y": 0.38
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "ecu",
+      "name": "Engine control unit",
+      "function": "The engine's computer: injection, ignition, immobiliser.",
+      "system_id": "electrical",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.12,
+        "d": 0.07,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.68,
+        "y": 0.24
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "headlight_l",
+      "name": "Left headlight",
+      "function": "Front lighting.",
+      "system_id": "body",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.12,
+        "d": 0.04,
+        "h": 0.07
+      },
+      "position": {
+        "x": 0.18,
+        "y": 0.015
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "headlight_r",
+      "name": "Right headlight",
+      "function": "Front lighting.",
+      "system_id": "body",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.12,
+        "d": 0.04,
+        "h": 0.07
+      },
+      "position": {
+        "x": 0.82,
+        "y": 0.015
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "brakes",
+      "name": "Brake system",
+      "function": "Master cylinder, lines, discs and pads.",
+      "system_id": "safety",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.08,
+        "d": 0.06,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.3,
+        "y": 0.3
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": "brakes",
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "airbag",
+      "name": "Driver airbag",
+      "function": "Inflates in a crash; in the steering wheel.",
+      "system_id": "safety",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.1,
+        "d": 0.05,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.3,
+        "y": 0.45
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": "airbag",
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "fuel_tank",
+      "name": "Fuel tank and pump",
+      "function": "Stores fuel; the pump feeds the engine.",
+      "system_id": "fuel",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.5,
+        "d": 0.15,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.7
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": "fuel_system",
+      "source_url": null,
+      "confidence": 0.3
+    },
+    {
+      "id": "exhaust",
+      "name": "Exhaust line",
+      "function": "Carries exhaust gases to the rear.",
+      "system_id": "engine",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 0,
+      "shape": "slab",
+      "size": {
+        "w": 0.06,
+        "d": 0.75,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.6,
+        "y": 0.55
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.3
+    }
+  ],
+  "connections": [
+    {
+      "source": "battery_12v",
+      "target": "starter",
+      "kind": "power",
+      "label": "Starter cable"
+    },
+    {
+      "source": "battery_12v",
+      "target": "engine_fuse_box",
+      "kind": "power",
+      "label": "Main feed"
+    },
+    {
+      "source": "alternator",
+      "target": "battery_12v",
+      "kind": "power",
+      "label": "Charging cable"
+    },
+    {
+      "source": "engine_fuse_box",
+      "target": "cabin_fuse_box",
+      "kind": "power",
+      "label": "Cabin feed"
+    },
+    {
+      "source": "ecu",
+      "target": "engine",
+      "kind": "data",
+      "label": "Engine harness"
+    },
+    {
+      "source": "ecu",
+      "target": "fuel_tank",
+      "kind": "data",
+      "label": "Fuel pump control"
+    },
+    {
+      "source": "engine_fuse_box",
+      "target": "ecu",
+      "kind": "power",
+      "label": "ECU fuse"
+    },
+    {
+      "source": "starter",
+      "target": "engine",
+      "kind": "mechanical",
+      "label": "Bolted to the engine"
+    },
+    {
+      "source": "engine",
+      "target": "gearbox",
+      "kind": "mechanical",
+      "label": "Bell housing"
+    },
+    {
+      "source": "engine",
+      "target": "radiator",
+      "kind": "thermal",
+      "label": "Coolant hoses"
+    },
+    {
+      "source": "engine",
+      "target": "exhaust",
+      "kind": "mechanical",
+      "label": "Exhaust manifold"
+    },
+    {
+      "source": "cabin_fuse_box",
+      "target": "airbag",
+      "kind": "power",
+      "label": "Airbag fuse"
+    },
+    {
+      "source": "cabin_fuse_box",
+      "target": "headlight_l",
+      "kind": "power",
+      "label": "Lighting"
+    },
+    {
+      "source": "cabin_fuse_box",
+      "target": "headlight_r",
+      "kind": "power",
+      "label": "Lighting"
+    }
+  ],
+  "repair_paths": [],
+  "sources": []
+}

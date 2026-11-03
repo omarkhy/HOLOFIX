@@ -51,10 +51,13 @@ function drawDots() {
       if (fade <= 0) continue;
       const violet = y > 34 + x * 0.12;                // diagonal split, as in the intro
       const a = Math.pow(fade, 1.6) * 0.6;
-      g.fillStyle = violet ? `rgba(154,123,255,${a})` : `rgba(111,231,240,${a})`;
+      const light = document.documentElement.dataset.theme === 'light';
+      g.fillStyle = violet ? (light ? `rgba(98,70,190,${a})` : `rgba(154,123,255,${a})`)
+                           : (light ? `rgba(15,108,116,${a})` : `rgba(111,231,240,${a})`);
       g.beginPath(); g.arc(x, y, 1.15, 0, Math.PI * 2); g.fill();
     }
   }
 }
 drawDots();
 addEventListener('resize', drawDots);
+addEventListener('holofix:theme', drawDots);

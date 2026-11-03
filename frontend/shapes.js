@@ -204,7 +204,45 @@ function shellDeck(ctx) {
 // ---------- Dispatcher ----------
 
 /** Which shapes are modelled in absolute device coordinates (not centred on the part). */
-export const ABSOLUTE_SHAPES = new Set(['shell_base', 'shell_deck']);
+/**
+ * Car body: a side profile (bumper, bonnet, windscreen, roof, rear window, boot) drawn in units of the
+ * car's own length and height, extruded across its width. Built from the official dimensions, so the
+ * silhouette is the right size; the curves are a generic hatchback, not this car's exact lines.
+ */
+const CAR_PROFILE = [   // [fraction of length from the FRONT, fraction of height]
+  [0, 0.16], [0, 0.42], [0.04, 0.52], [0.30, 0.60], [0.44, 0.97], [0.80, 0.98],
+  [0.95, 0.72], [1, 0.56], [1, 0.16], [0.87, 0.16], [0.85, 0.26], [0.70, 0.26], [0.68, 0.16],
+  [0.32, 0.16], [0.30, 0.26], [0.15, 0.26], [0.13, 0.16],
+];
+
+function carBody(ctx) {
+  const { W, D, H } = ctx;
+  const shape = new THREE.Shape();
+  CAR_PROFILE.forEach(([f, t], i) => {
+    const z = D / 2 - f * D;                 // front of the car = +Z (towards the viewer)
+    shape[i ? 'lineTo' : 'moveTo'](-z, t * H);   // shape x = -z so that, after rotateY(90°), it maps to +z
+  });
+  shape.closePath();
+  const geo = new THREE.ExtrudeGeometry(shape, { depth: W * 0.92, bevelEnabled: false });
+  geo.rotateY(Math.PI / 2);
+  geo.translate(-W * 0.46, 0, 0);
+  // Window line, drawn faintly on both sides.
+  const win = [[0.31, 0.62], [0.44, 0.92], [0.79, 0.93], [0.92, 0.70], [0.31, 0.62]];
+  const pts = [];
+  for (const x of [-W * 0.461, W * 0.461]) for (let i = 0; i < win.length - 1; i++) {
+    const a = win[i], b = win[i + 1];
+    pts.push(new THREE.Vector3(x, a[1] * H, D / 2 - a[0] * D), new THREE.Vector3(x, b[1] * H, D / 2 - b[0] * D));
+  }
+  return { geo, lines: linesFromPoints(pts) };
+}
+
+/** Wheel: a short cylinder on its side (axle along x). Diameter from size.d, width from size.w. */
+function wheel(w, h, d) {
+  const r = d / 2;
+  return { geo: new THREE.CylinderGeometry(r, r, w, 36).rotateZ(Math.PI / 2) };
+}
+
+export const ABSOLUTE_SHAPES = new Set(['shell_base', 'shell_deck', 'car_body']);
 
 /**
  * @param shape  the part's `shape` string
@@ -220,6 +258,8 @@ export function buildShape(shape, size, ctx) {
     case 'screen': return screen(w, h, d);
     case 'rounded_slab': return roundedSlab(w, h, d);
     case 'board': return board(w, h, d);
+    case 'car_body': return carBody(ctx);
+    case 'wheel': return wheel(w, h, d);
     case 'cylinder': return cylinder(w, h, d);
     case 'screw': return cylinder(w, h, d, 12);
     case 'cable': return cable(w, h, d);

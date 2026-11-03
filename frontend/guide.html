@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HOLOFIX · Repair guide</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* A printable document: cream paper on screen, plain white when printed / saved as PDF. */
+    :root { --ink: #1d1f22; --muted: #6b6f75; --rule: #ddd6c8; --paper: #f4efe4; --accent: #0e7c86; --warn: #b4441c; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #e9e3d5; color: var(--ink); font: 15px/1.55 "Instrument Sans", system-ui, sans-serif; }
+    .bar { position: sticky; top: 0; display: flex; gap: 10px; justify-content: flex-end; padding: 12px 20px; background: #0b0f14; }
+    .bar button, .bar a { font: 500 14px inherit; border-radius: 999px; padding: 8px 16px; cursor: pointer; text-decoration: none; }
+    .bar .print { background: #6fe7f0; color: #04161a; border: 0; }
+    .bar a { color: #e9e4d8; border: 1px solid rgba(233, 228, 216, 0.2); }
+    main { max-width: 820px; margin: 28px auto 60px; background: var(--paper); padding: 56px 64px; box-shadow: 0 1px 0 var(--rule); }
+    .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; letter-spacing: 0.12em; font-size: 12px; color: var(--muted); }
+    .brand img { width: 20px; height: 20px; }
+    h1 { font-size: 34px; line-height: 1.15; font-weight: 600; margin: 18px 0 6px; letter-spacing: -0.01em; }
+    .sub { color: var(--muted); margin: 0 0 22px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 28px; font-size: 14px; }
+    .meta b { font-weight: 600; }
+    .tier { display: inline-flex; align-items: center; gap: 6px; }
+    .tier i { width: 9px; height: 9px; border-radius: 50%; }
+    .tier.green i { background: #2f9e5c; } .tier.yellow i { background: #d08a13; } .tier.red i { background: #c8372d; }
+    h2 { font-size: 13px; text-transform: none; color: var(--muted); font-weight: 600; margin: 30px 0 10px; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    ul.plain { margin: 0; padding-left: 18px; }
+    .warn { border-left: 3px solid var(--warn); padding: 10px 14px; background: rgba(180, 68, 28, 0.06); margin: 0 0 10px; }
+    ol.steps { list-style: none; padding: 0; margin: 0; counter-reset: s; }
+    ol.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 4px 12px; padding: 14px 0; border-bottom: 1px solid var(--rule); break-inside: avoid; }
+    ol.steps li::before { content: counter(s); font: 500 14px "IBM Plex Mono", monospace; color: var(--accent); }
+    .phase { grid-column: 2; font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+    .action { grid-column: 2; font-weight: 600; }
+    .detail, .fasteners, .stools, .cite { grid-column: 2; font-size: 14px; }
+    .fasteners { font-family: "IBM Plex Mono", monospace; font-size: 13px; }
+    .cite { color: var(--muted); font-size: 12px; } .cite a { color: var(--accent); }
+    .nosrc { color: var(--warn); }
+    .sources { font-size: 13px; word-break: break-all; }
+    .foot { margin-top: 36px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 14px; }
+    .wait { padding: 20px 0; color: var(--muted); }
+    /* live progress, paper version */
+    .live { border: 1px solid var(--rule); border-radius: 14px; padding: 16px; background: #fbf8f1; }
+    .live-head { display: flex; justify-content: space-between; } .live-kicker { font-size: 11px; font-weight: 600; letter-spacing: .1em; color: var(--accent); }
+    .live-time, .live-steps small { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+    .live-title { font-size: 20px; font-weight: 600; margin: 4px 0 14px; color: var(--ink); }
+    .live-steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .live-steps li { display: grid; grid-template-columns: 18px 1fr auto; gap: 12px; align-items: center; padding: 10px 12px; border: 1px solid var(--rule); border-radius: 10px; background: #fff; }
+    .live-steps li.running { border-color: var(--accent); }
+    .live-steps b { display: block; font-size: 13px; color: var(--ink); } .live-steps span { display: block; font-size: 13px; color: var(--muted); }
+    .live-steps i { width: 16px; height: 16px; border-radius: 50%; position: relative; }
+    .live-steps li.done i { background: #2f9e5c; }
+    .live-steps li.done i::after { content: ""; position: absolute; left: 5.5px; top: 2.5px; width: 4px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+    .live-steps li.running i { border: 2px solid #cfe9ec; border-top-color: var(--accent); animation: spin .9s linear infinite; }
+    .live-steps li.error i { background: #c8372d; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    /* pictures */
+    .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 8px; }
+    figure { margin: 0; break-inside: avoid; }
+    .shot { position: relative; border-radius: 10px; overflow: hidden; background: #070a0e; aspect-ratio: 4 / 3; }
+    .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .shot svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .shot .mask { fill: rgba(200, 55, 45, .35); stroke: #c8372d; stroke-width: .6; vector-effect: non-scaling-stroke; }
+    .shot .box { fill: rgba(200, 55, 45, .12); stroke: #c8372d; stroke-width: 2; vector-effect: non-scaling-stroke; }
+    figcaption { font-size: 12px; color: var(--muted); margin-top: 6px; }
+    /* costs */
+    .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .tile { border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px; background: #fbf8f1; }
+    .tile small { display: block; color: var(--muted); font-size: 12px; }
+    .tile b { display: block; font-size: 22px; font-weight: 600; margin-top: 2px; }
+    .tile.new b { color: var(--muted); }
+    .saving { margin: 12px 0 0; padding: 12px 16px; border-radius: 12px; background: rgba(47, 158, 92, .12); color: #1f6b3e; font-weight: 600; }
+    table.costs { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 14px; }
+    table.costs th { text-align: left; font-size: 12px; color: var(--muted); font-weight: 600; padding: 6px 8px 6px 0; border-bottom: 1px solid var(--rule); }
+    table.costs td { padding: 8px 8px 8px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+    table.costs td.num { font-family: "IBM Plex Mono", monospace; white-space: nowrap; }
+    @media (max-width: 700px) { .tiles { grid-template-columns: 1fr; } }
+    @media (max-width: 700px) { main { padding: 32px 20px; margin: 0; } .cols { grid-template-columns: 1fr; } h1 { font-size: 26px; } }
+    @media print {
+      body { background: #fff; } .bar { display: none; }
+      main { margin: 0; padding: 0; box-shadow: none; background: #fff; max-width: none; }
+      a { color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bar"><a href="javascript:void(0)" onclick="history.length > 1 ? history.back() : close()">Back</a><button class="print" onclick="print()">Save as PDF</button></div>
+  <main id="doc"><div class="wait" id="live"></div></main>
+  <script type="module">
+    import { runJob, progressHtml } from './jobs.js';
+    import { listGuides, saveGuide } from './library.js';
+    const q = new URLSearchParams(location.search);
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const host = (u) => { try { return new URL(u).hostname.replace('www.', ''); } catch { return u; } };
+    // Pictures rendered by the 3D viewer for this device and part (see captureGuideShots in viewer.js).
+    // Pictures: fresh from the viewer (this click), or the ones saved with this guide earlier.
+    function shotImages() {
+      let shots = null;
+      try { shots = JSON.parse(localStorage.getItem('holofix.guideShots')); } catch { /* none */ }
+      if (shots && shots.path === q.get('data') && shots.part === q.get('part')) return shots.images;
+      const saved = listGuides(q.get('data')).find(g => g.part === q.get('part') && g.symptom === (q.get('symptom') || null));
+      return saved?.images || null;
+    }
+    function pictures(images) {
+      if (!images?.length) return '';
+      return `<h2>Where it is</h2><div class="figs">${images.map(im => `
+        <figure><div class="shot"><img src="${im.src}" alt="">${im.regions ? `<svg viewBox="0 0 ${im.width || 1000} ${im.height || 750}" preserveAspectRatio="none">${
+          im.regions.map(r => r.path ? r.path.replace('<path', '<path class="mask"') : `<rect class="box" x="${r.left}" y="${r.top}" width="${r.right - r.left}" height="${r.bottom - r.top}"/>`).join('')}</svg>` : ''}</div>
+          <figcaption>${esc(im.caption)}</figcaption></figure>`).join('')}</div>`;
+    }
+
+    const money = (cur, a, b) => {
+      const f = (n) => new Intl.NumberFormat(undefined, { style: 'currency', currency: cur || 'EUR', maximumFractionDigits: 0 }).format(n);
+      return a === b ? f(a) : `${f(a)}–${f(b)}`;
+    };
+    const KIND = { part: 'Part', tool: 'Tool', labour: 'Repair shop', new_device: 'New device' };
+
+    function costs(g) {
+      const s = g.cost_summary;
+      if (!s || !g.costs.length) return `<h2>Cost</h2><p class="cite">No price could be confirmed from a cited page, so none is shown.</p>`;
+      return `<h2>What it costs</h2>
+        <div class="tiles">
+          <div class="tile"><small>Do it yourself</small><b>${s.diy ? money(s.currency, ...s.diy) : '—'}</b></div>
+          <div class="tile"><small>Repair shop</small><b>${s.shop ? money(s.currency, ...s.shop) : '—'}</b></div>
+          <div class="tile new"><small>Buy it new</small><b>${s.new ? money(s.currency, ...s.new) : '—'}</b></div>
+        </div>
+        ${s.saving_vs_new ? `<p class="saving">Repairing it saves about ${money(s.currency, s.saving_vs_new, s.saving_vs_new)} compared with buying new, and keeps a device out of the bin.</p>` : ''}
+        <table class="costs"><thead><tr><th>Item</th><th>Type</th><th>Price</th><th>Source</th></tr></thead><tbody>
+          ${g.costs.map(c => `<tr><td>${esc(c.item)}</td><td>${KIND[c.kind] || c.kind}</td><td class="num">${money(c.currency, c.low, c.high)}</td>
+            <td><a href="${esc(c.source_url)}">${esc(host(c.source_url))}</a></td></tr>`).join('')}
+        </tbody></table>
+        <p class="cite">Prices found online on ${new Date().toLocaleDateString()}; totals added up by HOLOFIX from the lines above. Prices change: check before buying.</p>`;
+    }
+
+    const TIER = { green: 'Do it at home', yellow: 'Needs tools and care', red: 'Technician only' };
+    const PHASE = { prepare: 'PREPARE', open: 'OPEN UP', replace: 'REPLACE', reassemble: 'REASSEMBLE', test: 'TEST' };
+
+    (async () => {
+      const doc = document.getElementById('doc');
+      try {
+        const live = document.getElementById('live');
+        const title = 'Writing your repair guide: steps, tools and prices';
+        live.innerHTML = progressHtml(title, null);
+        const [graph, g] = await Promise.all([
+          fetch(q.get('data')).then(r => r.json()),
+          runJob('guide', { path: q.get('data'), part_id: q.get('part'), symptom: q.get('symptom') || null },
+                 (view) => { live.innerHTML = progressHtml(title, view); }),
+        ]);
+        const dev = graph.device;
+        const images = shotImages();
+        saveGuide({ path: q.get('data'), part: q.get('part'), symptom: q.get('symptom') || null, title: g.title,
+                    tier: g.tier, model_name: dev.model_name, url: location.pathname + location.search, images });
+        document.title = `Repair guide · ${g.title}`;
+        doc.innerHTML = `
+          <div class="brand"><img src="favicon.svg" alt="">HOLOFIX REPAIR GUIDE</div>
+          <h1>${esc(g.title)}</h1>
+          <p class="sub">${esc(dev.model_name)}${Object.keys(dev.configuration || {}).length ? ' · ' + esc(Object.values(dev.configuration).join(', ')) : ''}${q.get('symptom') ? ` · Problem: “${esc(q.get('symptom'))}”` : ''}</p>
+          <div class="meta">
+            <span class="tier ${g.tier}"><i></i><b>${TIER[g.tier]}</b></span>
+            ${g.time_estimate ? `<span>Time: <b>${esc(g.time_estimate)}</b></span>` : ''}
+            <span>${g.steps.length} steps${g.unverified_steps ? ` · <span class="nosrc">${g.unverified_steps} without a cited source</span>` : ''}</span>
+          </div>
+          ${g.warnings.map(w => `<p class="warn"><b>Warning.</b> ${esc(w)}</p>`).join('')}
+          ${pictures(images)}
+          ${costs(g)}
+          ${g.professional_note ? `<h2>What to tell the repair shop</h2><p>${esc(g.professional_note)}</p>` : ''}
+          ${g.tools.length || g.parts_needed.length ? `<div class="cols">
+            <div><h2>Tools</h2><ul class="plain">${g.tools.map(t => `<li>${esc(t.name)}${t.why ? ` <span class="cite">${esc(t.why)}</span>` : ''}</li>`).join('') || '<li>None listed</li>'}</ul></div>
+            <div><h2>Parts</h2><ul class="plain">${g.parts_needed.map(p => `<li>${esc(p)}</li>`).join('') || '<li>None listed</li>'}</ul></div>
+          </div>` : ''}
+          ${g.steps.length ? `<h2>Steps</h2><ol class="steps">${g.steps.map(s => `
+            <li><span class="phase">${PHASE[s.phase] || ''}</span>
+              <span class="action">${esc(s.action)}</span>
+              ${s.detail ? `<span class="detail">${esc(s.detail)}</span>` : ''}
+              ${s.fastener_detail ? `<span class="fasteners">${esc(s.fastener_detail)}</span>` : ''}
+              ${s.tools.length ? `<span class="stools">Tools: ${esc(s.tools.join(', '))}</span>` : ''}
+              <span class="cite">${s.source_url ? `Source: <a href="${esc(s.source_url)}">${esc(host(s.source_url))}</a>` : '<span class="nosrc">No cited source for this step: check the official guide.</span>'}</span>
+            </li>`).join('')}</ol>` : ''}
+          ${g.sources.length ? `<h2>Sources</h2><ul class="plain sources">${g.sources.map(u => `<li><a href="${esc(u)}">${esc(u)}</a></li>`).join('')}</ul>` : ''}
+          <p class="foot">Generated by HOLOFIX with Meta Muse Spark from the sources above, on ${new Date().toLocaleDateString()}.
+            Screw sizes and counts are shown only when a cited guide states them. AI-written guides can be wrong:
+            follow the original guide where they differ, work slowly, and stop if anything is unclear.</p>`;
+      } catch (e) {
+        doc.innerHTML = `<p class="wait">Could not write the guide: ${esc(e.message)}</p>`;
+      }
+    })();
+  </script>
+</body>
+</html>

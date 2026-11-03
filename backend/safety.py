@@ -52,5 +52,15 @@ def symptom_stop(text: str) -> Optional[str]:
     return None
 
 
+# Hazards that ALWAYS mean "technician only", whatever the symptom. A lithium battery is not in this
+# list: replacing a worn battery is a normal repair; only a swollen/damaged/hot one is a hard stop,
+# and that is caught from the user's words by symptom_stop().
+ALWAYS_STOP = {"mains_voltage", "hv_capacitor", "ev_high_voltage", "airbag", "brakes", "fuel_system"}
+
+BATTERY_CAUTION = ("Lithium battery: before you start, check it is not swollen, punctured or hot. If it is, stop "
+                   "and take it to a professional. Never pierce or bend it; discharge it below 25% first.")
+
+
 def hazard_note(hazard: Optional[str]) -> Optional[str]:
-    return HAZARD_MESSAGES.get(hazard) if hazard else None
+    """Hard-stop message for a hazardous part, or None if the part may be repaired with care."""
+    return HAZARD_MESSAGES.get(hazard) if hazard in ALWAYS_STOP else None

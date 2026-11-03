@@ -1,0 +1,850 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "Renault Clio IV Phase 1 Hatchback (BH_)",
+    "variant_id": "clio_iv_phase1_hatch_2016",
+    "category": "car",
+    "configuration": {
+      "engine": "1.2 16V 75",
+      "gearbox": "5-speed manual",
+      "trim": "Expression",
+      "color": "Glacier White 369",
+      "wheels": "15\" Paradise steel with trims",
+      "infotainment": "2x20W radio with Bluetooth USB"
+    },
+    "dimensions_mm": {
+      "width": 1732.0,
+      "depth": 4062.0,
+      "height_min": 1448.0,
+      "height_max": 1448.0
+    },
+    "color": {
+      "name": "Glacier White 369",
+      "hex": "#EDEFEA"
+    },
+    "summary": "Phase 1 Clio IV (X98/BH_) 5-door hatch in Expression trim with frugal 1.2 16V 75 D4F petrol and 5-speed manual. Lightweight front-engine FWD B-platform car notable for 980 kg kerb weight and simple 12V-only electrics.",
+    "key_specs": {
+      "Engine": "D4F 740 1.2 16V 1149cc multi-point injection, transverse front, naturally aspirated",
+      "Equipment": "2x20W radio Bluetooth + USB, 185/65 R15 on 15in Paradise steel",
+      "Performance": "167 km/h max, 0-100 km/h 14.5 s, Euro 5",
+      "Power / Torque": "75 hp @ 5500 rpm / 107 Nm @ 4250 rpm",
+      "Transmission": "5-speed manual JH3905, front-wheel drive",
+      "Weight / Fuel": "Kerb 980 kg / gross 1563 kg, 45 L petrol tank"
+    }
+  },
+  "provenance": "sourced",
+  "systems": [
+    {
+      "id": "body",
+      "name": "Body",
+      "parent_id": null
+    },
+    {
+      "id": "chassis",
+      "name": "Chassis",
+      "parent_id": null
+    },
+    {
+      "id": "engine",
+      "name": "Engine and Drivetrain",
+      "parent_id": null
+    },
+    {
+      "id": "electrical",
+      "name": "Electrical",
+      "parent_id": null
+    },
+    {
+      "id": "cooling",
+      "name": "Cooling",
+      "parent_id": null
+    },
+    {
+      "id": "fuel",
+      "name": "Fuel System",
+      "parent_id": null
+    },
+    {
+      "id": "safety",
+      "name": "Safety",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "body_shell",
+      "name": "Body shell 5-door hatch Glacier White 369",
+      "function": "Weather enclosure, crash structure and mount for everything.",
+      "system_id": "body",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 3,
+      "shape": "car_body",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.65
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "body_type": "5-door hatchback",
+        "colour_code": "369 Blanc Glacier",
+        "seats": "5"
+      },
+      "hazard": null,
+      "source_url": "https://www.automoli.com/en/vehicles/renault/clio/clio-iv-phase-i-3871/",
+      "confidence": 0.95
+    },
+    {
+      "id": "chassis_floor",
+      "name": "Chassis floor + subframe B-platform",
+      "function": "Carries suspension, engine-gearbox and rear axle under the body.",
+      "system_id": "chassis",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 0,
+      "shape": "slab",
+      "size": {
+        "w": 0.85,
+        "d": 0.95,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "drive": "FWD front-engine transverse",
+        "platform": "Renault-Nissan B",
+        "wheelbase": "2589 mm"
+      },
+      "hazard": null,
+      "source_url": "https://www.automoli.com/en/vehicles/renault/clio/clio-iv-phase-i-3871/",
+      "confidence": 0.9
+    },
+    {
+      "id": "wheel_fl",
+      "name": "Wheel front left 15in Paradise steel",
+      "function": "Supports, drives, steers and brakes the car at front left.",
+      "system_id": "chassis",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 0,
+      "shape": "wheel",
+      "size": {
+        "w": 0.11,
+        "d": 0.15,
+        "h": 0.43
+      },
+      "position": {
+        "x": 0.09,
+        "y": 0.2
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "rim": "15in Paradise steel + trim",
+        "tyre": "185/65 R15 88T"
+      },
+      "hazard": null,
+      "source_url": "https://www.automoli.com/en/vehicles/renault/clio/clio-iv-phase-i-3871/",
+      "confidence": 0.95
+    },
+    {
+      "id": "wheel_fr",
+      "name": "Wheel front right 15in Paradise steel",
+      "function": "Supports, drives, steers and brakes the car at front right.",
+      "system_id": "chassis",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 0,
+      "shape": "wheel",
+      "size": {
+        "w": 0.11,
+        "d": 0.15,
+        "h": 0.43
+      },
+      "position": {
+        "x": 0.91,
+        "y": 0.2
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "rim": "15in Paradise steel + trim",
+        "tyre": "185/65 R15 88T"
+      },
+      "hazard": null,
+      "source_url": "https://www.automoli.com/en/vehicles/renault/clio/clio-iv-phase-i-3871/",
+      "confidence": 0.95
+    },
+    {
+      "id": "wheel_rl",
+      "name": "Wheel rear left 15in Paradise steel",
+      "function": "Supports and brakes the car at rear left.",
+      "system_id": "chassis",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 0,
+      "shape": "wheel",
+      "size": {
+        "w": 0.11,
+        "d": 0.15,
+        "h": 0.43
+      },
+      "position": {
+        "x": 0.09,
+        "y": 0.78
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "rim": "15in Paradise steel + trim",
+        "tyre": "185/65 R15 88T"
+      },
+      "hazard": null,
+      "source_url": "https://www.automoli.com/en/vehicles/renault/clio/clio-iv-phase-i-3871/",
+      "confidence": 0.95
+    },
+    {
+      "id": "wheel_rr",
+      "name": "Wheel rear right 15in Paradise steel",
+      "function": "Supports and brakes the car at rear right.",
+      "system_id": "chassis",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 0,
+      "shape": "wheel",
+      "size": {
+        "w": 0.11,
+        "d": 0.15,
+        "h": 0.43
+      },
+      "position": {
+        "x": 0.91,
+        "y": 0.78
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "rim": "15in Paradise steel + trim",
+        "tyre": "185/65 R15 88T"
+      },
+      "hazard": null,
+      "source_url": "https://www.automoli.com/en/vehicles/renault/clio/clio-iv-phase-i-3871/",
+      "confidence": 0.95
+    },
+    {
+      "id": "engine_d4f",
+      "name": "Engine D4F 740 1.2 16V 1149cc",
+      "function": "Burns petrol to drive the front wheels.",
+      "system_id": "engine",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.55,
+        "d": 0.18,
+        "h": 0.35
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.15
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "code": "D4F 740",
+        "displacement": "1149 cm3",
+        "oil_capacity": "4 L",
+        "power": "75 hp @ 5500 rpm",
+        "torque": "107 Nm @ 4250 rpm"
+      },
+      "hazard": null,
+      "source_url": "https://www.automoli.com/en/vehicles/renault/clio/clio-iv-phase-i-3871/",
+      "confidence": 0.95
+    },
+    {
+      "id": "gearbox_jh3",
+      "name": "Gearbox 5-speed manual JH3905",
+      "function": "Steps engine torque to the front wheels with reverse and neutral.",
+      "system_id": "engine",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.3,
+        "d": 0.12,
+        "h": 0.22
+      },
+      "position": {
+        "x": 0.68,
+        "y": 0.18
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "code": "JH3905",
+        "drive": "FWD",
+        "type": "5-speed manual"
+      },
+      "hazard": null,
+      "source_url": "https://www.automoli.com/en/vehicles/renault/clio/clio-iv-phase-i-3871/",
+      "confidence": 0.9
+    },
+    {
+      "id": "battery_12v",
+      "name": "12V starter battery",
+      "function": "Cranks the starter and powers electrics when engine is off.",
+      "system_id": "electrical",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.12,
+        "d": 0.07,
+        "h": 0.13
+      },
+      "position": {
+        "x": 0.2,
+        "y": 0.12
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "location": "engine bay left side",
+        "voltage": "12 V"
+      },
+      "hazard": null,
+      "source_url": "https://www.scegliauto.com/en/video/renault/tutorial/115449/",
+      "confidence": 0.9
+    },
+    {
+      "id": "starter_motor",
+      "name": "Starter motor",
+      "function": "Electric motor cranks the flywheel to start the engine.",
+      "system_id": "engine",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.08,
+        "d": 0.06,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.22
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "location": "engine-gearbox junction low",
+        "voltage": "12 V"
+      },
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.8
+    },
+    {
+      "id": "alternator",
+      "name": "Alternator",
+      "function": "Belt-driven generator recharges the 12V battery when running.",
+      "system_id": "engine",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.09,
+        "d": 0.07,
+        "h": 0.09
+      },
+      "position": {
+        "x": 0.42,
+        "y": 0.08
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "drive": "auxiliary belt from crank",
+        "output": "12 V B+ to battery"
+      },
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.8
+    },
+    {
+      "id": "fuse_box_engine",
+      "name": "Engine-bay fuse / relay box 777 / 597",
+      "function": "Distributes battery power to engine, fans, lights, ABS and cabin box.",
+      "system_id": "electrical",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.12,
+        "d": 0.08,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.18,
+        "y": 0.14
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "codes": "777 / 597",
+        "location": "engine bay left beside battery"
+      },
+      "hazard": null,
+      "source_url": "https://www.scegliauto.com/en/video/renault/tutorial/115449/",
+      "confidence": 0.92
+    },
+    {
+      "id": "fuse_box_cabin",
+      "name": "Cabin fuse box 1016",
+      "function": "Fuses cabin comfort circuits, radio, horn and fuel pump.",
+      "system_id": "electrical",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.1,
+        "d": 0.06,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.3,
+        "y": 0.35
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "code": "1016",
+        "location": "dash lower left behind cover"
+      },
+      "hazard": null,
+      "source_url": "https://www.scegliauto.com/en/video/renault/tutorial/115449/",
+      "confidence": 0.92
+    },
+    {
+      "id": "ecu_injection",
+      "name": "Engine ECU injection computer",
+      "function": "Controls injection, ignition, idle and Euro 5 emissions.",
+      "system_id": "electrical",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.1,
+        "d": 0.06,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.28
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "connectors": "2 plugs + steel security covers",
+        "location": "bolted to inlet manifold"
+      },
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.85
+    },
+    {
+      "id": "radiator_cooling",
+      "name": "Radiator + cooling fan + heater",
+      "function": "Dumps engine heat to air and heats the cabin.",
+      "system_id": "cooling",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "slab",
+      "size": {
+        "w": 0.75,
+        "d": 0.05,
+        "h": 0.22
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.05
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "coolant_capacity": "5 L",
+        "location": "front of engine bay behind grille"
+      },
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.85
+    },
+    {
+      "id": "fuel_tank",
+      "name": "Fuel tank + pump / sender 45L",
+      "function": "Stores 45 L petrol and feeds multi-point injection via in-tank pump.",
+      "system_id": "fuel",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.55,
+        "d": 0.2,
+        "h": 0.18
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.65
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "45 L",
+        "location": "under rear floor ahead of rear axle"
+      },
+      "hazard": "fuel_system",
+      "source_url": "https://www.automoli.com/en/vehicles/renault/clio/clio-iv-phase-i-3871/",
+      "confidence": 0.95
+    },
+    {
+      "id": "exhaust_system",
+      "name": "Exhaust manifold + cat + silencers",
+      "function": "Evacuates, cleans via catalyst and silences burnt gas.",
+      "system_id": "engine",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 0,
+      "shape": "slab",
+      "size": {
+        "w": 0.2,
+        "d": 0.95,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.55,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "emission_standard": "Euro 5",
+        "routing": "manifold to rear tailpipe centre/right"
+      },
+      "hazard": null,
+      "source_url": null,
+      "confidence": 0.85
+    },
+    {
+      "id": "brake_system",
+      "name": "Brake system + ABS + steering assist",
+      "function": "Hydraulic friction braking with ABS and electric steering assist.",
+      "system_id": "chassis",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.75,
+        "d": 0.65,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.48
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "front": "ventilated discs",
+        "rear": "drums",
+        "steering": "rack-and-pinion electric assist"
+      },
+      "hazard": "brakes",
+      "source_url": "https://www.automoli.com/en/vehicles/renault/clio/clio-iv-phase-i-3871/",
+      "confidence": 0.9
+    },
+    {
+      "id": "airbag_srs",
+      "name": "Airbags / SRS + pretensioners",
+      "function": "Pyrotechnic cushions and belt tension in a crash.",
+      "system_id": "safety",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.6,
+        "d": 0.35,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.42
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "count": "4 airbags"
+      },
+      "hazard": "airbag",
+      "source_url": null,
+      "confidence": 0.85
+    },
+    {
+      "id": "lighting_set",
+      "name": "Headlights + rear lights halogen",
+      "function": "See and be seen with indicators and brake lights.",
+      "system_id": "electrical",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.8,
+        "d": 0.9,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "front": "halogen complex surface",
+        "rear": "tailgate corner clusters"
+      },
+      "hazard": null,
+      "source_url": "https://www.automoli.com/en/vehicles/renault/clio/clio-iv-phase-i-3871/",
+      "confidence": 0.88
+    }
+  ],
+  "connections": [
+    {
+      "source": "battery_12v",
+      "target": "fuse_box_engine",
+      "kind": "power",
+      "label": "Battery + to engine box"
+    },
+    {
+      "source": "fuse_box_engine",
+      "target": "fuse_box_cabin",
+      "kind": "power",
+      "label": "Main feed to cabin box"
+    },
+    {
+      "source": "battery_12v",
+      "target": "starter_motor",
+      "kind": "power",
+      "label": "Starter heavy cable"
+    },
+    {
+      "source": "alternator",
+      "target": "battery_12v",
+      "kind": "power",
+      "label": "B+ recharge cable"
+    },
+    {
+      "source": "fuse_box_engine",
+      "target": "ecu_injection",
+      "kind": "power",
+      "label": "ECU power feed"
+    },
+    {
+      "source": "fuse_box_engine",
+      "target": "lighting_set",
+      "kind": "power",
+      "label": "Headlight power feed"
+    },
+    {
+      "source": "fuse_box_engine",
+      "target": "brake_system",
+      "kind": "power",
+      "label": "ABS pump power"
+    },
+    {
+      "source": "fuse_box_engine",
+      "target": "radiator_cooling",
+      "kind": "power",
+      "label": "Cooling fan power"
+    },
+    {
+      "source": "fuse_box_cabin",
+      "target": "fuel_tank",
+      "kind": "power",
+      "label": "Fuel pump power"
+    },
+    {
+      "source": "fuse_box_cabin",
+      "target": "airbag_srs",
+      "kind": "power",
+      "label": "SRS power feed"
+    },
+    {
+      "source": "ecu_injection",
+      "target": "engine_d4f",
+      "kind": "data",
+      "label": "Injection / ignition loom"
+    },
+    {
+      "source": "exhaust_system",
+      "target": "ecu_injection",
+      "kind": "data",
+      "label": "Lambda O2 sensor signal"
+    },
+    {
+      "source": "wheel_fl",
+      "target": "brake_system",
+      "kind": "data",
+      "label": "ABS sensor FL"
+    },
+    {
+      "source": "wheel_fr",
+      "target": "brake_system",
+      "kind": "data",
+      "label": "ABS sensor FR"
+    },
+    {
+      "source": "wheel_rl",
+      "target": "brake_system",
+      "kind": "data",
+      "label": "ABS sensor RL"
+    },
+    {
+      "source": "wheel_rr",
+      "target": "brake_system",
+      "kind": "data",
+      "label": "ABS sensor RR"
+    },
+    {
+      "source": "engine_d4f",
+      "target": "radiator_cooling",
+      "kind": "thermal",
+      "label": "Coolant hoses + heater circuit"
+    },
+    {
+      "source": "engine_d4f",
+      "target": "gearbox_jh3",
+      "kind": "mechanical",
+      "label": "Bellhousing bolted"
+    },
+    {
+      "source": "gearbox_jh3",
+      "target": "wheel_fl",
+      "kind": "mechanical",
+      "label": "Driveshaft LH"
+    },
+    {
+      "source": "gearbox_jh3",
+      "target": "wheel_fr",
+      "kind": "mechanical",
+      "label": "Driveshaft RH"
+    },
+    {
+      "source": "engine_d4f",
+      "target": "chassis_floor",
+      "kind": "mechanical",
+      "label": "Engine mounts to subframe"
+    },
+    {
+      "source": "chassis_floor",
+      "target": "body_shell",
+      "kind": "mechanical",
+      "label": "Subframe bolted to shell"
+    },
+    {
+      "source": "engine_d4f",
+      "target": "exhaust_system",
+      "kind": "mechanical",
+      "label": "Manifold bolted + gasket"
+    },
+    {
+      "source": "exhaust_system",
+      "target": "chassis_floor",
+      "kind": "mechanical",
+      "label": "Rubber hangers underfloor"
+    },
+    {
+      "source": "fuel_tank",
+      "target": "chassis_floor",
+      "kind": "mechanical",
+      "label": "Tank straps under rear floor"
+    },
+    {
+      "source": "fuel_tank",
+      "target": "engine_d4f",
+      "kind": "mechanical",
+      "label": "Fuel feed line to rail"
+    },
+    {
+      "source": "starter_motor",
+      "target": "gearbox_jh3",
+      "kind": "mechanical",
+      "label": "Bolted to bellhousing"
+    },
+    {
+      "source": "alternator",
+      "target": "engine_d4f",
+      "kind": "mechanical",
+      "label": "Belt drive + bracket bolted"
+    },
+    {
+      "source": "radiator_cooling",
+      "target": "body_shell",
+      "kind": "mechanical",
+      "label": "Radiator bolted to front support"
+    },
+    {
+      "source": "battery_12v",
+      "target": "body_shell",
+      "kind": "mechanical",
+      "label": "Battery tray clamp"
+    },
+    {
+      "source": "lighting_set",
+      "target": "body_shell",
+      "kind": "mechanical",
+      "label": "Lamp housings bolted"
+    },
+    {
+      "source": "airbag_srs",
+      "target": "body_shell",
+      "kind": "mechanical",
+      "label": "Modules bolted in cabin"
+    },
+    {
+      "source": "brake_system",
+      "target": "wheel_fl",
+      "kind": "mechanical",
+      "label": "Caliper / disc at hub FL"
+    },
+    {
+      "source": "brake_system",
+      "target": "wheel_fr",
+      "kind": "mechanical",
+      "label": "Caliper / disc at hub FR"
+    },
+    {
+      "source": "brake_system",
+      "target": "wheel_rl",
+      "kind": "mechanical",
+      "label": "Drum brake RL"
+    },
+    {
+      "source": "brake_system",
+      "target": "wheel_rr",
+      "kind": "mechanical",
+      "label": "Drum brake RR"
+    },
+    {
+      "source": "ecu_injection",
+      "target": "engine_d4f",
+      "kind": "mechanical",
+      "label": "ECU bolted to inlet manifold"
+    }
+  ],
+  "repair_paths": [],
+  "sources": [
+    "https://www.automoli.com/en/vehicles/renault/clio/clio-iv-phase-i-3871/",
+    "https://www.scegliauto.com/en/video/renault/tutorial/115449/"
+  ]
+}

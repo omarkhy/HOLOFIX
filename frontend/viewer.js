@@ -32,6 +32,8 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 import { buildShape, ABSOLUTE_SHAPES } from './shapes.js';
+import { runJob, progressHtml } from './jobs.js';
+import { currentTheme } from './theme.js';
 import { addDevice, hasDevice, setLastViewed, listDiagnoses, saveDiagnosis, closeDiagnoses } from './library.js';
 
 // ---------- Settings ----------
@@ -54,7 +56,17 @@ const STAGGER = 0.35;            // outer layers start moving before inner ones
 const SCAN_END = 0.3;            // first 30 % of the slider = scan from real device to hologram
 const EASE_RATE = 5;             // easing speed (per second): ~0.6 s to cover most of a slider move
 const START_SLIDER = 0.8;        // the load animation runs the slider to 80 %
-const BLOOM_STRENGTH = 0.6;
+// Two palettes. Dark: glowing additive hologram. Light ("cream archive"): ink-on-paper blueprint,
+// normal blending and no bloom (additive light on a light background would be invisible).
+const THEMES = {
+  dark:  { bg: '#070a0e', holo: '#6fe7f0', hazard: '#f5b04c', data: '#6fe7f0', power: '#f5b04c', thermal: '#ff7a6b',
+           mechanical: '#b9b3a6', plinth: '#e9e4d8', additive: true, bloom: 0.6, fillBoost: 1 },
+  // Light: deeper ink colours, stronger lines (thin lines on cream read much weaker than glow on black).
+  light: { bg: '#efe9dc', holo: '#075a63', hazard: '#a55406', data: '#075a63', power: '#a55406', thermal: '#b42f22',
+           mechanical: '#5a5348', plinth: '#2a2723', additive: false, bloom: 0, fillBoost: 3 },
+};
+let theme = THEMES[currentTheme()] || THEMES.dark;
+let BLOOM_STRENGTH = theme.bloom;
 
 // Real-colour materials, one recipe per `finish`. `body` takes the device's own colour.
 const FINISH = {
@@ -64,15 +76,9 @@ const FINISH = {
   internal: { color: '#2b2f34', metalness: 0.4, roughness: 0.5 },    // hidden parts
 };
 
-const COLORS = {
-  holo: new THREE.Color('#6fe7f0'),
-  hazard: new THREE.Color('#f5b04c'),
-  data: new THREE.Color('#6fe7f0'),
-  power: new THREE.Color('#f5b04c'),
-  thermal: new THREE.Color('#ff7a6b'),
-  mechanical: new THREE.Color('#b9b3a6'),
-  plinth: new THREE.Color('#e9e4d8'),
-};
+const COLORS = {};
+const setColors = () => { for (const k of ['holo', 'hazard', 'data', 'power', 'thermal', 'mechanical', 'plinth']) COLORS[k] = new THREE.Color(theme[k]); };
+setColors();
 
 // Opacity of [fill, edges] for each visual state of a part.
 const LOOK = {
@@ -120,7 +126,7 @@ stageEl.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 // Set the background on the scene (colour-managed), not renderer.setClearColor: with the bloom
 // composer the clear colour gets gamma-encoded twice and the dark stage turns grey.
-scene.background = new THREE.Color('#070a0e');
+scene.background = new THREE.Color(theme.bg);
 // Reflections for the metal: a procedural studio room baked into an environment map.
 scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
 // Soft key light from the upper front so the silver reads bright, like product shots.
@@ -169,8 +175,10 @@ function buildPlinth() {
   for (const r of [2.4, 2.65]) {
     const pts = new THREE.EllipseCurve(0, 0, r, r).getPoints(128);
     const geo = new THREE.BufferGeometry().setFromPoints(pts.map(p => new THREE.Vector3(p.x, -0.05, p.y)));
-    const mat = new THREE.LineBasicMaterial({ color: COLORS.plinth, transparent: true, opacity: r < 2.4 ? 0.14 : 0.06 });
-    scene.add(new THREE.LineLoop(geo, mat));
+    const base = r < 2.4 ? 0.14 : 0.06;
+    const mat = new THREE.LineBasicMaterial({ color: COLORS.plinth, transparent: true, opacity: base * (theme.additive ? 1 : 2) });
+    const ring = new THREE.LineLoop(geo, mat); ring.userData.plinth = base;
+    scene.add(ring);
   }
 }
 
@@ -191,10 +199,13 @@ async function loadGraph(url) {
  */
 function buildDevice(graph) {
   const dims = graph.device.dimensions_mm || FALLBACK_DIMENSIONS;
-  const W = dims.width * MM, D = dims.depth * MM;
-  const lidT = dims.height_min * 0.7 * MM;
-  const baseFront = dims.height_min * MM - lidT;
-  const baseBack = dims.height_max * MM - lidT;
+  // Scale: real millimetres for laptop-sized things; anything larger (a car) is scaled to fit the plinth.
+  const k = Math.min(MM, 3.2 / Math.max(dims.width, dims.depth));
+  const car = graph.device.category === 'car';
+  const W = dims.width * k, D = dims.depth * k, H = dims.height_max * k;
+  const lidT = car ? 0 : dims.height_min * 0.7 * k;
+  const baseFront = car ? H : dims.height_min * k - lidT;
+  const baseBack = car ? H : dims.height_max * k - lidT;
 
   // Height of the base's top surface at depth z (z = +D/2 is the front edge).
   const baseTopAt = (z) => {
@@ -218,7 +229,7 @@ function buildDevice(graph) {
   const top = baseTopAt(-D / 2) + Math.sin(THREE.MathUtils.degToRad(LID_OPEN_DEG)) * D + 0.05;
 
   return {
-    W, D, lidT, baseBack, baseTopAt, cutouts, lidPivot, scanRange: [-0.03, top],
+    W, D, H, car, lidT, baseBack, baseTopAt, cutouts, lidPivot, scanRange: [-0.03, car ? H + 0.05 : top],
     radius: Math.min(W, D) * 0.045, wall: 0.03, deckThickness: 0.012,
     maxLayer: { base: maxLayer('base'), lid: maxLayer('lid') },
   };
@@ -282,7 +293,7 @@ function buildPart(part) {
 
   const fill = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
     color, transparent: true, opacity: LOOK.idle[0], clippingPlanes: [holoClip],
-    depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending,
+    depthWrite: false, side: THREE.DoubleSide, blending: theme.additive ? THREE.AdditiveBlending : THREE.NormalBlending,
   }));
   fill.userData.partId = part.id;
 
@@ -375,7 +386,12 @@ function layoutParts() {
     const room = Math.max(baseTopAt(z0) - deckThickness - floor, s.h);
     const topInternal = Math.max(2, maxLayer.base - 1);
     const t = THREE.MathUtils.clamp((part.layer - 1) / (topInternal - 1), 0, 1);
-    const yClosed = floor + s.h / 2 + t * (room - s.h);
+    let yClosed = floor + s.h / 2 + t * (room - s.h);
+    if (state.dev.car) {
+      // Cars: wheels stand on the ground; everything else sits low in the body (engine bay, under the
+      // floor, under the seats), lifted slightly by layer so stacked systems stay readable.
+      yClosed = part.shape === 'wheel' ? s.d / 2 : 0.06 + s.h / 2 + Math.max(0, part.layer - 1) * 0.04;
+    }
     // Exploded: up by layer, and outwards from the centre.
     group.position.set(x0 * (1 + e * SPREAD), yClosed + e * lift(part), z0 * (1 + e * SPREAD));
   }
@@ -387,6 +403,29 @@ function layoutParts() {
 
   updateFibres();
 }
+
+// ---------- 4a. Theme switch (live, no reload) ----------
+
+addEventListener('holofix:theme', (e) => {
+  theme = THEMES[e.detail] || THEMES.dark;
+  BLOOM_STRENGTH = theme.bloom;
+  setColors();
+  scene.background.set(theme.bg);
+  scene.traverse((o) => { if (o.userData.plinth) { o.material.color.copy(COLORS.plinth); o.material.opacity = o.userData.plinth * (theme.additive ? 1 : 2); } });
+  for (const entry of state.parts.values()) {
+    const c = entry.part.hazard ? COLORS.hazard : COLORS.holo;
+    entry.baseColor = `#${c.getHexString()}`;
+    entry.fill.material.blending = theme.additive ? THREE.AdditiveBlending : THREE.NormalBlending;
+    entry.fill.material.needsUpdate = true;
+    for (const child of entry.group.children) if (child.userData.isTrace) child.material.color.copy(c);
+  }
+  for (const f of state.fibres) {
+    const c = COLORS[f.conn.kind] || COLORS.data;
+    f.line.material.color.copy(c); f.pulse.material.color.copy(c);
+  }
+  scanLine?.traverse((o) => { if (o.material) o.material.color.copy(COLORS.holo); });
+  if (state.dev) { applyScan(); refreshLooks(); }
+});
 
 // ---------- 4b. Scan line: real device -> hologram ----------
 
@@ -419,6 +458,7 @@ function applyScan() {
   scanLine.visible = T > 0 && T < 1;
   for (const e of state.parts.values()) { e.solid.visible = T < 1; e.outline.visible = T < 1; }
   bloom.strength = BLOOM_STRENGTH * T;
+  bloom.enabled = BLOOM_STRENGTH > 0;
   if (T !== state.holoT) { state.holoT = T; refreshLooks(); }
 }
 
@@ -471,8 +511,9 @@ function partIsVisible(part) {
 
 function setLook(entry, look) {
   const [fillOpacity, edgeOpacity] = LOOK[look];
-  entry.fill.material.opacity = fillOpacity;
-  entry.edges.material.opacity = edgeOpacity;
+  entry.fill.material.opacity = fillOpacity * theme.fillBoost;
+  // Light theme: lift every line (dimmed parts stay readable, about a third as strong as the rest).
+  entry.edges.material.opacity = theme.additive ? edgeOpacity : Math.min(1, edgeOpacity * 1.3 + 0.25);
   // Hologram colour: suspects take a warning colour by rank, everything else its own colour.
   const rank = state.suspectRank.get(entry.part.id);
   const color = look === 'suspect' ? SUSPECT_COLORS[Math.min(rank, 2)] : entry.baseColor;
@@ -508,7 +549,7 @@ function refreshLooks() {
     let opacity = 0.45;
     if (state.selectedId) opacity = touchesSelection ? 1 : 0.05;
     else if (!bothVisible) opacity = 0.05;
-    f.line.material.opacity = opacity * state.holoT;          // fibres appear with the hologram
+    f.line.material.opacity = Math.min(1, opacity * (theme.additive ? 1 : 1.7)) * state.holoT;   // fibres appear with the hologram
     f.pulse.material.opacity = opacity > 0.2 ? state.holoT : 0;
   }
 }
@@ -635,15 +676,27 @@ document.addEventListener('click', (e) => {
 
 const TIER = { green: 'Do it at home', yellow: 'Needs tools and care', red: 'Technician only' };
 
+/** Redraw only the live-progress card (not the whole panel, so nothing jumps while polling). */
+function liveUpdate(view) {
+  if (!state.diag) return;
+  state.diag.view = view;
+  const el = document.getElementById('job-live');
+  if (el) el.innerHTML = progressHtml(liveTitle(), view);
+}
+
+function liveTitle() {
+  const d = state.diag;
+  if (d.photo && !d.photo.reading) return 'Analysing your photo';
+  return d.history.length ? 'Updating the diagnosis with your answer' : 'Diagnosing your device';
+}
+
 async function runDiagnosis() {
   const d = state.diag;
-  d.loading = true; d.error = null; renderPanel();
+  d.loading = true; d.error = null; d.view = null; renderPanel();
   try {
-    const res = await fetch('/api/diagnose', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path: DATA_URL, symptom: d.symptom, history: d.history }) });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.detail || `The server answered ${res.status}.`);
+    const data = await runJob('diagnose', { path: DATA_URL, symptom: d.symptom, history: d.history }, liveUpdate);
     d.result = data;
+    data.suspects.forEach(s => { s.part_name = state.parts.get(s.part_id)?.part.name; });   // for the Diagnoses page
     saveDiagnosis(DATA_URL, state.graph.device.model_name, d);   // survives tab changes and reloads
     state.suspectRank = new Map(data.suspects.map((s, i) => [s.part_id, i]));
     if (state.target < SCAN_END + 0.3) { state.target = 0.85; sliderEl.value = 85; }   // open it up to show the suspects
@@ -652,6 +705,62 @@ async function runDiagnosis() {
   state.selectedId = null;
   refreshLooks(); renderPanel();
 }
+
+// ---------- Photo diagnosis: Muse Spark reads the photo, SAM 3.1 outlines the damage ----------
+
+/** Downscale in the browser (smaller upload, faster, cheaper); returns a JPEG data URL. */
+async function shrink(file, max) {
+  const bmp = await createImageBitmap(file);
+  const k = Math.min(1, max / Math.max(bmp.width, bmp.height));
+  const c = document.createElement('canvas');
+  c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+  c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+  return c.toDataURL('image/jpeg', 0.85);
+}
+
+async function photoDiagnosis(file) {
+  let image, thumb;
+  try { image = await shrink(file, 1600); thumb = await shrink(file, 640); }
+  catch { state.diag = { symptom: 'Photo', history: [], result: null, loading: false, error: 'This browser cannot open that image format (HEIC?). Use a JPEG or PNG.' }; return renderPanel(); }
+  state.diag = { symptom: 'Photo', history: [], result: null, loading: true, error: null, photo: { thumb } };
+  state.selectedId = null; renderPanel();
+  try {
+    const data = await runJob('photo', { path: DATA_URL, image }, liveUpdate);
+    // The outline is in the coordinates of the uploaded image; the thumbnail has the same proportions.
+    state.diag.photo = { thumb, ...data };
+    if (!data.reading.visible_damage) {
+      // Nothing visibly wrong: don't run (and pay for) a diagnosis of "it looks fine".
+      state.diag.symptom = 'Photo check';
+      state.diag.loading = false;
+      state.diag.error = null;
+      state.diag.noDamage = true;
+      return renderPanel();
+    }
+    state.diag.symptom = data.reading.symptom;
+    state.diag.history = [{ question: 'What does the photo show?', answer: data.reading.observation }];
+    runDiagnosis();
+  } catch (e) { state.diag.loading = false; state.diag.error = e.message; renderPanel(); }
+}
+
+function photoBlock(p) {
+  if (!p) return '';
+  const w = p.width || 1000, h = p.height || 750;
+  const shapes = (p.regions || []).map(r => r.path
+    ? r.path.replace('<path', '<path class="mask"')
+    : `<rect class="box" x="${r.left}" y="${r.top}" width="${r.right - r.left}" height="${r.bottom - r.top}"/>`).join('');
+  const conf = (p.regions || [])[0]?.confidence;
+  return `<figure class="photo">
+      <div class="photo-frame"><img src="${p.thumb}" alt="Your photo">
+        <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">${shapes}</svg></div>
+      ${p.reading ? `<figcaption><b>${escapeHtml(p.reading.noun_phrase)}</b>${conf ? ` · SAM 3.1 ${Math.round(conf * 100)}%` : ''}<br>${escapeHtml(p.reading.observation)}</figcaption>` : '<figcaption>Reading the photo…</figcaption>'}
+    </figure>`;
+}
+
+document.getElementById('photo').addEventListener('change', (e) => {
+  const f = e.target.files[0];
+  e.target.value = '';
+  if (f) photoDiagnosis(f);
+});
 
 function startDiagnosis(symptom) {
   // Same symptom already diagnosed on this device: reopen it instantly instead of asking again.
@@ -662,7 +771,7 @@ function startDiagnosis(symptom) {
 }
 
 function openDiagnosis(saved) {
-  state.diag = { symptom: saved.symptom, history: saved.history, result: saved.result, loading: false, error: null };
+  state.diag = { symptom: saved.symptom, history: saved.history, result: saved.result, loading: false, error: null, photo: saved.photo };
   state.suspectRank = new Map(saved.result.suspects.map((s, i) => [s.part_id, i]));
   state.selectedId = null;
   saveDiagnosis(DATA_URL, state.graph.device.model_name, state.diag);
@@ -688,11 +797,53 @@ panelEl.addEventListener('click', (e) => {
   if (b) openDiagnosis(listDiagnoses(DATA_URL)[+b.dataset.diag]);
 });
 
+/**
+ * Pictures for the repair guide, rendered from THIS device's 3D model: the part highlighted in the
+ * exploded hologram ("where it is") and in the assembled real-colour view ("where on your device").
+ * Handed to guide.html through localStorage (one slot, overwritten each time).
+ */
+function captureGuideShots(partId) {
+  const saved = { sel: state.selectedId, explode: state.explode, target: state.target, slider: sliderEl.value };
+  const shot = (explode) => {
+    state.explode = state.target = explode;
+    layoutParts(); refreshLooks();
+    composer.render();                                  // read right after rendering: no preserveDrawingBuffer needed
+    return renderer.domElement.toDataURL('image/jpeg', 0.85);
+  };
+  state.selectedId = partId;
+  const images = [
+    { src: shot(0.85), caption: 'Exploded view of your device: the part is highlighted.' },
+    { src: shot(0), caption: 'Assembled: where the part sits in your device.' },
+  ];
+  state.selectedId = saved.sel; state.explode = saved.explode; state.target = saved.target; sliderEl.value = saved.slider;
+  layoutParts(); refreshLooks();
+  const p = state.diag?.photo;
+  if (p?.reading) images.push({ src: p.thumb, regions: p.regions, width: p.width, height: p.height,
+    caption: `Your photo: “${p.reading.noun_phrase}” outlined by SAM 3.1.` });
+  try { localStorage.setItem('holofix.guideShots', JSON.stringify({ path: DATA_URL, part: partId, images })); }
+  catch { /* storage full or blocked: the guide simply has no pictures */ }
+}
+
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('.guide-link');
+  if (a) captureGuideShots(a.dataset.part);
+}, true);
+
+/** Link to the printable step-by-step guide for a part (opens in a new tab). */
+function guideLink(partId, label = 'Step-by-step repair guide') {
+  const u = new URLSearchParams({ data: DATA_URL, part: partId });
+  if (state.diag?.symptom && state.diag.symptom !== 'Photo check') u.set('symptom', state.diag.symptom);
+  return `<a class="guide-link" data-part="${partId}" href="/guide.html?${u}" target="_blank" rel="noopener">${label} ↗</a>`;
+}
+
 function renderDiagnosis() {
   const d = state.diag, r = d.result, name = (id) => state.parts.get(id)?.part.name || id;
   let body;
   if (d.loading) {
-    body = `<div class="wait"><span class="pulse"></span><p>${d.history.length ? 'Updating the diagnosis…' : 'Checking repair guides for this symptom…'}</p></div>`;
+    body = `<div id="job-live">${progressHtml(liveTitle(), d.view)}</div>`;
+  } else if (d.noDamage) {
+    body = `<p class="lead">No visible damage in this photo. Many faults (software, a failing chip, a loose connector inside)
+      do not show from the outside: describe what happens in the bar above, or photograph the problem area up close.</p>`;
   } else if (d.error) {
     body = `<div class="error"><p><b>That did not work.</b> ${escapeHtml(d.error)}</p><button class="btn" id="diag-retry">Try again</button></div>`;
   } else if (r) {
@@ -713,7 +864,8 @@ function renderDiagnosis() {
         </div>` : ''}
       ${r.fixes.length ? `<h2>What to do</h2><div class="fixes">${r.fixes.map(f => `
         <div class="fix ${f.tier}"><div class="fix-head"><i></i><b>${escapeHtml(f.title)}</b><small>${TIER[f.tier]}</small></div>
-          ${f.steps.length ? `<ol>${f.steps.map(s => `<li>${escapeHtml(s)}</li>`).join('')}</ol>` : ''}</div>`).join('')}</div>` : ''}
+          ${f.steps.length ? `<ol>${f.steps.map(s => `<li>${escapeHtml(s)}</li>`).join('')}</ol>` : ''}
+          ${f.tier === 'yellow' && f.part_ids?.[0] ? guideLink(f.part_ids[0]) : ''}</div>`).join('')}</div>` : ''}
       ${r.sources.length ? `<p class="source">Based on: ${r.sources.slice(0, 4).map(u => { try { return `<a href="${escapeHtml(u)}" target="_blank" rel="noopener">${escapeHtml(new URL(u).hostname.replace('www.', ''))}</a>`; } catch { return ''; } }).join(', ')}</p>` : ''}
       <p class="source">AI diagnosis: a starting point, not a guarantee. When in doubt, ask a repair shop.</p>`;
   }
@@ -721,6 +873,7 @@ function renderDiagnosis() {
     <button class="link back" id="diag-close">← ${escapeHtml(state.graph.device.model_name)}</button>
     <p class="kicker">Diagnosis</p>
     <h1 class="diag-title">“${escapeHtml(d.symptom)}”</h1>
+    ${photoBlock(d.photo)}
     ${d.history.length ? `<ul class="history">${d.history.map(t => `<li>${escapeHtml(t.question)} <b>${escapeHtml(t.answer)}</b></li>`).join('')}</ul>` : ''}
     ${body}`;
   document.getElementById('diag-close').addEventListener('click', endDiagnosis);
@@ -786,6 +939,7 @@ function renderPanel() {
       const other = state.parts.get(c.source === p.id ? c.target : c.source).part;
       return `<li><i class="kind ${c.kind}"></i><button data-part="${other.id}">${escapeHtml(other.name)}</button> <span class="quiet">${escapeHtml(c.label || c.kind)}</span></li>`;
     }).join('')}</ul>` : ''}
+    ${guideLink(p.id, p.serviceability === 'soldered' || p.hazard ? 'What to tell a repair shop' : 'Step-by-step repair guide')}
     <p class="source">
       ${p.source_url ? `Source: <a href="${escapeHtml(p.source_url)}" target="_blank" rel="noopener">${escapeHtml(new URL(p.source_url).hostname.replace('www.', ''))}</a><br>` : 'No source cited.<br>'}
       Confidence ${Math.round(p.confidence * 100)}%
@@ -881,7 +1035,8 @@ async function main() {
   refreshLooks();
   renderRail();
   // Reopen the diagnosis that was open on this device (e.g. after visiting another page).
-  const open = listDiagnoses(DATA_URL).find(d => d.open && d.result);
+  const wanted = new URLSearchParams(location.search).get('diag');   // from the Diagnoses page
+  const open = listDiagnoses(DATA_URL).find(d => d.result && (wanted ? d.symptom === wanted : d.open));
   if (open) openDiagnosis(open); else renderPanel();
   resize();
   animate();

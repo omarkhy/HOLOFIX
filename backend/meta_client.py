@@ -28,7 +28,7 @@ from typing import Any, TypeVar
 import httpx
 from pydantic import BaseModel, ValidationError
 
-from backend import config
+from backend import config, progress
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -54,7 +54,9 @@ def _post(path: str, body: dict) -> dict:
     key = hashlib.sha256(json.dumps([path, body], sort_keys=True).encode()).hexdigest()[:24]
     cache_file = config.CACHE_DIR / f"{key}.json"
     if config.CACHE_READ and cache_file.exists():
-        return json.loads(cache_file.read_text())
+        data = json.loads(cache_file.read_text())
+        data.setdefault("_holofix", {})["cached"] = True
+        return data
 
     started = time.time()
     r = _client.post(path, json=body)
@@ -82,7 +84,7 @@ def chat(messages: list[dict], **extra: Any) -> str:
 URL_RE = re.compile(r"https?://[^\s)\]>\"'}]+")
 
 
-def web_research(question: str) -> tuple[str, list[str]]:
+def web_research(question: str, label: str = "Searching the web…") -> tuple[str, list[str]]:
     """Ask with the web_search tool. Returns (final answer text, source URLs).
 
     The Responses API returns a list of output items: reasoning, web_search_call, message...
@@ -90,8 +92,13 @@ def web_research(question: str) -> tuple[str, list[str]]:
     answer. URLs are collected from citation annotations, from search-call items, and as a
     fallback from the text itself — whichever the API actually provides.
     """
+    s = progress.step("Muse Spark", label)
     body = {"model": config.META_MODEL, "input": question, "tools": [{"type": "web_search"}]}
-    data = _post("/responses", body)
+    try:
+        data = _post("/responses", body)
+    except Exception:
+        progress.done(s, state="error")
+        raise
     items = data.get("output", [])
 
     messages = [i for i in items if i.get("type") == "message"]
@@ -110,6 +117,10 @@ def web_research(question: str) -> tuple[str, list[str]]:
     urls += URL_RE.findall(text)
 
     clean = list(dict.fromkeys(u.rstrip(".,;") for u in urls))   # de-duplicate, keep order
+    searches = sum(1 for i in items if i.get("type") == "web_search_call")
+    cached = " (saved answer)" if data.get("_holofix", {}).get("cached") else ""
+    topic = label.rstrip("…").rstrip(".")
+    progress.done(s, f"{topic} · {len(clean)} sources{f', {searches} searches' if searches else ''}: {progress.hosts(clean) or 'none'}{cached}")
     return text.strip(), clean
 
 
@@ -132,7 +143,8 @@ def _inline_refs(schema: dict) -> dict:
     return walk(schema)
 
 
-def structured(prompt: str, model: type[T], system: str | None = None, retries: int = 2) -> T:
+def structured(prompt: str, model: type[T], system: str | None = None, retries: int = 2,
+               label: str | None = None) -> T:
     """Get an answer that validates against `model`. On validation failure, the errors are
     sent back to Muse Spark and it gets `retries` chances to fix its own output."""
     schema = _inline_refs(model.model_json_schema())
@@ -145,14 +157,24 @@ def structured(prompt: str, model: type[T], system: str | None = None, retries: 
     }
 
     last_error = ""
+    s = progress.step("Muse Spark", label or f"Writing {model.__name__}…")
     for attempt in range(retries + 1):
-        content = chat(messages, response_format=response_format)
         try:
-            return model.model_validate_json(content)
+            content = chat(messages, response_format=response_format)
+        except Exception:
+            progress.done(s, state="error")
+            raise
+        try:
+            result = model.model_validate_json(content)
+            progress.done(s, (label or model.__name__).rstrip("…") + (f" (fixed after {attempt} check{'s' if attempt > 1 else ''})" if attempt else ""))
+            return result
         except ValidationError as e:
             last_error = str(e)
+            n = e.error_count()
+            progress.update(s, f"Our validator found {n} problem{'s' if n > 1 else ''}; Muse Spark is fixing its answer (try {attempt + 2})…")
             messages += [
                 {"role": "assistant", "content": content},
                 {"role": "user", "content": f"Your JSON failed validation:\n{last_error}\nReturn the corrected JSON only."},
             ]
+    progress.done(s, "Could not produce valid data", state="error")
     raise MetaAPIError(f"{model.__name__}: still invalid after {retries} repairs.\n{last_error}")

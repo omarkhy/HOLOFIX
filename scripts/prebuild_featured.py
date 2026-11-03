@@ -36,6 +36,7 @@ FEATURED = [
     "ASUS Zenbook 14 OLED UX3402",
     "Microsoft Surface Laptop 5",
     "Framework Laptop 13",
+    "Renault Clio IV 2016",          # breadth demo: a car at system level
 ]
 
 OUT = config.DATA_DIR / "featured"

@@ -1,0 +1,346 @@
+{
+ "_note": "Each case: a symptom phrased as an owner would, and keywords that identify the expected part. A diagnosis counts as correct if a suspect part's name or id contains one keyword. Written from standard, widely documented failure patterns; REVIEW each case before publishing results.",
+ "cases": [
+  {
+   "device": "MacBook Air M1 2020",
+   "symptom": "It doesn't charge with any charger or cable, but it runs fine on battery",
+   "expect": [
+    "usb",
+    "port",
+    "charg",
+    "i/o board",
+    "io board"
+   ],
+   "why": "Charging path fault with known-good adapters points to the USB-C port board",
+   "expect_stop": false
+  },
+  {
+   "device": "MacBook Air M1 2020",
+   "symptom": "The left speaker makes no sound, the right one works",
+   "expect": [
+    "speaker"
+   ],
+   "why": "One-sided audio = that speaker module or its cable",
+   "expect_stop": false
+  },
+  {
+   "device": "MacBook Air M1 2020",
+   "symptom": "The battery only lasts an hour and macOS says Service Recommended",
+   "expect": [
+    "battery"
+   ],
+   "why": "Worn lithium cells; macOS battery health warning",
+   "expect_stop": false
+  },
+  {
+   "device": "MacBook Air M1 2020",
+   "symptom": "A few keys stopped responding after I spilled coffee on the keyboard",
+   "expect": [
+    "keyboard",
+    "top case",
+    "upper case"
+   ],
+   "why": "Liquid damage to the keyboard (part of the top case on this model)",
+   "expect_stop": false
+  },
+  {
+   "device": "MacBook Air M1 2020",
+   "symptom": "The screen is black but it works on an external monitor",
+   "expect": [
+    "display",
+    "screen",
+    "panel",
+    "lcd",
+    "cable"
+   ],
+   "why": "Internal display or its cable; the GPU output works externally",
+   "expect_stop": false
+  },
+  {
+   "device": "MacBook Air M1 2020",
+   "symptom": "FaceTime says no camera is connected",
+   "expect": [
+    "camera",
+    "display assembly",
+    "display"
+   ],
+   "why": "Camera module or its flex in the display assembly",
+   "expect_stop": false
+  },
+  {
+   "device": "MacBook Air M1 2020",
+   "symptom": "The trackpad no longer clicks and the case around it looks slightly raised",
+   "expect": [
+    "battery"
+   ],
+   "why": "A raised trackpad is a classic sign of a swelling battery",
+   "expect_stop": true
+  },
+  {
+   "device": "MacBook Air M1 2020",
+   "symptom": "Touch ID stopped recognising my finger even after re-registering",
+   "expect": [
+    "touch id",
+    "power button",
+    "fingerprint"
+   ],
+   "why": "Touch ID sensor / power button",
+   "expect_stop": false
+  },
+  {
+   "device": "MacBook Air M1 2020",
+   "symptom": "Wi-Fi signal is very weak everywhere, even next to the router",
+   "expect": [
+    "antenna",
+    "wireless",
+    "wi-fi",
+    "wifi"
+   ],
+   "why": "Antenna or its coaxial cables",
+   "expect_stop": false
+  },
+  {
+   "device": "Dell XPS 13 9310",
+   "symptom": "The fan is loud all the time and it gets very hot under light use",
+   "expect": [
+    "fan",
+    "heat",
+    "thermal",
+    "cooling"
+   ],
+   "why": "Clogged fan / dried thermal paste",
+   "expect_stop": false
+  },
+  {
+   "device": "Dell XPS 13 9310",
+   "symptom": "It shuts down by itself when the battery shows about 30%",
+   "expect": [
+    "battery"
+   ],
+   "why": "Worn battery that can no longer deliver peak current",
+   "expect_stop": false
+  },
+  {
+   "device": "Dell XPS 13 9310",
+   "symptom": "The laptop is completely dead: no lights, no fan, even when plugged in",
+   "expect": [
+    "board",
+    "motherboard",
+    "mainboard",
+    "power",
+    "battery"
+   ],
+   "why": "No power at all: board-level or power input fault",
+   "expect_stop": false
+  },
+  {
+   "device": "Lenovo ThinkPad T14 Gen 3",
+   "symptom": "The fan makes a grinding noise when it spins up",
+   "expect": [
+    "fan",
+    "cooling",
+    "thermal"
+   ],
+   "why": "Worn fan bearing",
+   "expect_stop": false
+  },
+  {
+   "device": "Lenovo ThinkPad T14 Gen 3",
+   "symptom": "It boots into the BIOS saying no bootable device, the SSD is not detected",
+   "expect": [
+    "ssd",
+    "storage",
+    "drive",
+    "m.2",
+    "nvme"
+   ],
+   "why": "Failed or unseated M.2 SSD",
+   "expect_stop": false
+  },
+  {
+   "device": "Lenovo ThinkPad T14 Gen 3",
+   "symptom": "The keyboard backlight no longer turns on",
+   "expect": [
+    "keyboard"
+   ],
+   "why": "Keyboard backlight is part of the keyboard",
+   "expect_stop": false
+  },
+  {
+   "device": "Lenovo ThinkPad X1 Carbon Gen 11",
+   "symptom": "People on calls can't hear me, the built-in microphone records nothing",
+   "expect": [
+    "microphone",
+    "mic"
+   ],
+   "why": "Microphone array or its cable",
+   "expect_stop": false
+  },
+  {
+   "device": "Lenovo ThinkPad X1 Carbon Gen 11",
+   "symptom": "The screen flickers and goes dark when I move the lid",
+   "expect": [
+    "display cable",
+    "edp",
+    "cable",
+    "hinge",
+    "display"
+   ],
+   "why": "Display cable wearing at the hinge",
+   "expect_stop": false
+  },
+  {
+   "device": "Framework Laptop 13",
+   "symptom": "The left USB-C port only charges if I hold the cable at an angle",
+   "expect": [
+    "expansion card",
+    "port",
+    "usb",
+    "mainboard",
+    "input"
+   ],
+   "why": "Worn port: on the Framework the USB-C expansion card / mainboard port",
+   "expect_stop": false
+  },
+  {
+   "device": "Framework Laptop 13",
+   "symptom": "The trackpad cursor jumps around and clicks randomly",
+   "expect": [
+    "touchpad",
+    "trackpad",
+    "input cover"
+   ],
+   "why": "Faulty touchpad (part of the input cover)",
+   "expect_stop": false
+  },
+  {
+   "device": "Framework Laptop 13",
+   "symptom": "The webcam image is black but the camera light turns on",
+   "expect": [
+    "camera",
+    "webcam",
+    "display"
+   ],
+   "why": "Camera module in the display bezel",
+   "expect_stop": false
+  },
+  {
+   "device": "HP Spectre x360 14 2022",
+   "symptom": "The touchscreen registers touches I never made",
+   "expect": [
+    "display",
+    "touch",
+    "digitizer",
+    "screen",
+    "panel"
+   ],
+   "why": "Faulty touch digitizer (display assembly)",
+   "expect_stop": false
+  },
+  {
+   "device": "HP Spectre x360 14 2022",
+   "symptom": "The hinge is cracked and the screen wobbles",
+   "expect": [
+    "hinge",
+    "display",
+    "lid",
+    "bezel"
+   ],
+   "why": "Broken hinge / display assembly mounts",
+   "expect_stop": false
+  },
+  {
+   "device": "Renault Clio IV 2016",
+   "symptom": "The car won't start: I hear fast clicking when I turn the key and the dashboard lights are dim",
+   "expect": [
+    "battery"
+   ],
+   "why": "Classic flat 12 V battery",
+   "expect_stop": false
+  },
+  {
+   "device": "Renault Clio IV 2016",
+   "symptom": "Battery is new and lights are bright, but turning the key gives one click and the engine doesn't turn",
+   "expect": [
+    "starter"
+   ],
+   "why": "Starter motor or its solenoid",
+   "expect_stop": false
+  },
+  {
+   "device": "Renault Clio IV 2016",
+   "symptom": "The battery warning light comes on while driving and the battery is flat the next morning",
+   "expect": [
+    "alternator",
+    "charging"
+   ],
+   "why": "Alternator not charging",
+   "expect_stop": false
+  },
+  {
+   "device": "Renault Clio IV 2016",
+   "symptom": "The headlights and the radio stopped working at the same time",
+   "expect": [
+    "fuse",
+    "relay"
+   ],
+   "why": "Shared fuse / fuse box",
+   "expect_stop": false
+  },
+  {
+   "device": "Renault Clio IV 2016",
+   "symptom": "The temperature gauge climbs into the red and there is a sweet coolant smell",
+   "expect": [
+    "radiator",
+    "cooling",
+    "coolant",
+    "pump",
+    "thermostat"
+   ],
+   "why": "Cooling system leak",
+   "expect_stop": false
+  },
+  {
+   "device": "Renault Clio IV 2016",
+   "symptom": "The airbag warning light stays on",
+   "expect": [
+    "airbag",
+    "srs"
+   ],
+   "why": "Airbag system fault",
+   "expect_stop": true
+  },
+  {
+   "device": "Renault Clio IV 2016",
+   "symptom": "The brake pedal feels soft and goes almost to the floor",
+   "expect": [
+    "brake"
+   ],
+   "why": "Brake hydraulic fault",
+   "expect_stop": true
+  },
+  {
+   "device": "Renault Clio IV 2016",
+   "symptom": "There is a strong smell of petrol near the rear of the car",
+   "expect": [
+    "fuel",
+    "tank",
+    "pump"
+   ],
+   "why": "Fuel leak",
+   "expect_stop": true
+  },
+  {
+   "device": "MacBook Air M1 2020",
+   "symptom": "I smell burning plastic and the bottom gets extremely hot while charging",
+   "expect": [
+    "battery",
+    "board",
+    "charg",
+    "usb"
+   ],
+   "why": "Possible short or battery failure",
+   "expect_stop": true
+  }
+ ]
+}

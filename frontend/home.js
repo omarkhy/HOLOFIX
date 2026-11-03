@@ -11,7 +11,8 @@
  * is doing and the elapsed time. Results are cached by the server: the second time is instant.
  */
 
-import { listDevices, removeDevice, addDevice, DEMO_PATH, lastViewed } from './library.js';
+import { listDevices, removeDevice, addDevice, DEMO_PATH, lastViewed, listDiagnoses, listGuides } from './library.js';
+import { runJob, progressHtml } from './jobs.js';
 
 const params = new URLSearchParams(location.search);
 const isHome = !params.has('data');
@@ -19,22 +20,30 @@ document.body.classList.toggle('mode-home', isHome);
 
 // Menu entries: real links now.
 document.querySelectorAll('[data-nav="explore"]').forEach(a => { a.href = `/?data=${encodeURIComponent(lastViewed())}`; });
-// Diagnose = the last viewed device, with the symptom box focused.
-document.querySelectorAll('[data-nav="diagnose"]').forEach(a => { a.href = `/?data=${encodeURIComponent(lastViewed())}&diagnose`; });
-if (!isHome && params.has('diagnose')) {
-  document.querySelector('[data-nav="explore"]')?.removeAttribute('aria-current');
-  document.querySelector('[data-nav="diagnose"]')?.setAttribute('aria-current', 'page');
-}
-/** Two pages share this section: "New device" (search) and "Your devices" (#library). */
+document.querySelectorAll('[data-nav="diagnose"]').forEach(a => { a.href = '/#diagnoses'; });
+/**
+ * The home section holds four pages, picked by the URL hash:
+ *   (none) New device · #library Your devices · #diagnoses Diagnoses · #method Method & accuracy
+ * Elements carry data-page="new library…"; CSS shows only the current page's elements.
+ */
+const PAGES = { '': 'new', '#library': 'library', '#diagnoses': 'diagnoses', '#method': 'method' };
+const NAV = { new: 'home', library: 'library', diagnoses: 'diagnose', method: 'method' };
+function currentPage() { return PAGES[location.hash] || 'new'; }
+
 function syncPage() {
-  const lib = location.hash === '#library';
-  document.body.classList.toggle('page-library', isHome && lib);
-  document.querySelectorAll('[data-nav="home"]').forEach(a => a.setAttribute('aria-current', isHome && !lib ? 'page' : 'false'));
-  document.querySelectorAll('[data-nav="library"]').forEach(a => a.setAttribute('aria-current', isHome && lib ? 'page' : 'false'));
+  const page = currentPage();
+  document.body.dataset.page = isHome ? page : '';
+  document.querySelectorAll('.drawer [data-nav]').forEach(a => a.setAttribute('aria-current',
+    (isHome && NAV[page] === a.dataset.nav) || (!isHome && a.dataset.nav === 'explore') ? 'page' : 'false'));
+  if (!isHome) return;
+  if (page === 'new' || page === 'library') renderLibrary();
+  if (page === 'diagnoses') renderDiagnoses();
+  if (page === 'method') renderMethod();
+  if (page === 'new') input.focus();
+  document.getElementById('home').scrollTop = 0;
 }
-syncPage();
-addEventListener('hashchange', () => { syncPage(); renderLibrary(); if (location.hash !== '#library') input.focus(); });
-if (isHome) document.querySelector('[data-nav="explore"]')?.removeAttribute('aria-current');
+addEventListener('hashchange', syncPage);
+
 
 const home = document.getElementById('home');
 const flow = document.getElementById('flow');
@@ -50,18 +59,10 @@ async function api(path, body) {
   return data;
 }
 
-/** A waiting line with a live seconds counter; returns a function that stops it. */
-function waiting(lines) {
-  const t0 = Date.now();
-  flow.innerHTML = `<div class="wait"><span class="pulse" aria-hidden="true"></span><p id="wait-line">${esc(lines[0])}</p><small id="wait-time">0 s</small></div>`;
-  const timer = setInterval(() => {
-    const s = Math.round((Date.now() - t0) / 1000);
-    document.getElementById('wait-time').textContent = `${s} s`;
-    // Step through the pipeline's stages as time passes (they are honest descriptions of what runs).
-    const i = Math.min(lines.length - 1, Math.floor(s / 25));
-    document.getElementById('wait-line').textContent = lines[i];
-  }, 500);
-  return () => clearInterval(timer);
+/** Run a job and draw its live steps in the flow box. */
+function job(kind, payload, title) {
+  flow.innerHTML = progressHtml(title, null);
+  return runJob(kind, payload, (view) => { flow.innerHTML = progressHtml(title, view); });
 }
 
 function failure(message, retry) {
@@ -73,14 +74,12 @@ function failure(message, retry) {
 
 async function search(query) {
   history.replaceState(null, '', '/');
-  const stop = waiting([`Searching the web for “${query}”…`, 'Checking which models share that name…']);
   try {
-    const result = await api('/api/identify', { query });
-    stop();
+    const result = await job('identify', { query }, `Finding “${query}”`);
     if (!result.variants.length) return failure('No device matched that name. Try the full model name, e.g. “MacBook Air 2020”.', () => search(query));
     if (result.variants.length === 1 && !result.needs_choice) return chooseConfig(result.variants[0]);
     showVariants(result);
-  } catch (e) { stop(); failure(e.message, () => search(query)); }
+  } catch (e) { failure(e.message, () => search(query)); }
 }
 
 function showVariants(result) {
@@ -99,12 +98,10 @@ function showVariants(result) {
 // ---------- 2. configure ----------
 
 async function chooseConfig(variant) {
-  const stop = waiting([`Looking up how the ${variant.model_name} was sold…`]);
   try {
-    const cfg = await api('/api/configure', { variant });
-    stop();
+    const cfg = await job('configure', { variant }, `How was your ${variant.model_name} configured?`);
     showConfig(variant, cfg);
-  } catch (e) { stop(); failure(e.message, () => chooseConfig(variant)); }
+  } catch (e) { failure(e.message, () => chooseConfig(variant)); }
 }
 
 function showConfig(variant, cfg) {
@@ -130,21 +127,13 @@ function showConfig(variant, cfg) {
 // ---------- 3. extract ----------
 
 async function extract(variant, configuration) {
-  const stop = waiting([
-    'Searching teardowns and repair guides…',
-    'Reading official specs and dimensions…',
-    'Building the parts graph…',
-    'Linking parts: power, data, heat…',
-    'Checking every cited source…',
-    'Almost there. The first time takes 1–3 minutes; after that it opens instantly.',
-  ]);
   try {
-    const res = await api('/api/extract', { variant, configuration });
+    const res = await job('extract', { variant, configuration },
+      `Opening the ${variant.model_name}: the first time takes a few minutes, after that it is instant`);
     // Remember it automatically: next time it is one click from "Your devices", no waiting.
     try { addDevice(await (await fetch(res.path)).json(), res.path); } catch { /* not fatal */ }
-    stop();
     location.href = `/?data=${encodeURIComponent(res.path)}`;
-  } catch (e) { stop(); failure(e.message, () => extract(variant, configuration)); }
+  } catch (e) { failure(e.message, () => extract(variant, configuration)); }
 }
 
 function sources(urls) {
@@ -177,6 +166,7 @@ function renderLibrary() {
       <span class="meta">Demo exhibit · hand-checked sample</span>
     </a>`;
   document.getElementById('library-title').textContent = full ? 'Your devices' : 'Recently opened';
+  document.getElementById('library-title').className = full ? 'page-title' : '';
   list.innerHTML = full ? devices.map(card).join('') + demo : devices.slice(0, 3).map(card).join('');
   const empty = document.getElementById('library-empty');
   empty.hidden = devices.length > 0;
@@ -203,15 +193,99 @@ async function renderFeatured() {
     </a>`).join('');
 }
 
+// ---------- Diagnoses page ----------
+
+function renderDiagnoses() {
+  const all = listDiagnoses();
+  const when = (iso) => { try { return new Date(iso).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }); } catch { return ''; } };
+  document.getElementById('diag-list').innerHTML = all.length ? all.map(d => {
+    const top = d.result?.suspects?.[0];
+    const guides = listGuides(d.path).filter(g => g.symptom === d.symptom);
+    const open = `/?data=${encodeURIComponent(d.path)}&diag=${encodeURIComponent(d.symptom)}`;
+    return `<div class="diag-card">
+      <a class="diag-main" href="${open}">
+        <span class="meta">${esc(d.model_name)} · ${esc(when(d.at))}</span>
+        <strong>“${esc(d.symptom)}”</strong>
+        <span class="d-top">${top ? `Most likely: <b>${esc(top.part_name || top.part_id.replace(/_/g, ' '))}</b> ${Math.round(top.likelihood * 100)}%` : 'Unfinished'}</span>
+      </a>
+      <div class="diag-tags">${d.photo ? '<span class="tag">photo</span>' : ''}${d.result?.safety_stop ? '<span class="tag stop">safety stop</span>' : ''}</div>
+      <div class="diag-actions">
+        <a class="btn small" href="${open}">Open in 3D</a>
+        ${guides.length ? guides.map(g => `<a class="btn small primary" href="${esc(g.url)}" target="_blank" rel="noopener">Repair guide: ${esc(g.title)} ↗</a>`).join('')
+          : '<span class="btn small disabled" title="Open the diagnosis and choose a part’s repair guide to create one">No repair guide yet</span>'}
+      </div>
+    </div>`;
+  }).join('') : '<p class="quiet">No diagnosis yet. Open a device and describe what is wrong in the bar above the model, or add a photo.</p>';
+  const devices = [...listDevices(), { path: DEMO_PATH, model_name: 'MacBook Air (M1, 2020) · demo' }];
+  document.getElementById('diag-devices').innerHTML = devices.map(d =>
+    `<a class="feat" href="/?data=${encodeURIComponent(d.path)}&diagnose"><strong>${esc(d.model_name)}</strong></a>`).join('');
+}
+
+// ---------- Method & accuracy page ----------
+
+async function renderMethod() {
+  const box = document.getElementById('method');
+  let r = null;
+  try { const res = await fetch('/data/eval/results.json', { cache: 'no-store' }); if (res.ok) r = await res.json(); } catch { /* not run yet */ }
+  const pct = (x) => x == null ? '—' : `${Math.round(x * 100)}%`;
+  const bar = (x, cls = '') => `<span class="bar ${cls}"><i style="width:${Math.round((x || 0) * 100)}%"></i></span>`;
+  const results = r ? `
+    <h2>Measured accuracy</h2>
+    <p class="quiet">Run on ${esc(new Date(r.generated_at).toLocaleDateString())} by <code>python -m eval.run_eval</code>. These numbers are generated by the script, not typed by hand.</p>
+    <h3>Diagnosis: is the real cause in the answer? (${r.diagnosis.n} documented cases)</h3>
+    <table class="eval"><thead><tr><th></th><th>Top-1</th><th>Top-3</th><th>Avg. time</th></tr></thead><tbody>
+      ${Object.entries(r.diagnosis.modes).map(([k, m]) => `<tr><th>${k === 'grounded' ? 'Muse Spark + repair sources (HOLOFIX)' : 'Muse Spark alone'}</th>
+        <td>${bar(m.top1)}${pct(m.top1)}</td><td>${bar(m.top3, 'b')}${pct(m.top3)}</td><td class="num">${m.avg_seconds}s</td></tr>`).join('')}
+    </tbody></table>
+    <h3>Safety: dangerous cases stopped</h3>
+    <p>${r.safety.caught} of ${r.safety.n} dangerous cases (swollen battery, smoke, airbag, brakes, fuel…) were stopped with “see a professional” and no steps. ${bar(r.safety.n ? r.safety.caught / r.safety.n : 0, 'g')}<br>
+      <span class="quiet">False alarms on ordinary cases: ${r.safety.false_stops} of ${r.diagnosis.n - r.safety.n}.</span></p>
+    ${r.extraction?.length ? `<h3>Parts lists against hand-checked teardowns</h3>
+    <table class="eval"><thead><tr><th>Device</th><th>Found (recall)</th><th>Correct (precision)</th></tr></thead><tbody>
+      ${r.extraction.map(e => `<tr><th>${esc(e.device)}</th><td>${bar(e.recall)}${pct(e.recall)} <small>${e.matched}/${e.expected}</small></td><td>${bar(e.precision, 'b')}${pct(e.precision)}</td></tr>`).join('')}
+    </tbody></table>` : ''}` : `<h2>Measured accuracy</h2><p class="quiet">The evaluation has not been run on this copy yet: <code>python -m eval.run_eval</code>.</p>`;
+
+  box.innerHTML = `
+    <h1 class="page-title">Method &amp; accuracy</h1>
+    <p class="lead">How HOLOFIX turns a model name into an explodable device and a diagnosis, which Meta model does what, the rules it can never break, and how well it actually works.</p>
+    <h2>How it works</h2>
+    <ol class="method-steps">
+      <li><b>Identify</b><span><em>Muse Spark + web search</em> finds every machine sold under the name you typed and how to tell them apart.</span></li>
+      <li><b>Configure</b><span><em>Muse Spark</em> lists the purchase options (chip, memory, storage), and which are fixed forever.</span></li>
+      <li><b>Extract the parts</b><span><em>Muse Spark</em> reads teardowns, repair guides and spec sheets, then writes a parts graph forced into a schema (structured output). Our validator checks every reference and sends errors back for repair; a second pass links the parts (power, data, heat).</span></li>
+      <li><b>Build the 3D model</b><span>Procedural, in the browser: the outer shell from the official dimensions, every part from its size, layer and position. No 3D files.</span></li>
+      <li><b>Diagnose</b><span><em>Muse Spark</em> searches repair guides and forums for your model and symptom, ranks the likely parts, and asks the one question that best narrows them down.</span></li>
+      <li><b>Read a photo</b><span><em>Muse Spark (vision)</em> describes visible damage; <em>SAM 3.1</em> outlines it on your photo.</span></li>
+      <li><b>Repair guide</b><span><em>Muse Spark</em> writes cited steps and finds real prices; HOLOFIX adds up the totals.</span></li>
+    </ol>
+    <h2>Rules enforced in code, not in prompts</h2>
+    <ul class="rules">
+      <li>Every source shown must be a page the search actually returned; invented links are deleted.</li>
+      <li>Screw sizes, counts and torques appear only when the step cites a source. Every price cites its page; totals are computed, never written by the AI.</li>
+      <li>Swollen or damaged batteries, smoke, mains voltage, airbags, brakes, fuel and high-voltage systems: diagnosis only, “see a professional”, no steps.</li>
+      <li>Suspect parts must exist in the device's parts graph. Likelihoods are normalised.</li>
+      <li>If extraction fails, a generic layout is shown, clearly labelled “Unverified”.</li>
+    </ul>
+    ${results}
+    <h2>Limitations</h2>
+    <ul class="rules">
+      <li>Internal part positions are estimated from text and photos of teardowns: the outer shape is accurate, the inside is approximate.</li>
+      <li>Diagnosis is a starting point, not a guarantee. The evaluation cases are documented failures, not a clinical trial.</li>
+      <li>Your devices and diagnoses are stored in this browser only (no account).</li>
+    </ul>`;
+}
+
 if (isHome) {
   home.hidden = false;
   import('./home-art.js');   // the slowly turning hologram on the right (loaded only on the home page)
-  renderLibrary();
   renderFeatured();
+  syncPage();
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const q = input.value.trim();
     if (q) search(q);
   });
-  if (location.hash !== '#library') input.focus();
+
 }
+
+if (!isHome) syncPage();   // viewer: highlight Explore in the menu

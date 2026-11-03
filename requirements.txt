@@ -3,3 +3,4 @@ uvicorn[standard]>=0.30
 pydantic>=2.7
 python-dotenv>=1.0
 httpx>=0.27
+meta-sam-parser>=0.1  # decodes SAM 3.1 masks (Meta)

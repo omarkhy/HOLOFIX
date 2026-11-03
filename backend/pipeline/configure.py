@@ -56,11 +56,12 @@ URLs found:
 
 def configure(variant: Variant) -> ConfigOptions:
     notes, urls = meta_client.web_research(RESEARCH_PROMPT.format(
-        model_name=variant.model_name, numbers=", ".join(variant.model_numbers) or "unknown"))
+        model_name=variant.model_name, numbers=", ".join(variant.model_numbers) or "unknown"),
+        label=f"Looking up how the {variant.model_name} was sold…")
     result = meta_client.structured(
         STRUCTURE_PROMPT.format(model_name=variant.model_name, variant_id=variant.variant_id,
                                 notes=notes, urls="\n".join(urls) or "(none)"),
-        ConfigOptions,
+        ConfigOptions, label="Reading the purchase options…",
     )
     result.variant_id = variant.variant_id
     for opt in result.options:                       # a default outside the choices would break the UI

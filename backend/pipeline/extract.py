@@ -27,7 +27,7 @@ from __future__ import annotations
 import hashlib
 import json
 
-from backend import config, meta_client
+from backend import config, meta_client, progress
 from backend.pipeline.fallback import generic_graph
 from backend.pipeline.identify import Variant
 from pydantic import BaseModel
@@ -42,10 +42,9 @@ Research this exact device on the web: teardowns (iFixit first), repair guides, 
 Write detailed notes covering:
 1. Official outer dimensions in mm (width, depth, thinnest and thickest height) and official colours.
 2. Six headline specs (processor, graphics, display, battery, weight, release date).
-3. EVERY major internal part (aim for 12 to 25): name, what it does, where it sits (front/back,
+3. EVERY major part (aim for 12 to 25): name, what it does, where it sits (front/back,
    left/right, under what), roughly how big relative to the device, and whether it is replaceable,
-   glued, or soldered. Include the enclosure halves, display assembly, battery, main board, chips
-   that matter for repair (CPU/SoC, RAM, storage), cooling, ports boards, speakers, input devices.
+   glued, or soldered. {part_hint}
 4. What connects to what (power, data, cables, thermal contact, what is screwed to what).
 5. Hazards (lithium battery, mains voltage, high-voltage capacitors…).
 Cite the source URL for each fact. Do not guess numbers you cannot source."""
@@ -88,6 +87,39 @@ URLs found:
 {urls}"""
 
 
+PART_HINTS = {
+    "laptop": "Include the enclosure halves, display assembly, battery, main board, chips that matter for "
+              "repair (CPU/SoC, RAM, storage), cooling, ports boards, speakers, input devices.",
+    "car": "Work at SYSTEM level, as an owner would: body, chassis/floor, four wheels, engine, gearbox, 12 V "
+           "battery, starter motor, alternator, engine-bay fuse/relay box and cabin fuse box (with their location "
+           "from the owner's manual), engine ECU, radiator, fuel tank and pump, exhaust, brake system, airbags, "
+           "headlights. For electric/hybrid versions, the high-voltage battery and its location.",
+}
+
+CAR_CONVENTIONS = """LAYOUT CONVENTIONS for a CAR (the viewer depends on them):
+- One assembly only: "base". position.x 0..1 = left->right (seen from behind), position.y 0..1 = FRONT bumper -> REAR bumper.
+- dimensions_mm: width = car width (without mirrors), depth = car LENGTH, height_min = height_max = car height.
+- size.w / size.d are fractions of the car width / length; size.h a fraction of the car height.
+- Shapes: car_body (the body shell, exactly one, highest layer, finish body); slab (chassis floor, radiator, exhaust);
+  wheel (each of the 4 wheels: size.d = wheel diameter / car length (about 0.15), size.w = tyre width / car width
+  (about 0.11); front wheels at position.y about 0.2, rear about 0.78; x about 0.09 and 0.91); box (engine, gearbox,
+  battery, fuse boxes, fuel tank, airbags, lights); cylinder (starter, alternator); board (ECU).
+- layer: 0 = floor, wheels, exhaust; 1 = engine, gearbox, fuel tank, brakes, radiator; 2 = battery, fuses, ECU,
+  electrics, airbags, lights; highest = car_body.
+- finish: body for the car_body only; internal for everything else.
+- hazards: brakes -> brakes; airbags -> airbag; fuel tank/pump/lines -> fuel_system; high-voltage battery -> ev_high_voltage.
+- system_id groups: body, chassis, engine, electrical, cooling, fuel, safety."""
+
+
+def _conventions(category: str, prompt: str) -> str:
+    """Swap the laptop layout block for the car one when needed."""
+    if category != "car":
+        return prompt
+    start = prompt.index("LAYOUT CONVENTIONS")
+    end = prompt.index("CONTENT RULES:")
+    return prompt[:start] + CAR_CONVENTIONS + "\n\n" + prompt[end:]
+
+
 def _graph_path(variant_id: str, configuration: dict[str, str]) -> "Path":
     tag = hashlib.sha256(json.dumps(configuration, sort_keys=True).encode()).hexdigest()[:8]
     return GRAPH_DIR / f"{variant_id}__{tag}.json"
@@ -100,13 +132,15 @@ def extract(variant: Variant, configuration: dict[str, str]) -> PartsGraph:
 
     cfg = ", ".join(f"{k}: {v}" for k, v in configuration.items()) or "base model"
     try:
+        hint = PART_HINTS.get(variant.category, PART_HINTS["laptop"])
         notes, urls = meta_client.web_research(RESEARCH_PROMPT.format(
-            model_name=variant.model_name, numbers=", ".join(variant.model_numbers) or "unknown", config=cfg))
+            model_name=variant.model_name, numbers=", ".join(variant.model_numbers) or "unknown", config=cfg,
+            part_hint=hint), label="Reading teardowns, repair guides and official specs…")
         graph = meta_client.structured(
-            STRUCTURE_PROMPT.format(model_name=variant.model_name, variant_id=variant.variant_id,
-                                    category=variant.category, config=cfg,
-                                    notes=notes, urls="\n".join(urls) or "(none)"),
-            PartsGraph, system=SYSTEM, retries=2,
+            _conventions(variant.category, STRUCTURE_PROMPT.format(
+                model_name=variant.model_name, variant_id=variant.variant_id,
+                category=variant.category, config=cfg, notes=notes, urls="\n".join(urls) or "(none)")),
+            PartsGraph, system=SYSTEM, retries=2, label="Building the parts graph: every part, where it sits, how it comes out…",
         )
         if len(graph.connections) < len(graph.parts) // 2:
             graph = add_connections(graph, notes)
@@ -146,7 +180,7 @@ def add_connections(graph: PartsGraph, notes: str) -> PartsGraph:
     try:
         found = meta_client.structured(
             CONNECT_PROMPT.format(model_name=graph.device.model_name, parts=json.dumps(parts, indent=1), notes=notes),
-            ConnectionList, retries=1,
+            ConnectionList, retries=1, label="Linking the parts: power, data, heat, mounting…",
         )
     except meta_client.MetaAPIError as e:
         print(f"[extract] connections pass failed, keeping the graph without extra links: {str(e)[:200]}")
@@ -163,6 +197,7 @@ def add_connections(graph: PartsGraph, notes: str) -> PartsGraph:
 
 def post_check(graph: PartsGraph, variant: Variant, configuration: dict[str, str], urls: list[str]) -> PartsGraph:
     """Code-side guarantees that do not depend on the model behaving."""
+    s = progress.step("HOLOFIX", "Checking every cited source against the search results…")
     graph.device.model_name = variant.model_name
     graph.device.variant_id = variant.variant_id
     graph.device.category = variant.category
@@ -180,4 +215,5 @@ def post_check(graph: PartsGraph, variant: Variant, configuration: dict[str, str
     graph.sources = urls
     sourced = sum(1 for p in graph.parts if p.source_url)
     graph.provenance = Provenance.sourced if graph.parts and sourced / len(graph.parts) >= 0.5 else Provenance.generated
+    progress.done(s, f"{sourced} of {len(graph.parts)} parts backed by a real source")
     return graph

@@ -25,7 +25,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from backend import meta_client, safety
+from backend import meta_client, progress, safety
 from backend.schemas import PartsGraph
 
 
@@ -104,7 +104,8 @@ def diagnose(graph: PartsGraph, symptom: str, history: list[Turn], grounded: boo
         notes, urls = meta_client.web_research(
             f"{graph.device.model_name}: a user reports \"{symptom}\". Search repair guides (iFixit), the maker's "
             "support pages and repair forums for this model or very close ones. List the most common causes, how "
-            "to tell them apart, and the usual fixes. Cite source URLs.")
+            "to tell them apart, and the usual fixes. Cite source URLs.",
+            label=f"Searching repair guides and forums for “{symptom}”…")
         notes_block = f"Research notes from repair sources:\n{notes}\n"
 
     config = ", ".join(f"{k}: {v}" for k, v in graph.device.configuration.items()) or "unknown"
@@ -113,6 +114,7 @@ def diagnose(graph: PartsGraph, symptom: str, history: list[Turn], grounded: boo
         PROMPT.format(model=graph.device.model_name, config=config, parts=_parts_table(graph),
                       symptom=symptom, history=history_text, notes=notes_block),
         Diagnosis, system=SYSTEM, retries=2,
+        label="Ranking the likely causes" + (" with your answers…" if history else "…"),
     )
     return post_check(result, graph, symptom, history, urls)
 
@@ -134,12 +136,15 @@ def post_check(d: Diagnosis, graph: PartsGraph, symptom: str, history: list[Turn
     if d.next_question and d.next_question.text.strip().lower() in asked:
         d.next_question = None
 
+    s = progress.step("HOLOFIX", "Applying the safety rules…")
     # Safety hard stops: the user's own words (all turns), or a hazardous top suspect.
     words = " ".join([symptom] + [t.answer for t in history])
     stop = safety.symptom_stop(words)
     top = parts[d.suspects[0].part_id] if d.suspects else None
     if not stop and top and top.hazard and d.suspects[0].likelihood >= 0.3:
         stop = safety.hazard_note(top.hazard.value)
+    if not stop and top and top.hazard and top.hazard.value == "lithium_battery":
+        d.summary = d.summary + " " + safety.BATTERY_CAUTION
     if stop:
         d.safety_stop = stop
         d.fixes = [Fix(title="See a repair professional", tier=Tier.red, steps=[],
@@ -149,4 +154,5 @@ def post_check(d: Diagnosis, graph: PartsGraph, symptom: str, history: list[Turn
             f.steps = []                      # red = no instructions, by rule
 
     d.sources = [u for u in d.sources if u in urls] or urls
+    progress.done(s, "Safety stop: technician only" if d.safety_stop else "No safety hazard: home fixes allowed", state="done")
     return d

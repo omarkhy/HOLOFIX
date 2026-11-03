@@ -58,10 +58,10 @@ URLs found:
 
 
 def identify(query: str) -> IdentifyResult:
-    notes, urls = meta_client.web_research(RESEARCH_PROMPT.format(query=query))
+    notes, urls = meta_client.web_research(RESEARCH_PROMPT.format(query=query), label=f"Searching the web for “{query}”…")
     result = meta_client.structured(
         STRUCTURE_PROMPT.format(query=query, notes=notes, urls="\n".join(urls) or "(none)"),
-        IdentifyResult,
+        IdentifyResult, label="Listing every machine sold under that name…",
     )
     # Keep only URLs that really came back from the search (guards against invented links).
     result.sources = [u for u in result.sources if u in urls] or urls

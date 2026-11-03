@@ -37,6 +37,8 @@ class ShapeType(str, Enum):
     keyboard = "keyboard"          # plate + rows of keys
     screen = "screen"              # display panel with visible area and camera
     rounded_slab = "rounded_slab"  # battery, trackpad, lid cover
+    car_body = "car_body"          # car: body shell built from the dimensions (one only)
+    wheel = "wheel"                # car: a wheel/tyre (diameter = size.d, width = size.w)
     # Generic primitives for internal parts.
     slab = "slab"            # flat rectangle: battery cell, display panel, chassis
     board = "board"          # PCB with chip bumps on top

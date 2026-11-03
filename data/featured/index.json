@@ -79,6 +79,14 @@
       "parts": 24,
       "provenance": "sourced",
       "color": "#000000"
+    },
+    {
+      "query": "Renault Clio IV 2016",
+      "model_name": "Renault Clio IV Phase 1 Hatchback (BH_)",
+      "path": "/data/featured/clio_iv_phase1_hatch_2016.json",
+      "parts": 20,
+      "provenance": "sourced",
+      "color": "#EDEFEA"
     }
   ]
 }

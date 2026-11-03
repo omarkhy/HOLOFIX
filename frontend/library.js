@@ -52,13 +52,33 @@ export function listDiagnoses(path) {
 /** Save or update a diagnosis session (same device + same symptom = same entry). */
 export function saveDiagnosis(path, model_name, diag) {
   const all = read(DIAG, []).filter(d => !(d.path === path && d.symptom === diag.symptom));
-  all.unshift({ path, model_name, symptom: diag.symptom, history: diag.history, result: diag.result, open: true, at: new Date().toISOString() });
+  all.unshift({ path, model_name, symptom: diag.symptom, history: diag.history, result: diag.result, photo: diag.photo || null, open: true, at: new Date().toISOString() });
   all.forEach((d, i) => { if (i > 0 && d.path === path) d.open = false; });   // one open session per device
   write(DIAG, all.slice(0, MAX_DIAG));
 }
 
 export function closeDiagnoses(path) {
   write(DIAG, read(DIAG, []).map(d => (d.path === path ? { ...d, open: false } : d)));
+}
+
+// ---------- Repair guides: which ones exist, so the Diagnoses page can link to them ----------
+const GUIDES = 'holofix.guides';
+
+/** All saved guides (optionally for one device). */
+export function listGuides(path) {
+  const all = read(GUIDES, []);
+  return path ? all.filter(g => g.path === path) : all;
+}
+
+/** Remember a finished guide (same device + part + symptom = same entry). Pictures included. */
+export function saveGuide(entry) {
+  const all = read(GUIDES, []).filter(g => !(g.path === entry.path && g.part === entry.part && g.symptom === entry.symptom));
+  all.unshift({ ...entry, at: new Date().toISOString() });
+  // Pictures are ~130 KB each guide: keep 12 guides, drop pictures from older ones if storage is full.
+  let list = all.slice(0, 12);
+  while (!write(GUIDES, list) && list.some(g => g.images)) {
+    const i = list.findLastIndex(g => g.images); list[i] = { ...list[i], images: null };
+  }
 }
 
 /** The last device opened in the viewer (used by the "Explore" menu entry). */

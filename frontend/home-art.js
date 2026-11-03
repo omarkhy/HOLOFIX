@@ -9,20 +9,25 @@
  */
 
 import * as THREE from 'three';
+import { currentTheme } from './theme.js';
+
+// Line colours per theme: [main, faint, amber]. Light = ink-blue blueprint on cream paper.
+const INK = { dark: ['#6fe7f0', '#6fe7f0', '#f5b04c'], light: ['#0f6c74', '#0f6c74', '#b5640c'] };
 
 const host = document.getElementById('home-art');
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const TURN_SECONDS = 48;   // one full turn
-const BOB_SECONDS = 4;     // one up-and-down
-const BOB_HEIGHT = 9;      // in drawing units (the laptop is 300 wide)
+const TURN_SECONDS = 72;   // one full turn (slow: it should feel like an exhibit, not a spinner)
+const BOB_SECONDS = 5.5;   // one up-and-down
+const BOB_HEIGHT = 7;      // in drawing units (the laptop is 300 wide)
 
 try { start(); } catch (err) { console.warn('[home-art] static fallback:', err); }
 
 function start() {
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, premultipliedAlpha: false });
+  renderer.setClearColor(0x000000, 0);   // fully transparent: the page background shows through
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   host.appendChild(renderer.domElement);
-  host.classList.add('live');
+  host.classList.add('is-live');
 
   const scene = new THREE.Scene();
   // Orthographic camera at the classic isometric angle: same look as the static drawing.
@@ -32,6 +37,13 @@ function start() {
 
   const model = buildLaptop();
   scene.add(model);
+  const recolour = () => {
+    const [main, faint, amber] = INK[currentTheme()] || INK.dark;
+    model.traverse((o) => { if (o.material?.userData.role) o.material.color.set({ holo: main, faint, amber, fibre: o.material.userData.fibre === 'amber' ? amber : main }[o.material.userData.role]); });
+    renderer.render(scene, camera);
+  };
+  addEventListener('holofix:theme', recolour);
+  recolour();
 
   function resize() {
     const w = host.clientWidth, h = host.clientHeight;
@@ -96,13 +108,14 @@ function buildLaptop() {
   const group = new THREE.Group();
   const mat = (color, opacity) => new THREE.LineBasicMaterial({ color, transparent: true, opacity });
   const looks = { holo: mat('#6fe7f0', 0.95), faint: mat('#6fe7f0', 0.45), amber: mat('#f5b04c', 0.95) };
+  for (const [k, m] of Object.entries(looks)) m.userData.role = k;
   for (const [k, pts] of Object.entries(sets)) group.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), looks[k]));
 
   // Dashed exploded-view guides at the four corners.
   const guides = new THREE.LineSegments(
     new THREE.BufferGeometry().setFromPoints([[0, 0], [W, 0], [W, D], [0, D]].flatMap(([u, v]) =>
       [new THREE.Vector3(x(u), Z[0], z(v)), new THREE.Vector3(x(u), Z[3], z(v))])),
-    new THREE.LineDashedMaterial({ color: '#6fe7f0', dashSize: 4, gapSize: 6, transparent: true, opacity: 0.4 }));
+    Object.assign(new THREE.LineDashedMaterial({ color: '#6fe7f0', dashSize: 4, gapSize: 6, transparent: true, opacity: 0.4 }), { userData: { role: 'faint' } }));
   guides.computeLineDistances();
   group.add(guides);
 
@@ -110,7 +123,8 @@ function buildLaptop() {
   const fibre = (a, b, lift, color) => {
     const A = new THREE.Vector3(...a), B = new THREE.Vector3(...b);
     const M = A.clone().add(B).multiplyScalar(0.5); M.y += lift;
-    group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(new THREE.QuadraticBezierCurve3(A, M, B).getPoints(32)), mat(color, 0.8)));
+    const m = mat(color, 0.8); m.userData = { role: 'fibre', fibre: color === '#f5b04c' ? 'amber' : 'holo' };
+    group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(new THREE.QuadraticBezierCurve3(A, M, B).getPoints(32)), m));
   };
   fibre([x(150), Z[1], z(60)], [x(150), Z[1], z(150)], 45, '#f5b04c');
   fibre([x(150), Z[2], z(48)], [x(150), Z[1], z(150)], 35, '#6fe7f0');

@@ -1,0 +1,206 @@
+{
+ "_note": "Hand-checked part lists (keyword groups) from public teardowns / owner's manuals. REVIEW before publishing.",
+ "devices": {
+  "MacBook Air M1 2020": [
+   [
+    "bottom case",
+    "lower case"
+   ],
+   [
+    "battery"
+   ],
+   [
+    "logic board",
+    "main board",
+    "motherboard"
+   ],
+   [
+    "m1",
+    "soc"
+   ],
+   [
+    "ssd",
+    "storage",
+    "nand",
+    "flash"
+   ],
+   [
+    "heat",
+    "thermal",
+    "spreader"
+   ],
+   [
+    "usb",
+    "thunderbolt",
+    "i/o board",
+    "port board"
+   ],
+   [
+    "headphone",
+    "audio board",
+    "audio daughter"
+   ],
+   [
+    "left speaker"
+   ],
+   [
+    "right speaker"
+   ],
+   [
+    "trackpad"
+   ],
+   [
+    "keyboard"
+   ],
+   [
+    "top case",
+    "upper case",
+    "palm"
+   ],
+   [
+    "display",
+    "screen",
+    "panel"
+   ],
+   [
+    "camera",
+    "facetime"
+   ],
+   [
+    "touch id",
+    "power button"
+   ],
+   [
+    "antenna"
+   ],
+   [
+    "microphone",
+    "mic"
+   ]
+  ],
+  "Framework Laptop 13": [
+   [
+    "bottom cover",
+    "bottom case"
+   ],
+   [
+    "battery"
+   ],
+   [
+    "mainboard",
+    "motherboard"
+   ],
+   [
+    "cpu",
+    "processor"
+   ],
+   [
+    "memory",
+    "ram",
+    "so-dimm",
+    "sodimm"
+   ],
+   [
+    "ssd",
+    "storage",
+    "nvme"
+   ],
+   [
+    "fan",
+    "heatsink",
+    "heat",
+    "cooling"
+   ],
+   [
+    "wifi",
+    "wi-fi",
+    "wireless",
+    "network"
+   ],
+   [
+    "expansion card",
+    "expansion"
+   ],
+   [
+    "speaker"
+   ],
+   [
+    "input cover",
+    "keyboard"
+   ],
+   [
+    "touchpad",
+    "trackpad"
+   ],
+   [
+    "display",
+    "screen",
+    "panel"
+   ],
+   [
+    "bezel"
+   ],
+   [
+    "hinge"
+   ],
+   [
+    "camera",
+    "webcam"
+   ],
+   [
+    "fingerprint",
+    "power button"
+   ]
+  ],
+  "Renault Clio IV 2016": [
+   [
+    "body"
+   ],
+   [
+    "wheel"
+   ],
+   [
+    "engine"
+   ],
+   [
+    "gearbox",
+    "transmission"
+   ],
+   [
+    "battery"
+   ],
+   [
+    "starter"
+   ],
+   [
+    "alternator"
+   ],
+   [
+    "fuse"
+   ],
+   [
+    "ecu",
+    "control unit"
+   ],
+   [
+    "radiator"
+   ],
+   [
+    "fuel"
+   ],
+   [
+    "exhaust"
+   ],
+   [
+    "brake"
+   ],
+   [
+    "airbag"
+   ],
+   [
+    "headlight",
+    "light"
+   ]
+  ]
+ }
+}
