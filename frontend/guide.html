@@ -154,7 +154,7 @@
                     tier: g.tier, model_name: dev.model_name, url: location.pathname + location.search, images });
         document.title = `Repair guide · ${g.title}`;
         doc.innerHTML = `
-          <div class="brand"><img src="favicon.svg" alt="">HOLOFIX REPAIR GUIDE</div>
+          <div class="brand"><img src="favicon-light.svg" alt="">HOLOFIX REPAIR GUIDE</div>
           <h1>${esc(g.title)}</h1>
           <p class="sub">${esc(dev.model_name)}${Object.keys(dev.configuration || {}).length ? ' · ' + esc(Object.values(dev.configuration).join(', ')) : ''}${q.get('symptom') ? ` · Problem: “${esc(q.get('symptom'))}”` : ''}</p>
           <div class="meta">

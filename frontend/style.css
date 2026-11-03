@@ -16,8 +16,8 @@
   --glass: rgba(7, 10, 14, 0.8);   /* floating bars over the 3D stage */
   --on-holo: #04161a;              /* text on a holo-coloured button */
   --placeholder: #5d636a;
-  --ok: var(--ok);
-  --bad: var(--bad);
+  --ok: #5fd49a;
+  --bad: #ff7a6b;
   --tint: 233, 228, 216;           /* rgb of soft overlays (cards, inputs) */
 }
 
@@ -460,7 +460,11 @@ table.eval td.num { font-family: var(--mono); }
   display: grid; place-items: center; border-radius: 8px;
 }
 .menu-btn:hover { background: rgba(var(--tint), 0.06); }
-.brand-mark { width: 26px; height: 26px; display: block; }
+.brand-mark { width: 28px; height: 28px; display: block; border-radius: 7px; }
+.mark-dark { display: block; }
+.mark-light { display: none; }                                    /* dark theme: cyan/white mark */
+:root[data-theme="light"] .mark-dark { display: none; }          /* light theme: teal/ink mark */
+:root[data-theme="light"] .mark-light { display: block; }
 
 .drawer {
   width: 64px;
