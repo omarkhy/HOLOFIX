@@ -21,33 +21,19 @@
   }
   </script>
 </head>
-<body class="booting">
-  <!-- Opening scene (boot.js). Removed from the page as soon as it ends. -->
-  <div class="boot" id="boot" aria-hidden="true"><span class="boot-skip">Click to skip</span></div>
-  <script>
-    // Safety net, independent of boot.js: if the intro never starts (file missing, script error),
-    // the cover can't trap the user. Click removes it; after 8 s it removes itself — but only if
-    // boot.js never started (once started, boot.js enforces its own time limit).
-    (function () {
-      function bail() {
-        var b = document.getElementById('boot');
-        if (b) b.remove();
-        document.body.classList.remove('booting');
-      }
-      document.getElementById('boot').addEventListener('click', bail);
-      setTimeout(function () { if (!window.holofixBoot) bail(); }, 8000);
-    })();
-  </script>
+<body>
+  <!-- Opening scene (boot.js + brand.js) is DISABLED for now. To re-enable: restore the #boot
+       cover, body class "booting", and the two <script> tags (see git history, commit "neon power-down"). -->
 
   <!-- Dot field in the top-left corner, drawn by nav.js; fades into the dark. -->
   <canvas class="corner-dots" id="corner-dots" aria-hidden="true"></canvas>
 
   <header class="top">
     <div class="brand">
-      <!-- The glass cube (brand.js) is also the menu button. -->
       <button class="menu-btn" id="menu-btn" aria-label="Show menu" aria-expanded="false" aria-controls="drawer">
-        <span class="brand-cube" id="brand-cube" aria-hidden="true"></span>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
+      <img class="brand-mark" src="favicon.svg" alt="" width="26" height="26">
       <span class="brand-name">HOLOFIX</span>
     </div>
 
@@ -113,8 +99,6 @@
     </ul>
   </footer>
 
-  <script type="module" src="brand.js"></script>
-  <script type="module" src="boot.js"></script>
   <script type="module" src="nav.js"></script>
   <script type="module" src="viewer.js"></script>
 </body>
