@@ -1,0 +1,849 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "HP Spectre x360 13.5 inch 2-in-1 Laptop PC 14-ef0000",
+    "variant_id": "spectre_x360_14_ef0000_2022",
+    "category": "laptop",
+    "configuration": {
+      "chip": "Intel Core i5-1235U",
+      "memory": "8 GB LPDDR4X-4266 MHz RAM",
+      "storage": "512 GB PCIe Gen 4.0 x4 NVMe TLC M.2 SSD",
+      "color": "Natural silver"
+    },
+    "dimensions_mm": {
+      "width": 298.0,
+      "depth": 220.4,
+      "height_min": 16.9,
+      "height_max": 16.9
+    },
+    "color": {
+      "name": "Natural silver",
+      "hex": "#D1D3D4"
+    },
+    "summary": "360-degree convertible 13.5-inch 3:2 touch 2-in-1 with Intel 12th-gen U-series, pen support and quad Bang & Olufsen speakers in a 1.36 kg aluminum chassis.",
+    "key_specs": {
+      "Battery": "4-cell 66.52 Wh Li-ion Polymer, fast charge 50% in 45 minutes",
+      "Display": "13.5-in 3:2 touch, WUXGA+ 1920x1280 400 nits / 3K2K OLED options, Gorilla Glass NBT",
+      "Graphics": "Intel Iris Xe Graphics (integrated)",
+      "Memory": "8 GB LPDDR4X-4266 MHz RAM (soldered, onboard)",
+      "Processor": "Intel Core i5-1235U, 10 cores up to 4.4 GHz, 12 MB cache",
+      "Storage": "512 GB PCIe Gen 4.0 x4 NVMe TLC M.2 2280 SSD"
+    }
+  },
+  "provenance": "sourced",
+  "systems": [
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "parent_id": null
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "parent_id": null
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "parent_id": null
+    },
+    {
+      "id": "compute",
+      "name": "Compute",
+      "parent_id": null
+    },
+    {
+      "id": "storage",
+      "name": "Storage",
+      "parent_id": null
+    },
+    {
+      "id": "thermal",
+      "name": "Thermal",
+      "parent_id": null
+    },
+    {
+      "id": "io",
+      "name": "Wireless and I/O",
+      "parent_id": null
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "parent_id": null
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "bottom_cover",
+      "name": "Bottom cover",
+      "function": "Aluminum underside that seals the base and carries vents, speaker grilles and service labels.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 0,
+      "shape": "shell_base",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "color": "Natural silver",
+        "part_number": "N12228-001",
+        "screws": "2x M2.0x6.0 + 2x M2.0x3.0"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.96
+    },
+    {
+      "id": "battery",
+      "name": "Battery",
+      "function": "Sole internal power source, 4-cell fast-charge battery pack.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.7,
+        "d": 0.4,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.3
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "66.52 Wh",
+        "cells": "4-cell Li-ion Polymer",
+        "part_number": "L97357-005"
+      },
+      "hazard": "lithium_battery",
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.95
+    },
+    {
+      "id": "speaker_kit",
+      "name": "Speaker kit",
+      "function": "Stereo output drivers in left and right kits with rubber isolators.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.65,
+        "d": 0.1,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.08
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "audio": "Quad speakers, Audio by Bang & Olufsen",
+        "part_number": "N12236-001"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.93
+    },
+    {
+      "id": "system_board",
+      "name": "System board",
+      "function": "Main interconnect carrying soldered CPU and RAM, SSD and WLAN sockets and all cable connectors.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.85,
+        "d": 0.28,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.78
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "cpu_ram": "Intel Core i5-1235U + 8 GB",
+        "part_number": "N10719-601"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.95
+    },
+    {
+      "id": "audio_jack_board",
+      "name": "Headphone board",
+      "function": "3.5 mm headphone/microphone combo jack breakout to the system board.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.06,
+        "d": 0.12,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.12,
+        "y": 0.65
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "part_number": "N12221-001"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "ir_sensor_board",
+      "name": "IR sensor board",
+      "function": "IR presence sensing for Wake on Approach, Walk Away Lock and screen reminders.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.08,
+        "d": 0.06,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.75,
+        "y": 0.75
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "part_number": "N12222-001"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "cpu",
+      "name": "Intel Core i5-1235U SoC",
+      "function": "10-core compute with integrated Iris Xe graphics and chipset functions.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "chip",
+      "size": {
+        "w": 0.08,
+        "d": 0.12,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.78
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "base_frequency": "1.3 GHz",
+        "cache": "12 MB Intel Smart Cache",
+        "cores": "10 cores",
+        "turbo_frequency": "up to 4.4 GHz"
+      },
+      "hazard": null,
+      "source_url": "https://support.hp.com/us-en/document/ish_6489791-6489772-16",
+      "confidence": 0.96
+    },
+    {
+      "id": "memory",
+      "name": "8 GB LPDDR4X RAM",
+      "function": "System memory soldered around the CPU in dual-channel.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "chip",
+      "size": {
+        "w": 0.12,
+        "d": 0.12,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.6,
+        "y": 0.78
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "capacity": "8 GB",
+        "type": "LPDDR4X-4266 MHz, soldered"
+      },
+      "hazard": null,
+      "source_url": "https://laptopmedia.com/gr/highlights/how-to-open-hp-spectre-x360-14-14-ef0000-disassembly-and-upgrade-options/",
+      "confidence": 0.96
+    },
+    {
+      "id": "ssd",
+      "name": "512 GB M.2 SSD",
+      "function": "Primary storage in a single Gen 4-capable M.2 slot under a thermal-pad cover.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "slab",
+      "size": {
+        "w": 0.08,
+        "d": 0.32,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.42,
+        "y": 0.58
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "512 GB",
+        "form_factor": "M.2 2280",
+        "interface": "PCIe Gen 4.0 x4 NVMe TLC"
+      },
+      "hazard": null,
+      "source_url": "https://laptopmedia.com/gr/highlights/how-to-open-hp-spectre-x360-14-14-ef0000-disassembly-and-upgrade-options/",
+      "confidence": 0.96
+    },
+    {
+      "id": "cooling_assembly",
+      "name": "Fan and heat-sink assembly",
+      "function": "Moves CPU heat via heat pipes to fin stacks and rear vents with two fans.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "box",
+      "size": {
+        "w": 0.8,
+        "d": 0.16,
+        "h": 0.18
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.88
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "config": "2 fans, 2 CPU heat pipes + 1 passive pipe",
+        "part_number": "N12234-001"
+      },
+      "hazard": null,
+      "source_url": "https://laptopmedia.com/gr/highlights/how-to-open-hp-spectre-x360-14-14-ef0000-disassembly-and-upgrade-options/",
+      "confidence": 0.93
+    },
+    {
+      "id": "wlan_module",
+      "name": "WLAN module",
+      "function": "Wi-Fi 6E and Bluetooth 5.2 radio card with two coax antennas to the lid.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "board",
+      "size": {
+        "w": 0.07,
+        "d": 0.1,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.28,
+        "y": 0.62
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "connectivity": "Wi-Fi 6E + Bluetooth 5.2"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.93
+    },
+    {
+      "id": "display_hinges",
+      "name": "Display hinges",
+      "function": "360-degree hinges joining the base to the convertible display.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "frame",
+      "size": {
+        "w": 0.75,
+        "d": 0.06,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.96
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "part_number": "N12206-001"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "display_cable",
+      "name": "Display cable",
+      "function": "Flexible eDP link routing video and touch between board and panel.",
+      "system_id": "display",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "cable",
+      "size": {
+        "w": 0.05,
+        "d": 0.3,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.3,
+        "y": 0.9
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "interface": "eDP with PSR"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.88
+    },
+    {
+      "id": "touchpad",
+      "name": "Touchpad",
+      "function": "Precision clickpad that reads finger gestures for pointer control.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 5,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.32,
+        "d": 0.2,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.18
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "color": "Natural silver",
+        "part_number": "N12217-001"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.94
+    },
+    {
+      "id": "keyboard",
+      "name": "Keyboard",
+      "function": "Backlit island-style input screwed from inside the top cover.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "keys",
+      "layer": 5,
+      "shape": "keyboard",
+      "size": {
+        "w": 0.86,
+        "d": 0.32,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.65
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "layout": "Backlit island-style, US",
+        "part_number": "N10735-xx1"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.94
+    },
+    {
+      "id": "fingerprint_reader",
+      "name": "Fingerprint reader",
+      "function": "Windows Hello fingerprint logon sensor in the palm rest.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 5,
+      "shape": "slab",
+      "size": {
+        "w": 0.06,
+        "d": 0.06,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.72,
+        "y": 0.38
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "part_number": "N12214-001"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.88
+    },
+    {
+      "id": "top_cover",
+      "name": "Top cover",
+      "function": "Structural palm-rest deck with keyboard, touchpad and fingerprint openings.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 6,
+      "shape": "shell_deck",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "color": "Natural silver",
+        "part_number": "N12208-001"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.96
+    },
+    {
+      "id": "display_rear_cover",
+      "name": "Display rear cover",
+      "function": "Outer aluminum lid shell that the panel, cameras and antennas mount to.",
+      "system_id": "enclosure",
+      "assembly": "lid",
+      "finish": "body",
+      "layer": 0,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "color": "Natural silver",
+        "part_number": "N12194-001"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.96
+    },
+    {
+      "id": "wlan_antennas",
+      "name": "WLAN antennas",
+      "function": "Wireless antenna transceivers and coax cables routed inside the lid.",
+      "system_id": "io",
+      "assembly": "lid",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cable",
+      "size": {
+        "w": 0.5,
+        "d": 0.08,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.15
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "part_number": "N12192-001"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "display_panel",
+      "name": "Display panel",
+      "function": "13.5-inch touch display with Gorilla Glass, PSR and low blue light.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "screen",
+      "layer": 1,
+      "shape": "screen",
+      "size": {
+        "w": 0.92,
+        "d": 0.92,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.52
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "brightness": "400 nits",
+        "diagonal": "13.5 in",
+        "touch": "Multitouch + pen"
+      },
+      "hazard": null,
+      "source_url": "https://support.hp.com/us-en/document/ish_6489791-6489772-16",
+      "confidence": 0.94
+    },
+    {
+      "id": "camera_module",
+      "name": "Camera module",
+      "function": "5 MP + IR video and dual-mic audio with ambient light and color sensing.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.2,
+        "d": 0.06,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.92
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "camera": "HP True Vision 5 MP + IR",
+        "part_number": "N12241-001"
+      },
+      "hazard": null,
+      "source_url": "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+      "confidence": 0.9
+    }
+  ],
+  "connections": [
+    {
+      "source": "battery",
+      "target": "system_board",
+      "kind": "power",
+      "label": "Battery cable to system board"
+    },
+    {
+      "source": "battery",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "6x M2.0x2.0 screws to chassis"
+    },
+    {
+      "source": "speaker_kit",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Speaker cable"
+    },
+    {
+      "source": "speaker_kit",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "2x broadhead screws per speaker"
+    },
+    {
+      "source": "audio_jack_board",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Headphone board cable ZIF"
+    },
+    {
+      "source": "audio_jack_board",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "1x M2.0x3.0 screw"
+    },
+    {
+      "source": "ir_sensor_board",
+      "target": "system_board",
+      "kind": "data",
+      "label": "IR sensor board cable ZIF"
+    },
+    {
+      "source": "ir_sensor_board",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "1x M2.0x2.5 screw"
+    },
+    {
+      "source": "cpu",
+      "target": "cooling_assembly",
+      "kind": "thermal",
+      "label": "Thermal material to heatsink cold plate"
+    },
+    {
+      "source": "cpu",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "Soldered SoC"
+    },
+    {
+      "source": "memory",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "Soldered LPDDR4X"
+    },
+    {
+      "source": "ssd",
+      "target": "system_board",
+      "kind": "data",
+      "label": "M.2 PCIe Gen4 x4 NVMe socket"
+    },
+    {
+      "source": "cooling_assembly",
+      "target": "system_board",
+      "kind": "power",
+      "label": "Fan cables"
+    },
+    {
+      "source": "cooling_assembly",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "8x M2.0x2.5 screws + tape"
+    },
+    {
+      "source": "wlan_module",
+      "target": "system_board",
+      "kind": "data",
+      "label": "M.2 radio socket"
+    },
+    {
+      "source": "wlan_antennas",
+      "target": "wlan_module",
+      "kind": "data",
+      "label": "Coax Main/Aux antenna cables"
+    },
+    {
+      "source": "wlan_antennas",
+      "target": "display_rear_cover",
+      "kind": "mechanical",
+      "label": "Adhesive in lid"
+    },
+    {
+      "source": "display_cable",
+      "target": "system_board",
+      "kind": "data",
+      "label": "eDP display flex ZIF"
+    },
+    {
+      "source": "display_cable",
+      "target": "display_panel",
+      "kind": "data",
+      "label": "eDP panel side"
+    },
+    {
+      "source": "touchpad",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Touchpad cable ZIF"
+    },
+    {
+      "source": "touchpad",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "3x broadhead screws + tape"
+    },
+    {
+      "source": "keyboard",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Keyboard + backlight flex ZIF"
+    },
+    {
+      "source": "keyboard",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "49 screws + 3 brackets"
+    },
+    {
+      "source": "fingerprint_reader",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Fingerprint reader cable ZIF"
+    },
+    {
+      "source": "fingerprint_reader",
+      "target": "keyboard",
+      "kind": "mechanical",
+      "label": "Mounted on keyboard membrane"
+    },
+    {
+      "source": "bottom_cover",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "4x M2.0 screws bottom cover to chassis"
+    },
+    {
+      "source": "system_board",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "7x M2.0x2.5 screws"
+    },
+    {
+      "source": "display_hinges",
+      "target": "display_rear_cover",
+      "kind": "mechanical",
+      "label": "3x M2.0x3.0 screws per hinge to lid"
+    },
+    {
+      "source": "display_hinges",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "4x M2.5x4.0 display to base screws"
+    },
+    {
+      "source": "display_panel",
+      "target": "display_rear_cover",
+      "kind": "mechanical",
+      "label": "Stretch-release tape + adhesive"
+    },
+    {
+      "source": "camera_module",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Camera cable / touch connector ZIF"
+    },
+    {
+      "source": "camera_module",
+      "target": "display_rear_cover",
+      "kind": "mechanical",
+      "label": "Double-sided adhesive to rear cover"
+    }
+  ],
+  "repair_paths": [],
+  "sources": [
+    "https://support.hp.com/us-en/document/ish_6489791-6489772-16",
+    "https://kaas.hpcloud.hp.com/pdf-public/pdf_5906860_en-US-1.pdf",
+    "https://laptopmedia.com/gr/highlights/how-to-open-hp-spectre-x360-14-14-ef0000-disassembly-and-upgrade-options/"
+  ]
+}

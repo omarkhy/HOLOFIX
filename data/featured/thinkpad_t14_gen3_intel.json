@@ -1,0 +1,1171 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "ThinkPad T14 Gen 3 (Intel)",
+    "variant_id": "thinkpad_t14_gen3_intel",
+    "category": "laptop",
+    "configuration": {
+      "chip": "Intel Core i5-1235U",
+      "memory": "8GB DDR4-3200",
+      "storage": "256GB",
+      "color": "Thunder Black"
+    },
+    "dimensions_mm": {
+      "width": 317.7,
+      "depth": 226.9,
+      "height_min": 17.9,
+      "height_max": 17.9
+    },
+    "color": {
+      "name": "Thunder Black",
+      "hex": "#1C1C1E"
+    },
+    "summary": "14-inch business laptop notable for its best-in-class spill-resistant keyboard with TrackPoint, 16:10 WUXGA IPS display and 7/10 iFixit repairability with slotted SO-DIMM and M.2 SSD.",
+    "key_specs": {
+      "Battery": "Integrated Li-Po 39.3Wh or 52.5Wh options, Rapid Charge, 65W USB-C",
+      "Display": "14.0-inch WUXGA (1920x1200) IPS Anti-glare, 16:10",
+      "Graphics": "Integrated Intel Iris Xe Graphics (Functions as UHD Graphics)",
+      "Memory": "8GB DDR4-3200 (soldered + 1x SO-DIMM slot)",
+      "Processor": "Intel Core i5-1235U, 10C (2P+8E)/12T up to 4.4GHz",
+      "Storage": "256GB M.2 2280 PCIe x4 NVMe Opal 2.0"
+    }
+  },
+  "provenance": "sourced",
+  "systems": [
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "parent_id": null
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "parent_id": null
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "parent_id": null
+    },
+    {
+      "id": "compute",
+      "name": "Compute",
+      "parent_id": null
+    },
+    {
+      "id": "storage",
+      "name": "Storage",
+      "parent_id": null
+    },
+    {
+      "id": "thermal",
+      "name": "Thermal",
+      "parent_id": null
+    },
+    {
+      "id": "io",
+      "name": "I/O & Connectivity",
+      "parent_id": null
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "parent_id": null
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "base_cover",
+      "name": "Base Cover Assembly (D-cover)",
+      "function": "Plastic PPS bottom enclosure with vents and 7 captive screws covering all internals.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 0,
+      "shape": "shell_base",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "footprint": "317.7 x 226.9 mm",
+        "material": "PPS",
+        "screws": "7x captive Phillips"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/Lenovo_ThinkPad_T14_Gen_3",
+      "confidence": 0.98
+    },
+    {
+      "id": "battery",
+      "name": "Built-in Battery (Li-Po)",
+      "function": "Main rechargeable power source under the palm rest.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.68,
+        "d": 0.38,
+        "h": 0.25
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.25
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "mounting": "6x M2.0x5.0mm 0.18Nm",
+        "options": "39.3Wh or 52.5Wh",
+        "type": "Li-Po"
+      },
+      "hazard": "lithium_battery",
+      "source_url": "https://laptopmedia.com/sg/laptop-specs/lenovo-thinkpad-t14-gen-3-541/review/",
+      "confidence": 0.88
+    },
+    {
+      "id": "speaker_left",
+      "name": "Speaker Left (2W)",
+      "function": "Left-channel stereo audio output in front corner.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.12,
+        "d": 0.1,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.15,
+        "y": 0.12
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "power": "2W",
+        "system": "Dolby Audio"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/57",
+      "confidence": 0.9
+    },
+    {
+      "id": "speaker_right",
+      "name": "Speaker Right (2W)",
+      "function": "Right-channel stereo audio output in front corner.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.12,
+        "d": 0.1,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.85,
+        "y": 0.12
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "power": "2W",
+        "system": "Dolby Audio"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/57",
+      "confidence": 0.9
+    },
+    {
+      "id": "coin_cell",
+      "name": "Coin-cell Battery (RTC)",
+      "function": "Keeps real-time clock and BIOS settings when main power is off.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.06,
+        "d": 0.06,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.28,
+        "y": 0.58
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "RTC CMOS with cable"
+      },
+      "hazard": "lithium_battery",
+      "source_url": "https://mans.io/files/viewer/2551183/78",
+      "confidence": 0.85
+    },
+    {
+      "id": "system_board",
+      "name": "System Board / Motherboard",
+      "function": "Carries soldered CPU, soldered RAM portion and all I/O connectors.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.85,
+        "d": 0.28,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.78
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "chipset": "Intel SoC Platform",
+        "tpm": "dTPM 2.0"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/57",
+      "confidence": 0.95
+    },
+    {
+      "id": "ssd",
+      "name": "M.2 2280 SSD 256GB",
+      "function": "Boot and data storage in M.2 2280 slot.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.26,
+        "d": 0.09,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.25,
+        "y": 0.65
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "256GB",
+        "form_factor": "M.2 2280 PCIe x4 NVMe Opal 2.0"
+      },
+      "hazard": null,
+      "source_url": "https://www.xda-developers.com/lenovo-thinkpad-t14-gen-3-upgrade-ram-storage/",
+      "confidence": 0.95
+    },
+    {
+      "id": "ssd_bracket",
+      "name": "SSD Bracket and Thermal Pad",
+      "function": "Clamps SSD and spreads heat via thermal pad.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "frame",
+      "size": {
+        "w": 0.1,
+        "d": 0.08,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.25,
+        "y": 0.73
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "M.2 bracket + thermal pad"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/78",
+      "confidence": 0.8
+    },
+    {
+      "id": "ram_sodimm",
+      "name": "RAM SO-DIMM Module",
+      "function": "User-upgradeable memory stick in SO-DIMM slot on right side.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.22,
+        "d": 0.1,
+        "h": 0.07
+      },
+      "position": {
+        "x": 0.72,
+        "y": 0.55
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "slot": "1x DDR4 SO-DIMM",
+        "type": "DDR4-3200"
+      },
+      "hazard": null,
+      "source_url": "https://www.xda-developers.com/lenovo-thinkpad-t14-gen-3-upgrade-ram-storage/",
+      "confidence": 0.9
+    },
+    {
+      "id": "ram_soldered",
+      "name": "RAM Soldered Chips (8GB)",
+      "function": "Soldered portion of 8GB memory for dual-channel operation.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.08,
+        "d": 0.05,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.42,
+        "y": 0.76
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "capacity": "8 GB",
+        "type": "Soldered DDR4-3200"
+      },
+      "hazard": null,
+      "source_url": "https://www.xda-developers.com/lenovo-thinkpad-t14-gen-3-upgrade-ram-storage/",
+      "confidence": 0.85
+    },
+    {
+      "id": "cpu",
+      "name": "Intel Core i5-1235U SoC",
+      "function": "Computes all processing on soldered BGA package.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.07,
+        "d": 0.07,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.55,
+        "y": 0.79
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "cores": "10C (2P+8E)/12T up to 4.4GHz",
+        "model": "Intel Core i5-1235U"
+      },
+      "hazard": null,
+      "source_url": "https://content.etilize.com/Manufacturer-Brochure/1077654696.pdf",
+      "confidence": 0.96
+    },
+    {
+      "id": "thermal_fan",
+      "name": "Thermal Fan Assembly",
+      "function": "Cools CPU and exhausts hot air via side louvers.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.18,
+        "d": 0.18,
+        "h": 0.18
+      },
+      "position": {
+        "x": 0.78,
+        "y": 0.83
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "mounting": "4x M2.0x5mm 0.18Nm"
+      },
+      "hazard": null,
+      "source_url": "https://laptopmedia.com/sg/laptop-specs/lenovo-thinkpad-t14-gen-3-541/review/",
+      "confidence": 0.92
+    },
+    {
+      "id": "heat_pipes",
+      "name": "Heat Pipes / Heatsink",
+      "function": "Transfers CPU heat to fan via cold plate and grease.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "cable",
+      "size": {
+        "w": 0.3,
+        "d": 0.06,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.6,
+        "y": 0.82
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "grease": "0.2g on marks a and b"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/78",
+      "confidence": 0.85
+    },
+    {
+      "id": "usb_board",
+      "name": "USB Daughterboard",
+      "function": "Daughterboard for right-side USB-A and extra I/O.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.08,
+        "d": 0.14,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.9,
+        "y": 0.6
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "mounting": "2x M2.0x5.0mm 0.18Nm"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/57",
+      "confidence": 0.85
+    },
+    {
+      "id": "usb_board_cable",
+      "name": "USB Board Cable",
+      "function": "Links USB daughterboard to system board connector.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "cable",
+      "size": {
+        "w": 0.14,
+        "d": 0.04,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.8,
+        "y": 0.68
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "USB board to system board"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/57",
+      "confidence": 0.8
+    },
+    {
+      "id": "smartcard_reader",
+      "name": "Smart Card Reader",
+      "function": "Enterprise authentication reader on right side.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.08,
+        "d": 0.12,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.9,
+        "y": 0.42
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "option": "Selected models"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/78",
+      "confidence": 0.7
+    },
+    {
+      "id": "wwan_card",
+      "name": "WWAN Card (Fibocom L860-GL)",
+      "function": "Optional cellular connectivity in M.2 3042 slot.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.14,
+        "d": 0.1,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.38,
+        "y": 0.66
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "model": "Fibocom L860-GL 4G CAT16",
+        "option": "Selected models"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/57",
+      "confidence": 0.6
+    },
+    {
+      "id": "sim_tray",
+      "name": "Nano-SIM Tray",
+      "function": "Holds Nano-SIM for WWAN on rear edge.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "slab",
+      "size": {
+        "w": 0.05,
+        "d": 0.06,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.12,
+        "y": 0.85
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Nano-SIM"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/57",
+      "confidence": 0.7
+    },
+    {
+      "id": "nfc_module",
+      "name": "NFC Module",
+      "function": "Contactless authentication mark on palmrest.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.1,
+        "d": 0.08,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.3,
+        "y": 0.2
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "option": "Selected models"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/78",
+      "confidence": 0.65
+    },
+    {
+      "id": "power_button_board",
+      "name": "Power Button Board with Fingerprint Reader",
+      "function": "Power-on control with optional Match-on-Chip fingerprint login.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "board",
+      "size": {
+        "w": 0.08,
+        "d": 0.06,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.82,
+        "y": 0.88
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Touch Match-on-Chip in Power Button"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/78",
+      "confidence": 0.85
+    },
+    {
+      "id": "trackpad",
+      "name": "Trackpad",
+      "function": "Front-centre pointing pad with integrated buttons.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 4,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.32,
+        "d": 0.18,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.18
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "size": "Approx 100x65 mm"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/78",
+      "confidence": 0.92
+    },
+    {
+      "id": "trackpad_cable",
+      "name": "Trackpad Cable",
+      "function": "Connects trackpad to system board trackpad connector.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "cable",
+      "size": {
+        "w": 0.08,
+        "d": 0.12,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.35
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Trackpad to system board"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/78",
+      "confidence": 0.82
+    },
+    {
+      "id": "keyboard",
+      "name": "Keyboard with TrackPoint",
+      "function": "6-row spill-resistant input with red TrackPoint stick.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "keys",
+      "layer": 4,
+      "shape": "keyboard",
+      "size": {
+        "w": 0.8,
+        "d": 0.32,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.62
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "layout": "6-row spill-resistant",
+        "options": "Backlit option"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Device/Lenovo_ThinkPad_T14_Gen_3",
+      "confidence": 0.96
+    },
+    {
+      "id": "top_cover",
+      "name": "Keyboard Bezel Assembly (C-cover / Palmrest)",
+      "function": "Structural top frame holding keyboard, TrackPoint buttons and trackpad.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 5,
+      "shape": "shell_deck",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "PC + 20pct CF + 50pct GF Thunder Black"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/57",
+      "confidence": 0.93
+    },
+    {
+      "id": "lcd_cover",
+      "name": "LCD Cover Assembly (A-cover)",
+      "function": "Outer Thunder Black back cover protecting display.",
+      "system_id": "enclosure",
+      "assembly": "lid",
+      "finish": "body",
+      "layer": 0,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 1.0,
+        "d": 0.95,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "color": "Thunder Black",
+        "material": "PC + CF + GF"
+      },
+      "hazard": null,
+      "source_url": "https://content.etilize.com/Manufacturer-Brochure/1077654696.pdf",
+      "confidence": 0.95
+    },
+    {
+      "id": "lcd_hinges",
+      "name": "LCD Hinges",
+      "function": "Hinged mechanism allowing 180-degree opening.",
+      "system_id": "enclosure",
+      "assembly": "lid",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "frame",
+      "size": {
+        "w": 0.6,
+        "d": 0.06,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.05
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "angle": "Up to 180 degrees"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/78",
+      "confidence": 0.85
+    },
+    {
+      "id": "display_panel",
+      "name": "LCD Panel 14-inch WUXGA IPS",
+      "function": "14-inch 16:10 visual output panel.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "screen",
+      "layer": 1,
+      "shape": "screen",
+      "size": {
+        "w": 0.92,
+        "d": 0.88,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.52
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "resolution": "1920x1200 IPS Anti-glare",
+        "size": "14.0-inch 16:10"
+      },
+      "hazard": null,
+      "source_url": "https://content.etilize.com/Manufacturer-Brochure/1077654696.pdf",
+      "confidence": 0.95
+    },
+    {
+      "id": "lcd_cable",
+      "name": "LCD Cable",
+      "function": "Carries video and camera signals through hinge to system board.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cable",
+      "size": {
+        "w": 0.08,
+        "d": 0.2,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.12
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "LCD to system board LCD connector"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/78",
+      "confidence": 0.85
+    },
+    {
+      "id": "camera_module",
+      "name": "Camera with Microphone",
+      "function": "Video calls and Windows Hello with privacy shutter.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.12,
+        "d": 0.04,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.92
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "FHD 1080p + IR Hybrid with Privacy Shutter"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/78",
+      "confidence": 0.85
+    },
+    {
+      "id": "antenna_assembly",
+      "name": "WLAN / WWAN Antenna Assembly",
+      "function": "Radios for Wi-Fi 6E and optional WWAN routed into lid.",
+      "system_id": "io",
+      "assembly": "lid",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cable",
+      "size": {
+        "w": 0.05,
+        "d": 0.7,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.2,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "radio": "Intel AX211 Wi-Fi 6E 2x2 + BT5.1"
+      },
+      "hazard": null,
+      "source_url": "https://mans.io/files/viewer/2551183/57",
+      "confidence": 0.75
+    }
+  ],
+  "connections": [
+    {
+      "source": "battery",
+      "target": "system_board",
+      "kind": "power",
+      "label": "Battery connector"
+    },
+    {
+      "source": "battery",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "6x M2 screws to chassis"
+    },
+    {
+      "source": "coin_cell",
+      "target": "system_board",
+      "kind": "power",
+      "label": "RTC battery cable"
+    },
+    {
+      "source": "system_board",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Board screwed to C-cover"
+    },
+    {
+      "source": "base_cover",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "7 captive screws D-cover"
+    },
+    {
+      "source": "ssd",
+      "target": "system_board",
+      "kind": "data",
+      "label": "M.2 2280 PCIe x4 slot"
+    },
+    {
+      "source": "ssd_bracket",
+      "target": "ssd",
+      "kind": "mechanical",
+      "label": "SSD clamp + thermal pad"
+    },
+    {
+      "source": "ssd_bracket",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "Bracket screw to board"
+    },
+    {
+      "source": "ram_sodimm",
+      "target": "system_board",
+      "kind": "data",
+      "label": "DDR4 SO-DIMM slot"
+    },
+    {
+      "source": "ram_soldered",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "Soldered RAM chips"
+    },
+    {
+      "source": "cpu",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "Soldered BGA SoC"
+    },
+    {
+      "source": "cpu",
+      "target": "heat_pipes",
+      "kind": "thermal",
+      "label": "CPU cold plate + grease"
+    },
+    {
+      "source": "heat_pipes",
+      "target": "thermal_fan",
+      "kind": "thermal",
+      "label": "Heat pipes to fan"
+    },
+    {
+      "source": "heat_pipes",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "Heatsink screwed to board"
+    },
+    {
+      "source": "thermal_fan",
+      "target": "system_board",
+      "kind": "power",
+      "label": "Fan connector"
+    },
+    {
+      "source": "thermal_fan",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "4x M2 fan screws"
+    },
+    {
+      "source": "usb_board",
+      "target": "usb_board_cable",
+      "kind": "data",
+      "label": "USB board to cable"
+    },
+    {
+      "source": "usb_board_cable",
+      "target": "system_board",
+      "kind": "data",
+      "label": "USB board cable to board"
+    },
+    {
+      "source": "usb_board",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "USB board 2x screws to chassis"
+    },
+    {
+      "source": "speaker_left",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Left speaker cable"
+    },
+    {
+      "source": "speaker_left",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Left speaker screws front corner"
+    },
+    {
+      "source": "speaker_right",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Right speaker cable"
+    },
+    {
+      "source": "speaker_right",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Right speaker screws front corner"
+    },
+    {
+      "source": "trackpad",
+      "target": "trackpad_cable",
+      "kind": "data",
+      "label": "Trackpad to flex"
+    },
+    {
+      "source": "trackpad_cable",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Trackpad flex to board"
+    },
+    {
+      "source": "trackpad",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Trackpad screwed to palmrest"
+    },
+    {
+      "source": "keyboard",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Keyboard flex"
+    },
+    {
+      "source": "keyboard",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Keyboard in C-cover bezel"
+    },
+    {
+      "source": "power_button_board",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Power button + fingerprint flex"
+    },
+    {
+      "source": "power_button_board",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Power board in palmrest"
+    },
+    {
+      "source": "smartcard_reader",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Smartcard reader cable"
+    },
+    {
+      "source": "smartcard_reader",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Reader screwed to right side"
+    },
+    {
+      "source": "nfc_module",
+      "target": "system_board",
+      "kind": "data",
+      "label": "NFC module cable"
+    },
+    {
+      "source": "nfc_module",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "NFC on palmrest"
+    },
+    {
+      "source": "wwan_card",
+      "target": "system_board",
+      "kind": "data",
+      "label": "M.2 3042 WWAN slot"
+    },
+    {
+      "source": "sim_tray",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "Nano-SIM tray in board slot"
+    },
+    {
+      "source": "antenna_assembly",
+      "target": "system_board",
+      "kind": "data",
+      "label": "WLAN antenna coax to AX211"
+    },
+    {
+      "source": "antenna_assembly",
+      "target": "wwan_card",
+      "kind": "data",
+      "label": "WWAN antenna coax"
+    },
+    {
+      "source": "antenna_assembly",
+      "target": "lcd_cover",
+      "kind": "mechanical",
+      "label": "Antennas routed into lid"
+    },
+    {
+      "source": "display_panel",
+      "target": "lcd_cable",
+      "kind": "data",
+      "label": "eDP panel flex"
+    },
+    {
+      "source": "camera_module",
+      "target": "lcd_cable",
+      "kind": "data",
+      "label": "Camera signals in lid harness"
+    },
+    {
+      "source": "lcd_cable",
+      "target": "system_board",
+      "kind": "data",
+      "label": "LCD cable through hinge to board"
+    },
+    {
+      "source": "display_panel",
+      "target": "lcd_cover",
+      "kind": "mechanical",
+      "label": "Panel screwed to A-cover"
+    },
+    {
+      "source": "lcd_hinges",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Hinges screwed to C-cover"
+    },
+    {
+      "source": "lcd_hinges",
+      "target": "lcd_cover",
+      "kind": "mechanical",
+      "label": "Hinges screwed to A-cover"
+    },
+    {
+      "source": "lcd_cable",
+      "target": "lcd_hinges",
+      "kind": "mechanical",
+      "label": "Cable routed through hinge"
+    },
+    {
+      "source": "camera_module",
+      "target": "lcd_cover",
+      "kind": "mechanical",
+      "label": "Camera in top bezel"
+    }
+  ],
+  "repair_paths": [],
+  "sources": [
+    "https://www.ifixit.com/Device/Lenovo_ThinkPad_T14_Gen_3",
+    "https://content.etilize.com/Manufacturer-Brochure/1077654696.pdf",
+    "https://laptopmedia.com/sg/laptop-specs/lenovo-thinkpad-t14-gen-3-541/review/",
+    "https://mans.io/files/viewer/2551183/57",
+    "https://www.xda-developers.com/lenovo-thinkpad-t14-gen-3-upgrade-ram-storage/",
+    "https://mans.io/files/viewer/2551183/78"
+  ]
+}

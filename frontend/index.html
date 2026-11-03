@@ -47,7 +47,11 @@
     <!-- Side menu (YouTube-style): icons only when collapsed, labels when open.
          Items marked "soon" become links as each feature is built. -->
     <nav class="drawer" id="drawer" aria-label="Main">
-      <a class="nav-item" href="#explore" aria-current="page" title="Explore">
+      <a class="nav-item" href="/" data-nav="home" title="New device">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="6"/><path d="M15.5 15.5L20 20"/></svg>
+        <span class="label">New device</span>
+      </a>
+      <a class="nav-item" href="/?data=" data-nav="explore" aria-current="page" title="Explore">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg>
         <span class="label">Explore</span>
       </a>
@@ -55,20 +59,41 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
         <span class="label">Diagnose</span><em>soon</em>
       </button>
-      <button class="nav-item" disabled title="New device (soon)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="6"/><path d="M15.5 15.5L20 20"/></svg>
-        <span class="label">New device</span><em>soon</em>
-      </button>
-      <button class="nav-item" disabled title="Library (soon)">
+      <a class="nav-item" href="/#library" data-nav="library" title="Your devices">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="4" y="4" width="16" height="5" rx="1"/><rect x="4" y="11" width="16" height="9" rx="1"/></svg>
-        <span class="label">Library</span><em>soon</em>
-      </button>
+        <span class="label">Your devices</span>
+      </a>
       <div class="divider" role="separator"></div>
       <button class="nav-item" disabled title="Method &amp; accuracy (soon)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 20V12M11 20V5M17 20v-9M3 20h18"/></svg>
         <span class="label">Method &amp; accuracy</span><em>soon</em>
       </button>
     </nav>
+
+    <!-- Home page (home.js): shown when the URL has no ?data=… -->
+    <section class="home" id="home" hidden>
+      <div class="home-art" id="home-art" aria-hidden="true"><img src="home-art.svg" alt=""></div>
+      <div class="home-inner">
+        <h1>Which device do you want to open?</h1>
+        <form class="search" id="search" role="search">
+          <input id="query" name="q" type="text" autocomplete="off" placeholder="Model name, e.g. MacBook Air 2020" aria-label="Device model">
+          <button class="btn primary" type="submit">Search</button>
+        </form>
+        <p class="examples" id="examples"></p>
+        <div class="flow" id="flow" aria-live="polite"></div>
+
+        <section class="featured" id="featured" hidden aria-labelledby="featured-title">
+          <h2 id="featured-title">Popular laptops, ready to open</h2>
+          <div class="feats" id="featured-list"></div>
+        </section>
+
+        <section class="library" id="library" aria-labelledby="library-title">
+          <h2 id="library-title">Your devices</h2>
+          <p class="quiet" id="library-empty">Devices you save appear here. They are kept in this browser, no account needed.</p>
+          <div class="devices" id="library-list"></div>
+        </section>
+      </div>
+    </section>
 
     <section class="stage" id="stage" aria-label="3D exploded view">
       <div class="tooltip" id="tooltip" hidden></div>
@@ -99,6 +124,7 @@
     </ul>
   </footer>
 
+  <script type="module" src="home.js"></script>
   <script type="module" src="nav.js"></script>
   <script type="module" src="viewer.js"></script>
 </body>

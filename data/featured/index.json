@@ -1,0 +1,84 @@
+{
+  "devices": [
+    {
+      "query": "MacBook Air M1 2020",
+      "model_name": "MacBook Air (M1, 2020)",
+      "path": "/data/featured/macbook_air_m1_2020.json",
+      "parts": 20,
+      "provenance": "sourced",
+      "color": "#C8C8C8"
+    },
+    {
+      "query": "MacBook Air M2 2022",
+      "model_name": "MacBook Air (M2, 2022)",
+      "path": "/data/featured/macbook_air_m2_2022.json",
+      "parts": 22,
+      "provenance": "sourced",
+      "color": "#D8D8D8"
+    },
+    {
+      "query": "MacBook Pro 14 M3 2023",
+      "model_name": "MacBook Pro (14-inch, Nov 2023)",
+      "path": "/data/featured/macbook_pro_14_m3_nov_2023.json",
+      "parts": 23,
+      "provenance": "sourced",
+      "color": "#808284"
+    },
+    {
+      "query": "Dell XPS 13 9310",
+      "model_name": "XPS 13 9310",
+      "path": "/data/featured/xps_13_9310_2020.json",
+      "parts": 22,
+      "provenance": "sourced",
+      "color": "#C8CCD1"
+    },
+    {
+      "query": "Lenovo ThinkPad X1 Carbon Gen 11",
+      "model_name": "X1 Carbon 11th Gen (Type 21HM, 21HN) Laptop (ThinkPad)",
+      "path": "/data/featured/thinkpad_x1_carbon_gen_11.json",
+      "parts": 26,
+      "provenance": "sourced",
+      "color": "#111111"
+    },
+    {
+      "query": "Lenovo ThinkPad T14 Gen 3",
+      "model_name": "ThinkPad T14 Gen 3 (Intel)",
+      "path": "/data/featured/thinkpad_t14_gen3_intel.json",
+      "parts": 30,
+      "provenance": "sourced",
+      "color": "#1C1C1E"
+    },
+    {
+      "query": "HP Spectre x360 14 2022",
+      "model_name": "HP Spectre x360 13.5 inch 2-in-1 Laptop PC 14-ef0000",
+      "path": "/data/featured/spectre_x360_14_ef0000_2022.json",
+      "parts": 21,
+      "provenance": "sourced",
+      "color": "#D1D3D4"
+    },
+    {
+      "query": "ASUS Zenbook 14 OLED UX3402",
+      "model_name": "ASUS Zenbook 14 OLED (UX3402ZA)",
+      "path": "/data/featured/zenbook_14_oled_ux3402za_2022.json",
+      "parts": 19,
+      "provenance": "sourced",
+      "color": "#2E4057"
+    },
+    {
+      "query": "Microsoft Surface Laptop 5",
+      "model_name": "Surface Laptop 5 13.5\"",
+      "path": "/data/featured/surface_laptop_5_13_consumer.json",
+      "parts": 20,
+      "provenance": "sourced",
+      "color": "#DAD9D7"
+    },
+    {
+      "query": "Framework Laptop 13",
+      "model_name": "Framework Laptop (11th Gen Intel Core)",
+      "path": "/data/featured/framework_laptop_13_11th_gen_2021.json",
+      "parts": 24,
+      "provenance": "sourced",
+      "color": "#000000"
+    }
+  ]
+}

@@ -7,7 +7,8 @@ config.py — every setting in one place, read from .env (never hard-coded, neve
   META_MODEL          optional, default muse-spark-1.3
   META_REASONING      optional: minimal | low | medium | high. Unset = the API's default.
                       Not yet confirmed by a test call, so it is off unless you set it.
-  HOLOFIX_CACHE       optional: "off" disables the LLM cache (default: on)
+  HOLOFIX_CACHE       optional: on (default) | off | refresh
+                      refresh = ignore what is cached but save the new answers (to retry a failure)
 """
 
 import os
@@ -24,7 +25,9 @@ META_MODEL = os.getenv("META_MODEL", "muse-spark-1.3")
 META_REASONING = os.getenv("META_REASONING") or None
 
 CACHE_DIR = ROOT / "data" / "cache" / "llm"
-CACHE_ENABLED = os.getenv("HOLOFIX_CACHE", "on").lower() != "off"
+CACHE_MODE = os.getenv("HOLOFIX_CACHE", "on").lower()
+CACHE_ENABLED = CACHE_MODE != "off"          # write answers to the cache
+CACHE_READ = CACHE_MODE not in ("off", "refresh")   # reuse cached answers
 
 FRONTEND_DIR = ROOT / "frontend"
 DATA_DIR = ROOT / "data"

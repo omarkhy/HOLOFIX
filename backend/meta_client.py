@@ -53,7 +53,7 @@ def _post(path: str, body: dict) -> dict:
 
     key = hashlib.sha256(json.dumps([path, body], sort_keys=True).encode()).hexdigest()[:24]
     cache_file = config.CACHE_DIR / f"{key}.json"
-    if config.CACHE_ENABLED and cache_file.exists():
+    if config.CACHE_READ and cache_file.exists():
         return json.loads(cache_file.read_text())
 
     started = time.time()

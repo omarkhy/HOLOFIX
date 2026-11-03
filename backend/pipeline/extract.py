@@ -95,7 +95,7 @@ def _graph_path(variant_id: str, configuration: dict[str, str]) -> "Path":
 
 def extract(variant: Variant, configuration: dict[str, str]) -> PartsGraph:
     path = _graph_path(variant.variant_id, configuration)
-    if config.CACHE_ENABLED and path.exists():
+    if config.CACHE_READ and path.exists():
         return PartsGraph.model_validate_json(path.read_text())
 
     cfg = ", ".join(f"{k}: {v}" for k, v in configuration.items()) or "base model"
@@ -112,8 +112,9 @@ def extract(variant: Variant, configuration: dict[str, str]) -> PartsGraph:
             graph = add_connections(graph, notes)
         graph = post_check(graph, variant, configuration, urls)
     except meta_client.MetaAPIError as e:
-        print(f"[extract] falling back to the generic template: {str(e)[:300]}")
-        graph = generic_graph(variant, configuration)
+        print(f"[extract] {variant.model_name}: falling back to the generic template: {str(e)[:300]}", flush=True)
+        # Not cached: a fallback must never be served later as if it were the real extraction.
+        return generic_graph(variant, configuration)
 
     GRAPH_DIR.mkdir(parents=True, exist_ok=True)
     path.write_text(graph.model_dump_json(indent=2))

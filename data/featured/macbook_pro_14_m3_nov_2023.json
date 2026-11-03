@@ -1,0 +1,912 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "MacBook Pro (14-inch, Nov 2023)",
+    "variant_id": "macbook_pro_14_m3_nov_2023",
+    "category": "laptop",
+    "configuration": {
+      "chip": "Apple M3 (8-core CPU / 10-core GPU)",
+      "memory": "8GB",
+      "storage": "512GB",
+      "color": "Space Gray",
+      "power_adapter": "70W USB-C Power Adapter"
+    },
+    "dimensions_mm": {
+      "width": 312.6,
+      "depth": 221.2,
+      "height_min": 15.5,
+      "height_max": 15.5
+    },
+    "color": {
+      "name": "Space Gray",
+      "hex": "#808284"
+    },
+    "summary": "First 14-inch MacBook Pro with the base Apple M3 chip in a single-fan thermal design. Notable for its 14.2-inch Liquid Retina XDR display and 70 Wh battery in a Space Gray aluminum unibody.",
+    "key_specs": {
+      "Battery": "70-watt-hour lithium-polymer battery, up to 22 hours video playback, 70W USB-C Power Adapter",
+      "Display": "14.2-inch Liquid Retina XDR, 3024-by-1964 at 254 ppi, up to 120Hz ProMotion",
+      "Graphics": "Apple M3 10-core GPU with hardware-accelerated ray tracing, 100GB/s memory bandwidth",
+      "Processor": "Apple M3 chip, 8-core CPU with 4 performance cores and 4 efficiency cores, 16-core Neural Engine",
+      "Release": "Announced October 30, 2023. Available November 7, 2023",
+      "Weight": "3.4 pounds (1.55 kg)"
+    }
+  },
+  "provenance": "sourced",
+  "systems": [
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "parent_id": null
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "parent_id": null
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "parent_id": null
+    },
+    {
+      "id": "compute",
+      "name": "Compute",
+      "parent_id": null
+    },
+    {
+      "id": "storage",
+      "name": "Storage",
+      "parent_id": null
+    },
+    {
+      "id": "thermal",
+      "name": "Thermal",
+      "parent_id": null
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "parent_id": null
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "parent_id": null
+    },
+    {
+      "id": "io",
+      "name": "I/O and Connectivity",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "lower_case",
+      "name": "Bottom Case / Lower Case",
+      "function": "Forms the aluminum underside, protects internals and provides speaker grille cutouts.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 0,
+      "shape": "shell_base",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "fasteners": "8x P5 pentalobe screws"
+      },
+      "hazard": null,
+      "source_url": "https://WWW.IFIXIT.COM/Guide/MacBook+Pro+14-Inch+Late+2023+(M3)+Battery+Replacement/167548",
+      "confidence": 0.96
+    },
+    {
+      "id": "battery_pack",
+      "name": "Battery Pack 70Wh",
+      "function": "Stores and delivers DC power to the logic board.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.7,
+        "d": 0.35,
+        "h": 0.35
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.28
+      },
+      "serviceability": "glued",
+      "specs": {
+        "capacity": "70 Wh",
+        "type": "lithium-polymer"
+      },
+      "hazard": "lithium_battery",
+      "source_url": "https://support.apple.com/en-us/111902",
+      "confidence": 0.95
+    },
+    {
+      "id": "left_speaker",
+      "name": "Left Speaker",
+      "function": "Outputs left-channel stereo audio as part of the six-speaker system.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.1,
+        "d": 0.3,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.1,
+        "y": 0.3
+      },
+      "serviceability": "glued",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/Macbook+Pro+14-Inch+Late+2023+(M3+Pro+and+M3+Max)+Speakers+Replacement/167660",
+      "confidence": 0.92
+    },
+    {
+      "id": "right_speaker",
+      "name": "Right Speaker",
+      "function": "Outputs right-channel stereo audio as part of the six-speaker system.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.1,
+        "d": 0.3,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.9,
+        "y": 0.3
+      },
+      "serviceability": "glued",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/Macbook+Pro+14-Inch+Late+2023+(M3+Pro+and+M3+Max)+Speakers+Replacement/167660",
+      "confidence": 0.92
+    },
+    {
+      "id": "battery_interconnect",
+      "name": "Battery Board with Data and Power Cables",
+      "function": "Carries battery power and telemetry between cells and the logic board.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "cable",
+      "size": {
+        "w": 0.2,
+        "d": 0.06,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.52
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://WWW.IFIXIT.COM/Guide/MacBook+Pro+14-Inch+Late+2023+(M3)+Battery+Replacement/167548",
+      "confidence": 0.9
+    },
+    {
+      "id": "antenna_bar",
+      "name": "Antenna Bar with Coaxial Cables",
+      "function": "Provides Wi-Fi 6E and Bluetooth 5.3 antennas via coaxial cables.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "cable",
+      "size": {
+        "w": 0.85,
+        "d": 0.05,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.96
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "wireless": "Wi-Fi 6E, Bluetooth 5.3"
+      },
+      "hazard": null,
+      "source_url": "https://WWW.IFIXIT.COM/Guide/MacBook+Pro+14-Inch+Late+2023+(M3)+Battery+Replacement/167548",
+      "confidence": 0.88
+    },
+    {
+      "id": "microphone_array",
+      "name": "Studio Microphone Array",
+      "function": "Captures voice audio with studio-quality three-mic array.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.08,
+        "d": 0.04,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.32,
+        "y": 0.93
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://WWW.IFIXIT.COM/Guide/MacBook+Pro+14-Inch+Late+2023+(M3)+Battery+Replacement/167548",
+      "confidence": 0.85
+    },
+    {
+      "id": "logic_board",
+      "name": "Logic Board / Main Board",
+      "function": "Interconnects SoC, memory, storage, power and I/O controllers.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.9,
+        "d": 0.2,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.82
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://WWW.IFIXIT.COM/Guide/MacBook+Pro+14-Inch+Late+2023+(M3)+Battery+Replacement/167548",
+      "confidence": 0.95
+    },
+    {
+      "id": "magsafe_board",
+      "name": "MagSafe 3 Charge Port Board",
+      "function": "Provides magnetic DC power input from the 70W adapter.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.07,
+        "d": 0.07,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.07,
+        "y": 0.86
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "port": "MagSafe 3"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111902",
+      "confidence": 0.9
+    },
+    {
+      "id": "thunderbolt_ports",
+      "name": "Thunderbolt / USB-C Ports (2x)",
+      "function": "Provides two 40Gb/s charging and data ports.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.15,
+        "d": 0.06,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.15,
+        "y": 0.9
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "count": "2 ports",
+        "standard": "Thunderbolt / USB 4 up to 40Gb/s"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111902",
+      "confidence": 0.92
+    },
+    {
+      "id": "headphone_jack",
+      "name": "Headphone Jack Board",
+      "function": "Provides analog audio output with high-impedance headphone support.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.05,
+        "d": 0.12,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.07,
+        "y": 0.72
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "jack": "3.5 mm"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111902",
+      "confidence": 0.88
+    },
+    {
+      "id": "hdmi_sdxc",
+      "name": "HDMI Port + SDXC Slot",
+      "function": "Provides HDMI display output and SDXC card input soldered to the logic board.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.12,
+        "d": 0.08,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.93,
+        "y": 0.82
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "hdmi": "HDMI port",
+        "sdxc": "SDXC card slot"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111902",
+      "confidence": 0.88
+    },
+    {
+      "id": "soc_m3",
+      "name": "Apple M3 SoC",
+      "function": "Performs CPU, GPU, Neural Engine and media-engine compute.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "chip",
+      "size": {
+        "w": 0.09,
+        "d": 0.09,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.82
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "cpu": "8-core CPU",
+        "gpu": "10-core GPU",
+        "neural_engine": "16-core"
+      },
+      "hazard": null,
+      "source_url": "https://iunlocker.com/specs/apple/macbook-pro-14-inch-m3-nov-2023/",
+      "confidence": 0.96
+    },
+    {
+      "id": "unified_memory",
+      "name": "Unified Memory 8GB",
+      "function": "Provides shared working memory for CPU and GPU.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "chip",
+      "size": {
+        "w": 0.05,
+        "d": 0.05,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.58,
+        "y": 0.82
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "capacity": "8 GB"
+      },
+      "hazard": null,
+      "source_url": "https://iunlocker.com/specs/apple/macbook-pro-14-inch-m3-nov-2023/",
+      "confidence": 0.95
+    },
+    {
+      "id": "nand_storage",
+      "name": "Flash Storage 512GB NAND",
+      "function": "Stores OS, apps and user data as 512GB SSD.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "chip",
+      "size": {
+        "w": 0.07,
+        "d": 0.05,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.42,
+        "y": 0.82
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "capacity": "512 GB"
+      },
+      "hazard": null,
+      "source_url": "https://iunlocker.com/specs/apple/macbook-pro-14-inch-m3-nov-2023/",
+      "confidence": 0.93
+    },
+    {
+      "id": "thermal_fan",
+      "name": "Cooling Fan (single)",
+      "function": "Moves air over fins to exhaust heat from the SoC.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.18,
+        "d": 0.15,
+        "h": 0.35
+      },
+      "position": {
+        "x": 0.27,
+        "y": 0.83
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "count": "1 fan (M3)"
+      },
+      "hazard": null,
+      "source_url": "https://WWW.IFIXIT.COM/Guide/MacBook+Pro+14-Inch+Late+2023+(M3)+Battery+Replacement/167548",
+      "confidence": 0.92
+    },
+    {
+      "id": "heatsink",
+      "name": "Heat Sink / Heat Pipe",
+      "function": "Conducts heat from the SoC to the fan exhaust fins.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "slab",
+      "size": {
+        "w": 0.45,
+        "d": 0.08,
+        "h": 0.2
+      },
+      "position": {
+        "x": 0.6,
+        "y": 0.86
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://WWW.IFIXIT.COM/Guide/MacBook+Pro+14-Inch+Late+2023+(M3)+Battery+Replacement/167548",
+      "confidence": 0.9
+    },
+    {
+      "id": "keyboard",
+      "name": "Magic Keyboard with Backlight",
+      "function": "Provides backlit typing input with ambient light sensing.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "keys",
+      "layer": 5,
+      "shape": "keyboard",
+      "size": {
+        "w": 0.84,
+        "d": 0.3,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.64
+      },
+      "serviceability": "not_serviceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111902",
+      "confidence": 0.94
+    },
+    {
+      "id": "trackpad",
+      "name": "Force Touch Trackpad",
+      "function": "Provides cursor and pressure-sensing Force Touch input.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 5,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.32,
+        "d": 0.2,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.18
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://WWW.IFIXIT.COM/Guide/MacBook+Pro+14-Inch+Late+2023+(M3)+Battery+Replacement/167548",
+      "confidence": 0.94
+    },
+    {
+      "id": "touch_id",
+      "name": "Touch ID / Power Button Sensor",
+      "function": "Provides fingerprint unlock and power control paired to the logic board.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 5,
+      "shape": "board",
+      "size": {
+        "w": 0.05,
+        "d": 0.05,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.88,
+        "y": 0.64
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "feature": "Touch ID"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111902",
+      "confidence": 0.9
+    },
+    {
+      "id": "top_case",
+      "name": "Top Case with Midframe",
+      "function": "Structural aluminum tub that holds keyboard, trackpad and internals.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 6,
+      "shape": "shell_deck",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://WWW.IFIXIT.COM/Guide/MacBook+Pro+14-Inch+Late+2023+(M3)+Battery+Replacement/167548",
+      "confidence": 0.92
+    },
+    {
+      "id": "lid_cover",
+      "name": "Display Back Cover",
+      "function": "Forms the outer aluminum back of the display lid.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "body",
+      "layer": 0,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.2
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111902",
+      "confidence": 0.88
+    },
+    {
+      "id": "display_panel",
+      "name": "Liquid Retina XDR Display Panel 14.2-inch",
+      "function": "Displays image with 14.2-inch mini-LED Liquid Retina XDR panel.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "screen",
+      "layer": 1,
+      "shape": "screen",
+      "size": {
+        "w": 0.95,
+        "d": 0.9,
+        "h": 0.25
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.55
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "refresh_rate": "up to 120Hz",
+        "resolution": "3024 x 1964",
+        "size": "14.2-inch"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111902",
+      "confidence": 0.96
+    }
+  ],
+  "connections": [
+    {
+      "source": "battery_pack",
+      "target": "battery_interconnect",
+      "kind": "power",
+      "label": "Main battery power leads"
+    },
+    {
+      "source": "battery_interconnect",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "Main battery connector"
+    },
+    {
+      "source": "battery_interconnect",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Battery telemetry ZIF cable"
+    },
+    {
+      "source": "magsafe_board",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "MagSafe DC input flex"
+    },
+    {
+      "source": "thunderbolt_ports",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "USB-C charging input"
+    },
+    {
+      "source": "thunderbolt_ports",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Thunderbolt 40Gb/s data flex"
+    },
+    {
+      "source": "display_panel",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "eDP display flex"
+    },
+    {
+      "source": "keyboard",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Keyboard ribbon flex"
+    },
+    {
+      "source": "trackpad",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Trackpad press flex"
+    },
+    {
+      "source": "left_speaker",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Left speaker ZIF cable"
+    },
+    {
+      "source": "right_speaker",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Right speaker ZIF cable"
+    },
+    {
+      "source": "antenna_bar",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Antenna coaxial cables"
+    },
+    {
+      "source": "microphone_array",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Microphone ZIF cable"
+    },
+    {
+      "source": "headphone_jack",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Headphone jack flex"
+    },
+    {
+      "source": "touch_id",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Touch ID flex"
+    },
+    {
+      "source": "thermal_fan",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "Fan power/control cable"
+    },
+    {
+      "source": "soc_m3",
+      "target": "heatsink",
+      "kind": "thermal",
+      "label": "SoC to heat pipe"
+    },
+    {
+      "source": "heatsink",
+      "target": "thermal_fan",
+      "kind": "thermal",
+      "label": "Fins to fan airflow"
+    },
+    {
+      "source": "soc_m3",
+      "target": "logic_board",
+      "kind": "mechanical",
+      "label": "SoC soldered to board"
+    },
+    {
+      "source": "unified_memory",
+      "target": "soc_m3",
+      "kind": "mechanical",
+      "label": "Unified memory in SoC package"
+    },
+    {
+      "source": "nand_storage",
+      "target": "logic_board",
+      "kind": "mechanical",
+      "label": "NAND soldered to board"
+    },
+    {
+      "source": "hdmi_sdxc",
+      "target": "logic_board",
+      "kind": "mechanical",
+      "label": "HDMI/SDXC soldered to board"
+    },
+    {
+      "source": "heatsink",
+      "target": "logic_board",
+      "kind": "mechanical",
+      "label": "Heatsink bracket screws"
+    },
+    {
+      "source": "thermal_fan",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Fan screwed to frame"
+    },
+    {
+      "source": "logic_board",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Logic board screwed to midframe"
+    },
+    {
+      "source": "battery_pack",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Battery stretch-release adhesive"
+    },
+    {
+      "source": "lower_case",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Lower case P5 screws + clips"
+    },
+    {
+      "source": "keyboard",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Keyboard riveted to top case"
+    },
+    {
+      "source": "trackpad",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Trackpad screwed to top case"
+    },
+    {
+      "source": "touch_id",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Touch ID seated in deck"
+    },
+    {
+      "source": "left_speaker",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Left speaker screwed/glued in cutout"
+    },
+    {
+      "source": "right_speaker",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Right speaker screwed/glued in cutout"
+    },
+    {
+      "source": "magsafe_board",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "MagSafe board screwed to frame"
+    },
+    {
+      "source": "thunderbolt_ports",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "USB-C boards screwed to frame"
+    },
+    {
+      "source": "headphone_jack",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Headphone board screwed to frame"
+    },
+    {
+      "source": "antenna_bar",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Antenna bar bracket + cover screws"
+    },
+    {
+      "source": "microphone_array",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Mic board mounted to frame"
+    },
+    {
+      "source": "display_panel",
+      "target": "lid_cover",
+      "kind": "mechanical",
+      "label": "Panel bonded to back cover"
+    },
+    {
+      "source": "lid_cover",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Lid hinges to top case"
+    }
+  ],
+  "repair_paths": [],
+  "sources": [
+    "https://iunlocker.com/specs/apple/macbook-pro-14-inch-m3-nov-2023/",
+    "https://support.apple.com/en-us/111902",
+    "https://WWW.IFIXIT.COM/Guide/MacBook+Pro+14-Inch+Late+2023+(M3)+Battery+Replacement/167548",
+    "https://www.ifixit.com/Guide/Macbook+Pro+14-Inch+Late+2023+(M3+Pro+and+M3+Max)+Speakers+Replacement/167660"
+  ]
+}

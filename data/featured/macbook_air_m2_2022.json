@@ -1,0 +1,880 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "MacBook Air (M2, 2022)",
+    "variant_id": "macbook_air_m2_2022",
+    "category": "laptop",
+    "configuration": {
+      "chip": "M2 with 8-core CPU and 8-core GPU",
+      "memory": "8GB",
+      "storage": "256GB",
+      "color": "Silver",
+      "power_adapter": "30W USB-C Power Adapter"
+    },
+    "dimensions_mm": {
+      "width": 304.1,
+      "depth": 215.0,
+      "height_min": 11.3,
+      "height_max": 11.3
+    },
+    "color": {
+      "name": "Silver",
+      "hex": "#D8D8D8"
+    },
+    "summary": "Redesigned flat unibody MacBook Air with fanless Apple M2, 13.6-inch Liquid Retina display and return of MagSafe 3. Thinner flat chassis replaces the wedge shape.",
+    "key_specs": {
+      "Battery": "52.6-watt-hour lithium-polymer battery, up to 15 hours wireless web, up to 18 hours video",
+      "Display": "13.6-inch Liquid Retina 2560-by-1664 at 224 ppi, 500 nits, P3, True Tone",
+      "Graphics": "Apple M2 8-core GPU, 16-core Neural Engine, 100GB/s memory bandwidth",
+      "Processor": "Apple M2 chip, 8-core CPU with 4 performance and 4 efficiency cores",
+      "Release Date": "July 15, 2022, announced at WWDC June 6, 2022",
+      "Weight": "2.7 pounds (1.24 kg)"
+    }
+  },
+  "provenance": "sourced",
+  "systems": [
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "parent_id": null
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "parent_id": null
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "parent_id": null
+    },
+    {
+      "id": "compute",
+      "name": "Compute",
+      "parent_id": null
+    },
+    {
+      "id": "storage",
+      "name": "Storage",
+      "parent_id": null
+    },
+    {
+      "id": "thermal",
+      "name": "Thermal",
+      "parent_id": null
+    },
+    {
+      "id": "io",
+      "name": "I/O",
+      "parent_id": null
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "parent_id": null
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "bottom_case",
+      "name": "Lower enclosure / bottom case",
+      "function": "Single-piece recycled aluminum bottom cover securing the underside with four screws.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 0,
+      "shape": "shell_base",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.2
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "100% recycled aluminum",
+        "size": "304.1 x 215 mm"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Teardown/M2+MacBook+Air+Teardown/150986",
+      "confidence": 0.98
+    },
+    {
+      "id": "battery",
+      "name": "Battery pack A2669",
+      "function": "Four-cell lithium-polymer energy store powering the laptop.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.68,
+        "d": 0.42,
+        "h": 0.5
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.3
+      },
+      "serviceability": "glued",
+      "specs": {
+        "capacity": "52.6 Wh",
+        "capacity_mah": "4561 mAh",
+        "model": "A2669",
+        "voltage": "11.54 V"
+      },
+      "hazard": "lithium_battery",
+      "source_url": "https://support.apple.com/en-us/111867",
+      "confidence": 0.96
+    },
+    {
+      "id": "logic_board",
+      "name": "Main logic board",
+      "function": "Central motherboard carrying SoC, power, wireless and I/O controllers.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "board",
+      "size": {
+        "w": 0.85,
+        "d": 0.16,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.86
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "paired_part": "Paired Touch ID sensor"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/62674/m2-macbook-air-teardown-apple-forgot-the-heatsink",
+      "confidence": 0.96
+    },
+    {
+      "id": "audio_io_board",
+      "name": "Audio / I/O flex board with MagSafe DC-in",
+      "function": "Super thin interconnect board for ports along the rear edge.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "board",
+      "size": {
+        "w": 0.25,
+        "d": 0.05,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.2,
+        "y": 0.92
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Teardown/M2+MacBook+Air+Teardown/150986",
+      "confidence": 0.85
+    },
+    {
+      "id": "speakers",
+      "name": "Four-speaker sound system",
+      "function": "Four-speaker drivers firing between top case and display for Spatial Audio.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.6,
+        "d": 0.08,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "features": "Wide stereo sound, Dolby Atmos Spatial Audio"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/62674/m2-macbook-air-teardown-apple-forgot-the-heatsink",
+      "confidence": 0.9
+    },
+    {
+      "id": "usb_c_ports",
+      "name": "Two Thunderbolt / USB 4 USB-C ports",
+      "function": "Two Thunderbolt / USB 4 ports for charging, DisplayPort and up to 40Gb/s data.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.06,
+        "d": 0.08,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.06,
+        "y": 0.78
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "standard": "Thunderbolt 3 / USB 4 up to 40Gb/s, USB 3.1 Gen 2 up to 10Gb/s"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111867",
+      "confidence": 0.95
+    },
+    {
+      "id": "magsafe_port",
+      "name": "MagSafe 3 charging port",
+      "function": "Magnetic charging input fed via the DC-in board to the logic board.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.04,
+        "d": 0.04,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.06,
+        "y": 0.9
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "cable": "USB-C to MagSafe 3 Cable (2 m)",
+        "type": "MagSafe 3"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111867",
+      "confidence": 0.95
+    },
+    {
+      "id": "headphone_jack",
+      "name": "3.5 mm headphone jack",
+      "function": "Analog audio output with support for high-impedance headphones.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.04,
+        "d": 0.04,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.94,
+        "y": 0.78
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "3.5 mm headphone jack"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111867",
+      "confidence": 0.92
+    },
+    {
+      "id": "m2_soc",
+      "name": "Apple M2 SoC",
+      "function": "Apple M2 package with 8-core CPU, 8-core GPU and 16-core Neural Engine.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "chip",
+      "size": {
+        "w": 0.07,
+        "d": 0.05,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.35,
+        "y": 0.86
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "cpu": "8-core CPU",
+        "gpu": "8-core GPU"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111867",
+      "confidence": 0.97
+    },
+    {
+      "id": "unified_memory",
+      "name": "Unified memory 8GB",
+      "function": "Unified LPDDR memory shared between CPU and GPU inside the M2 package.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "chip",
+      "size": {
+        "w": 0.05,
+        "d": 0.04,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.42,
+        "y": 0.86
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "bandwidth": "100GB/s",
+        "capacity": "8 GB"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111867",
+      "confidence": 0.95
+    },
+    {
+      "id": "nand_storage",
+      "name": "NAND flash storage 256GB",
+      "function": "Non-volatile SSD storage with one populated 256GB chip and one empty pad.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "chip",
+      "size": {
+        "w": 0.04,
+        "d": 0.03,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.52,
+        "y": 0.86
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "capacity": "256 GB",
+        "configuration": "Single soldered 256 GB NAND chip"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/62674/m2-macbook-air-teardown-apple-forgot-the-heatsink",
+      "confidence": 0.93
+    },
+    {
+      "id": "thunderbolt_driver",
+      "name": "Thunderbolt 3 driver",
+      "function": "Apple-made controller driving the two Thunderbolt / USB4 ports.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "chip",
+      "size": {
+        "w": 0.04,
+        "d": 0.03,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.6,
+        "y": 0.86
+      },
+      "serviceability": "soldered",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/62674/m2-macbook-air-teardown-apple-forgot-the-heatsink",
+      "confidence": 0.85
+    },
+    {
+      "id": "wifi_bt",
+      "name": "USI Wi-Fi + Bluetooth chip",
+      "function": "Provides Wi-Fi 6 and Bluetooth 5.3 wireless connectivity.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "chip",
+      "size": {
+        "w": 0.04,
+        "d": 0.03,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.68,
+        "y": 0.86
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "bluetooth": "Bluetooth 5.3",
+        "wifi": "Wi-Fi 6 802.11ax"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/62674/m2-macbook-air-teardown-apple-forgot-the-heatsink",
+      "confidence": 0.85
+    },
+    {
+      "id": "accelerometer",
+      "name": "Accelerometer",
+      "function": "Motion sensor for orientation and sudden-motion detection.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "chip",
+      "size": {
+        "w": 0.02,
+        "d": 0.02,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.75,
+        "y": 0.86
+      },
+      "serviceability": "soldered",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/62674/m2-macbook-air-teardown-apple-forgot-the-heatsink",
+      "confidence": 0.75
+    },
+    {
+      "id": "thermal_interface",
+      "name": "Passive cooling paste + graphite tape",
+      "function": "Conducts M2 heat to the shield and aluminum case with no fan.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "slab",
+      "size": {
+        "w": 0.12,
+        "d": 0.08,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.38,
+        "y": 0.86
+      },
+      "serviceability": "not_serviceable",
+      "specs": {
+        "type": "Thermal paste and graphite tape, fanless, no heatsink"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/62674/m2-macbook-air-teardown-apple-forgot-the-heatsink",
+      "confidence": 0.88
+    },
+    {
+      "id": "trackpad",
+      "name": "Force Touch trackpad",
+      "function": "Force Touch trackpad for cursor control and pressure-sensitive gestures.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 4,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.32,
+        "d": 0.2,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.2
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Force Touch trackpad"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Teardown/M2+MacBook+Air+Teardown/150986",
+      "confidence": 0.95
+    },
+    {
+      "id": "keyboard",
+      "name": "Backlit Magic Keyboard",
+      "function": "Backlit Magic Keyboard input integrated into the top case.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "keys",
+      "layer": 4,
+      "shape": "keyboard",
+      "size": {
+        "w": 0.84,
+        "d": 0.32,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "serviceability": "not_serviceable",
+      "specs": {
+        "layout": "78-key U.S. backlit Magic Keyboard with Touch ID"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111867",
+      "confidence": 0.95
+    },
+    {
+      "id": "touch_id",
+      "name": "Touch ID button",
+      "function": "Secure power button for unlock and payments, cryptographically paired to the board.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 5,
+      "shape": "box",
+      "size": {
+        "w": 0.05,
+        "d": 0.03,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.86,
+        "y": 0.58
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "pairing": "Paired to logic board"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Teardown/M2+MacBook+Air+Teardown/150986",
+      "confidence": 0.9
+    },
+    {
+      "id": "top_case",
+      "name": "Upper enclosure / top case",
+      "function": "Structural aluminum top half holding keyboard, trackpad cutout and speaker outlets.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 6,
+      "shape": "shell_deck",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.2
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "Aluminum unibody"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Teardown/M2+MacBook+Air+Teardown/150986",
+      "confidence": 0.97
+    },
+    {
+      "id": "lid_cover",
+      "name": "Lid back cover",
+      "function": "Aluminum outer lid protecting the display and housing antennas.",
+      "system_id": "enclosure",
+      "assembly": "lid",
+      "finish": "body",
+      "layer": 0,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.2
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "finish": "Silver aluminum"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Teardown/M2+MacBook+Air+Teardown/150986",
+      "confidence": 0.97
+    },
+    {
+      "id": "display_panel",
+      "name": "Display assembly 13.6-inch Liquid Retina",
+      "function": "13.6-inch Liquid Retina IPS panel displaying 2560-by-1664 at 500 nits.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "screen",
+      "layer": 1,
+      "shape": "screen",
+      "size": {
+        "w": 0.92,
+        "d": 0.88,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.52
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "brightness": "500 nits",
+        "resolution": "2560-by-1664 at 224 ppi",
+        "size": "13.6-inch Liquid Retina"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111867",
+      "confidence": 0.98
+    },
+    {
+      "id": "camera_mics",
+      "name": "FaceTime camera + microphone array",
+      "function": "1080p FaceTime HD camera with three-mic array for video calls.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.06,
+        "d": 0.03,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.93
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "camera": "1080p FaceTime HD camera",
+        "mics": "Three-mic array with beamforming"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111867",
+      "confidence": 0.9
+    }
+  ],
+  "connections": [
+    {
+      "source": "battery",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "Battery connector"
+    },
+    {
+      "source": "battery",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Tray screws + stretch-release adhesive"
+    },
+    {
+      "source": "audio_io_board",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "DC-in power interconnect"
+    },
+    {
+      "source": "audio_io_board",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Adhered thin board + brackets"
+    },
+    {
+      "source": "magsafe_port",
+      "target": "audio_io_board",
+      "kind": "power",
+      "label": "MagSafe DC-in"
+    },
+    {
+      "source": "magsafe_port",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "MagSafe modular mount"
+    },
+    {
+      "source": "usb_c_ports",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "USB-C charging input"
+    },
+    {
+      "source": "usb_c_ports",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Port brackets"
+    },
+    {
+      "source": "headphone_jack",
+      "target": "audio_io_board",
+      "kind": "data",
+      "label": "Analog audio"
+    },
+    {
+      "source": "headphone_jack",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Jack modular mount"
+    },
+    {
+      "source": "display_panel",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "eDP display flex"
+    },
+    {
+      "source": "display_panel",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Hinge screws"
+    },
+    {
+      "source": "lid_cover",
+      "target": "display_panel",
+      "kind": "mechanical",
+      "label": "Lid houses display"
+    },
+    {
+      "source": "camera_mics",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Camera / mic flex via hinge"
+    },
+    {
+      "source": "camera_mics",
+      "target": "display_panel",
+      "kind": "mechanical",
+      "label": "Camera in display bezel"
+    },
+    {
+      "source": "trackpad",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Trackpad flex cable"
+    },
+    {
+      "source": "trackpad",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Trackpad screws + washers"
+    },
+    {
+      "source": "keyboard",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Keyboard flex"
+    },
+    {
+      "source": "keyboard",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Keyboard integrated in top case"
+    },
+    {
+      "source": "touch_id",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Touch ID paired flex"
+    },
+    {
+      "source": "touch_id",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Touch ID through top case"
+    },
+    {
+      "source": "speakers",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Speaker cables"
+    },
+    {
+      "source": "speakers",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Speaker screws to case"
+    },
+    {
+      "source": "logic_board",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Board brackets / screws"
+    },
+    {
+      "source": "bottom_case",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Four bottom case screws"
+    },
+    {
+      "source": "m2_soc",
+      "target": "logic_board",
+      "kind": "mechanical",
+      "label": "Soldered SoC"
+    },
+    {
+      "source": "m2_soc",
+      "target": "thermal_interface",
+      "kind": "thermal",
+      "label": "Paste + graphite tape"
+    },
+    {
+      "source": "thermal_interface",
+      "target": "top_case",
+      "kind": "thermal",
+      "label": "Heat to aluminum case"
+    },
+    {
+      "source": "unified_memory",
+      "target": "m2_soc",
+      "kind": "mechanical",
+      "label": "Co-packaged in M2"
+    },
+    {
+      "source": "nand_storage",
+      "target": "logic_board",
+      "kind": "mechanical",
+      "label": "Soldered NAND chip"
+    },
+    {
+      "source": "thunderbolt_driver",
+      "target": "logic_board",
+      "kind": "mechanical",
+      "label": "Soldered controller"
+    },
+    {
+      "source": "thunderbolt_driver",
+      "target": "usb_c_ports",
+      "kind": "data",
+      "label": "Thunderbolt drive signals"
+    },
+    {
+      "source": "wifi_bt",
+      "target": "logic_board",
+      "kind": "mechanical",
+      "label": "Soldered wireless chip"
+    },
+    {
+      "source": "wifi_bt",
+      "target": "lid_cover",
+      "kind": "data",
+      "label": "Antenna coax to lid"
+    },
+    {
+      "source": "accelerometer",
+      "target": "logic_board",
+      "kind": "mechanical",
+      "label": "Soldered sensor"
+    }
+  ],
+  "repair_paths": [],
+  "sources": [
+    "https://support.apple.com/en-us/111867",
+    "https://www.ifixit.com/News/62674/m2-macbook-air-teardown-apple-forgot-the-heatsink",
+    "https://www.ifixit.com/Teardown/M2+MacBook+Air+Teardown/150986"
+  ]
+}

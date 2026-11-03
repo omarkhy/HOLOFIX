@@ -1,0 +1,806 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "MacBook Air (M1, 2020)",
+    "variant_id": "macbook_air_m1_2020",
+    "category": "laptop",
+    "configuration": {
+      "chip": "Apple M1 (8-core CPU / 7-core GPU)",
+      "memory": "8GB",
+      "storage": "256GB",
+      "color": "Silver"
+    },
+    "dimensions_mm": {
+      "width": 304.1,
+      "depth": 212.4,
+      "height_min": 4.1,
+      "height_max": 16.1
+    },
+    "color": {
+      "name": "Silver",
+      "hex": "#C8C8C8"
+    },
+    "summary": "The first 13-inch MacBook Air with Apple's ARM-based M1 SoC (Nov 2020, A2337), notable for its fanless passive-cooled design and 18-hour battery life.",
+    "key_specs": {
+      "Battery": "Built-in 49.9-watt-hour lithium-polymer battery, up to 15h wireless web",
+      "Display": "13.3-inch Retina IPS 2560-by-1600 at 227 ppi, 400 nits, P3, True Tone",
+      "Graphics": "Apple M1 7-core GPU, 16-core Neural Engine",
+      "Memory": "8 GB unified memory",
+      "Processor": "Apple M1 chip, 8-core CPU with 4 performance and 4 efficiency cores",
+      "Weight": "2.8 pounds (1.29 kg)"
+    }
+  },
+  "provenance": "sourced",
+  "systems": [
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "parent_id": null
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "parent_id": null
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "parent_id": null
+    },
+    {
+      "id": "compute",
+      "name": "Compute",
+      "parent_id": null
+    },
+    {
+      "id": "storage",
+      "name": "Storage",
+      "parent_id": null
+    },
+    {
+      "id": "thermal",
+      "name": "Thermal",
+      "parent_id": null
+    },
+    {
+      "id": "io",
+      "name": "I/O and Wireless",
+      "parent_id": null
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "parent_id": null
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "bottom_case",
+      "name": "Lower case / bottom enclosure",
+      "function": "Aluminum bottom cover that encloses the base and provides access for repair.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 0,
+      "shape": "shell_base",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "100% recycled aluminum",
+        "screws": "10x P5: 2x 7.9 mm, 2x 7.3 mm, 6x 2.6 mm"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Battery+Replacement/142559",
+      "confidence": 0.95
+    },
+    {
+      "id": "battery_pack",
+      "name": "Battery pack assembly (A2389)",
+      "function": "49.9 Wh lithium-polymer power source bonded to a metal tray.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.62,
+        "d": 0.4,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.28
+      },
+      "serviceability": "glued",
+      "specs": {
+        "capacity": "49.9 Wh",
+        "model": "A2389",
+        "type": "lithium-polymer"
+      },
+      "hazard": "lithium_battery",
+      "source_url": "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Battery+Replacement/142559",
+      "confidence": 0.92
+    },
+    {
+      "id": "right_speaker",
+      "name": "Right speaker module",
+      "function": "Right-channel stereo speaker for wide stereo sound.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.12,
+        "d": 0.18,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.85,
+        "y": 0.15
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "attachment": "4.2 mm T3 screw + adhesive"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Audio+Board+Replacement/142555",
+      "confidence": 0.9
+    },
+    {
+      "id": "left_speaker",
+      "name": "Left speaker module",
+      "function": "Left-channel stereo speaker for wide stereo sound.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.12,
+        "d": 0.18,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.15,
+        "y": 0.15
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "attachment": "4.2 mm T3 screw + adhesive"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Logic+Board+Replacement/142562",
+      "confidence": 0.9
+    },
+    {
+      "id": "logic_board",
+      "name": "Logic board / main board",
+      "function": "Main PCB carrying M1, memory, storage and all connectors.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.9,
+        "d": 0.22,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "screws": "6x: 3x 3.5 mm, 1x 6.0 mm cushioned, 2x 3.4 mm"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Logic+Board+Replacement/142562",
+      "confidence": 0.95
+    },
+    {
+      "id": "audio_board",
+      "name": "Audio daughterboard",
+      "function": "Small board with 3.5mm jack and interconnects for speaker and Touch ID.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.15,
+        "d": 0.12,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.82,
+        "y": 0.78
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "port": "3.5 mm headphone jack"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Audio+Board+Replacement/142555",
+      "confidence": 0.9
+    },
+    {
+      "id": "usb_c_board",
+      "name": "USB-C / Thunderbolt board",
+      "function": "Left-side Thunderbolt / USB4 ports and charging interface.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.12,
+        "d": 0.14,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.12,
+        "y": 0.75
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "ports": "2x Thunderbolt / USB 4 up to 40Gb/s"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Logic+Board+Replacement/142562",
+      "confidence": 0.9
+    },
+    {
+      "id": "antenna_bar",
+      "name": "Antenna bar + coaxial cables",
+      "function": "Wi-Fi 6 / Bluetooth antenna bar routing signals to the hinge area.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "cable",
+      "size": {
+        "w": 0.5,
+        "d": 0.06,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.96
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "wireless": "802.11ax Wi-Fi 6, Bluetooth 5.0"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Logic+Board+Replacement/142562",
+      "confidence": 0.88
+    },
+    {
+      "id": "microphone_array",
+      "name": "Microphone array (3-mic)",
+      "function": "Captures audio via directional beamforming for calls.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "cable",
+      "size": {
+        "w": 0.2,
+        "d": 0.05,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.35,
+        "y": 0.9
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Three-mic array with beamforming"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Logic+Board+Replacement/142562",
+      "confidence": 0.85
+    },
+    {
+      "id": "m1_soc",
+      "name": "Apple M1 SoC",
+      "function": "Central SoC integrating CPU, 7-core GPU, Neural Engine and Secure Enclave.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.08,
+        "d": 0.08,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "chip": "Apple M1 8-core CPU / 7-core GPU",
+        "process": "5 nm"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/46884/m1-macbook-teardowns-something-old-something-new",
+      "confidence": 0.97
+    },
+    {
+      "id": "unified_ram",
+      "name": "Unified RAM 8GB",
+      "function": "Unified memory shared by CPU, GPU and Neural Engine.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.06,
+        "d": 0.06,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.4,
+        "y": 0.85
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "capacity": "8 GB",
+        "type": "LPDDR4X (2x 4 GB Hynix)"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/46884/m1-macbook-teardowns-something-old-something-new",
+      "confidence": 0.95
+    },
+    {
+      "id": "ssd_storage",
+      "name": "SSD flash storage 256GB",
+      "function": "Non-volatile flash storage soldered to the logic board.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.1,
+        "d": 0.06,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.62,
+        "y": 0.85
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "capacity": "256 GB"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/46884/m1-macbook-teardowns-something-old-something-new",
+      "confidence": 0.9
+    },
+    {
+      "id": "heat_spreader",
+      "name": "Passive cooling heat spreader",
+      "function": "Fanless aluminum cold plate conducting heat away from M1.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "slab",
+      "size": {
+        "w": 0.25,
+        "d": 0.18,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.28,
+        "y": 0.85
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Aluminum heat spreader, fanless"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/46884/m1-macbook-teardowns-something-old-something-new",
+      "confidence": 0.93
+    },
+    {
+      "id": "keyboard",
+      "name": "Backlit Magic Keyboard",
+      "function": "Backlit scissor-switch keyboard for typing input.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "keys",
+      "layer": 5,
+      "shape": "keyboard",
+      "size": {
+        "w": 0.88,
+        "d": 0.32,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.6
+      },
+      "serviceability": "not_serviceable",
+      "specs": {
+        "layout": "78 (U.S.) keys, backlit, ambient light sensor"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111883",
+      "confidence": 0.92
+    },
+    {
+      "id": "trackpad",
+      "name": "Force Touch trackpad",
+      "function": "Glass Force Touch trackpad for cursor and pressure gestures.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 5,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.35,
+        "d": 0.22,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.25
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Force Touch trackpad"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Logic+Board+Replacement/142562",
+      "confidence": 0.93
+    },
+    {
+      "id": "touch_id_sensor",
+      "name": "Touch ID sensor / power button",
+      "function": "Fingerprint power button paired to the logic board.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 5,
+      "shape": "slab",
+      "size": {
+        "w": 0.06,
+        "d": 0.04,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.86,
+        "y": 0.68
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "function": "Touch ID sensor"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Audio+Board+Replacement/142555",
+      "confidence": 0.9
+    },
+    {
+      "id": "top_case",
+      "name": "Upper case + palmrest",
+      "function": "Aluminum top half forming palmrest and mounting for all internals.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 6,
+      "shape": "shell_deck",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "100% recycled aluminum"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Battery+Replacement/142559",
+      "confidence": 0.95
+    },
+    {
+      "id": "lid_cover",
+      "name": "Display lid cover",
+      "function": "Aluminum outer lid protecting the display.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "body",
+      "layer": 0,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.98,
+        "d": 0.95,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "size": "13.3-inch lid"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111883",
+      "confidence": 0.94
+    },
+    {
+      "id": "display_panel",
+      "name": "Retina display panel",
+      "function": "13.3-inch Retina display showing image and video.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "screen",
+      "layer": 1,
+      "shape": "screen",
+      "size": {
+        "w": 0.92,
+        "d": 0.9,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "brightness": "400 nits",
+        "resolution": "2560-by-1600 at 227 ppi",
+        "size": "13.3-inch IPS LED-backlit"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111883",
+      "confidence": 0.96
+    },
+    {
+      "id": "facetime_camera",
+      "name": "FaceTime HD camera",
+      "function": "Front video camera with computational image processing.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.06,
+        "d": 0.03,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "serviceability": "not_serviceable",
+      "specs": {
+        "resolution": "720p FaceTime HD camera"
+      },
+      "hazard": null,
+      "source_url": "https://support.apple.com/en-us/111883",
+      "confidence": 0.85
+    }
+  ],
+  "connections": [
+    {
+      "source": "battery_pack",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "Battery connector"
+    },
+    {
+      "source": "battery_pack",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Stretch-release adhesive + tray screws"
+    },
+    {
+      "source": "usb_c_board",
+      "target": "logic_board",
+      "kind": "power",
+      "label": "USB-C board cable - charging + Thunderbolt"
+    },
+    {
+      "source": "usb_c_board",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Screwed to upper case"
+    },
+    {
+      "source": "audio_board",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Audio board interconnect"
+    },
+    {
+      "source": "audio_board",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Screwed to upper case"
+    },
+    {
+      "source": "left_speaker",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Left speaker cable"
+    },
+    {
+      "source": "left_speaker",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Screw + adhesive"
+    },
+    {
+      "source": "right_speaker",
+      "target": "audio_board",
+      "kind": "data",
+      "label": "Right speaker cable"
+    },
+    {
+      "source": "right_speaker",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Screw + adhesive"
+    },
+    {
+      "source": "trackpad",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Trackpad flex cable"
+    },
+    {
+      "source": "trackpad",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Screwed to upper case"
+    },
+    {
+      "source": "keyboard",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Keyboard flex"
+    },
+    {
+      "source": "keyboard",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Riveted to upper case"
+    },
+    {
+      "source": "touch_id_sensor",
+      "target": "audio_board",
+      "kind": "data",
+      "label": "Touch ID flex"
+    },
+    {
+      "source": "touch_id_sensor",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Mounted in top case"
+    },
+    {
+      "source": "microphone_array",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Microphone ZIF flex"
+    },
+    {
+      "source": "antenna_bar",
+      "target": "logic_board",
+      "kind": "data",
+      "label": "Antenna coax cables"
+    },
+    {
+      "source": "antenna_bar",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Screwed / clipped at hinge"
+    },
+    {
+      "source": "display_panel",
+      "target": "antenna_bar",
+      "kind": "data",
+      "label": "eDP display flex"
+    },
+    {
+      "source": "display_panel",
+      "target": "lid_cover",
+      "kind": "mechanical",
+      "label": "Bonded in lid assembly"
+    },
+    {
+      "source": "facetime_camera",
+      "target": "display_panel",
+      "kind": "data",
+      "label": "Camera flex in display"
+    },
+    {
+      "source": "facetime_camera",
+      "target": "lid_cover",
+      "kind": "mechanical",
+      "label": "Mounted in display bezel"
+    },
+    {
+      "source": "m1_soc",
+      "target": "heat_spreader",
+      "kind": "thermal",
+      "label": "Thermal paste to cold plate"
+    },
+    {
+      "source": "m1_soc",
+      "target": "logic_board",
+      "kind": "mechanical",
+      "label": "Soldered BGA to logic board"
+    },
+    {
+      "source": "unified_ram",
+      "target": "m1_soc",
+      "kind": "mechanical",
+      "label": "In-package LPDDR4X"
+    },
+    {
+      "source": "ssd_storage",
+      "target": "logic_board",
+      "kind": "mechanical",
+      "label": "Soldered NAND"
+    },
+    {
+      "source": "heat_spreader",
+      "target": "logic_board",
+      "kind": "mechanical",
+      "label": "Mounted over M1"
+    },
+    {
+      "source": "logic_board",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "6 screws to upper case"
+    },
+    {
+      "source": "bottom_case",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "P5 screws + clips"
+    },
+    {
+      "source": "lid_cover",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Display hinges"
+    }
+  ],
+  "repair_paths": [],
+  "sources": [
+    "https://support.apple.com/en-us/111883",
+    "https://www.ifixit.com/News/46884/m1-macbook-teardowns-something-old-something-new",
+    "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Logic+Board+Replacement/142562",
+    "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Battery+Replacement/142559",
+    "https://www.ifixit.com/Guide/MacBook+Air+13-Inch+Late+2020+Audio+Board+Replacement/142555"
+  ]
+}

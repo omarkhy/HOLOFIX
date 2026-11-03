@@ -1,0 +1,989 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "X1 Carbon 11th Gen (Type 21HM, 21HN) Laptop (ThinkPad)",
+    "variant_id": "thinkpad_x1_carbon_gen_11",
+    "category": "laptop",
+    "configuration": {
+      "chip": "Core i5-1335U",
+      "memory": "16GB",
+      "storage": "512GB",
+      "color": "Deep black, paint"
+    },
+    "dimensions_mm": {
+      "width": 315.6,
+      "depth": 222.5,
+      "height_min": 14.96,
+      "height_max": 15.36
+    },
+    "color": {
+      "name": "Deep Black",
+      "hex": "#111111"
+    },
+    "summary": "Ultra-light 1.12 kg business ultrabook with Carbon Fiber top and Aluminium bottom, 13th Gen Intel U-series and 14-inch low-power WUXGA display. This Deep Black Paint configuration pairs i5-1335U with soldered 16GB RAM and 57Wh battery.",
+    "key_specs": {
+      "Battery": "Integrated 57Wh Li-Polymer, 65W USB-C Slim adapter",
+      "Display": "14\" WUXGA (1920x1200) IPS 400nits Anti-glare, 100% sRGB, Low Power",
+      "Graphics": "Integrated Intel Iris Xe Graphics",
+      "Memory": "16GB Soldered LPDDR5-6400, 8-channel, not upgradable",
+      "Processor": "Intel Core i5-1335U, 10C (2P + 8E) / 12T, P-core up to 4.6GHz, 12MB",
+      "Storage": "512GB SSD M.2 2280 PCIe 4.0x4 Performance NVMe Opal 2.0"
+    }
+  },
+  "provenance": "sourced",
+  "systems": [
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "parent_id": null
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "parent_id": null
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "parent_id": null
+    },
+    {
+      "id": "compute",
+      "name": "Compute",
+      "parent_id": null
+    },
+    {
+      "id": "storage",
+      "name": "Storage",
+      "parent_id": null
+    },
+    {
+      "id": "thermal",
+      "name": "Thermal",
+      "parent_id": null
+    },
+    {
+      "id": "io",
+      "name": "I/O boards and wireless",
+      "parent_id": null
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "parent_id": null
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "base_cover",
+      "name": "Base cover assembly",
+      "function": "Aluminium bottom enclosure covering all internals with vents and labels.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 0,
+      "shape": "shell_base",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "Aluminium (Bottom)",
+        "type": "Self-service CRU"
+      },
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.98
+    },
+    {
+      "id": "audio_board",
+      "name": "Audio board",
+      "function": "Small daughterboard carrying 3.5mm headphone/mic jack circuitry.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "board",
+      "size": {
+        "w": 0.1,
+        "d": 0.08,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.12,
+        "y": 0.6
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "usb_board",
+      "name": "USB board",
+      "function": "Small daughterboard carrying side USB-A ports.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "board",
+      "size": {
+        "w": 0.1,
+        "d": 0.08,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.88,
+        "y": 0.6
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "speaker_left",
+      "name": "Speaker module left",
+      "function": "Outputs stereo audio via woofers and tweeters.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.12,
+        "d": 0.15,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.15,
+        "y": 0.2
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "output": "2W woofer + 0.8W tweeter, Dolby Atmos"
+      },
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.95
+    },
+    {
+      "id": "speaker_right",
+      "name": "Speaker module right",
+      "function": "Outputs stereo audio via woofers and tweeters.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.12,
+        "d": 0.15,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.85,
+        "y": 0.2
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "output": "2W woofer + 0.8W tweeter, Dolby Atmos"
+      },
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.95
+    },
+    {
+      "id": "system_board",
+      "name": "System board assembly",
+      "function": "Main logic board with soldered CPU, RAM and all I/O connectors.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.7,
+        "d": 0.32,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.7
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "chipset": "Intel SoC Platform"
+      },
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.97
+    },
+    {
+      "id": "battery",
+      "name": "Built-in battery 57Wh",
+      "function": "Integrated 4-cell rechargeable pack powering the system.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.65,
+        "d": 0.4,
+        "h": 0.25
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.28
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "57Wh",
+        "type": "Integrated Li-Polymer"
+      },
+      "hazard": "lithium_battery",
+      "source_url": "https://www.lenovostore.wien/media/awagimport/lenovo/psreflink/21HM005TGE.pdf",
+      "confidence": 0.96
+    },
+    {
+      "id": "thermal_fan",
+      "name": "Thermal fan assembly",
+      "function": "Blower fan plus heatsink and heatpipe cooling the CPU.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.25,
+        "d": 0.2,
+        "h": 0.2
+      },
+      "position": {
+        "x": 0.72,
+        "y": 0.7
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.95
+    },
+    {
+      "id": "wwan_antenna",
+      "name": "Wireless-WAN antenna assembly",
+      "function": "Long thin antenna wires for optional cellular routed to hinges.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "cable",
+      "size": {
+        "w": 0.5,
+        "d": 0.05,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.92
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.55
+    },
+    {
+      "id": "nano_sim_tray",
+      "name": "Nano-SIM-card tray",
+      "function": "Side tray holding Nano-SIM for optional cellular.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "slab",
+      "size": {
+        "w": 0.05,
+        "d": 0.05,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.92,
+        "y": 0.75
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.55
+    },
+    {
+      "id": "cpu",
+      "name": "Intel Core i5-1335U SoC",
+      "function": "Soldered 10-core processor with integrated Iris Xe graphics.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.08,
+        "d": 0.08,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.62,
+        "y": 0.7
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "model": "Intel Core i5-1335U 10C/12T up to 4.6GHz"
+      },
+      "hazard": null,
+      "source_url": "https://www.lenovostore.wien/media/awagimport/lenovo/psreflink/21HM005TGE.pdf",
+      "confidence": 0.99
+    },
+    {
+      "id": "memory",
+      "name": "RAM 16GB LPDDR5",
+      "function": "System memory soldered around the CPU with no slots.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.12,
+        "d": 0.08,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.42,
+        "y": 0.68
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "capacity": "16GB Soldered LPDDR5-6400"
+      },
+      "hazard": null,
+      "source_url": "https://objects.icecat.biz/objects/mmo_125087485_1736253477_5084_3809210.pdf",
+      "confidence": 0.99
+    },
+    {
+      "id": "ssd",
+      "name": "M.2 SSD 512GB",
+      "function": "NVMe boot and data drive in M.2 slot on system board.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.07,
+        "d": 0.36,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.28,
+        "y": 0.68
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "512GB SSD M.2 2280 PCIe 4.0x4"
+      },
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.98
+    },
+    {
+      "id": "trackpad_cable",
+      "name": "Trackpad / P-sensor / NFC cable",
+      "function": "Flexible ribbon linking trackpad and sensors to system board.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "cable",
+      "size": {
+        "w": 0.15,
+        "d": 0.05,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.35
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.85
+    },
+    {
+      "id": "nfc_module",
+      "name": "NFC module",
+      "function": "Contactless pairing antenna near palmrest.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.08,
+        "d": 0.08,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.65,
+        "y": 0.3
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.8
+    },
+    {
+      "id": "coin_cell",
+      "name": "Coin-cell battery",
+      "function": "Preserves BIOS settings and clock with wired cable.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.06,
+        "d": 0.06,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.35,
+        "y": 0.42
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": "lithium_battery",
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.92
+    },
+    {
+      "id": "wwan_module",
+      "name": "Wireless-WAN module",
+      "function": "Optional 4G/5G cellular card in WWAN slot on system board.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.1,
+        "d": 0.15,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.18,
+        "y": 0.78
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.5
+    },
+    {
+      "id": "ssd_thermal_pad",
+      "name": "Thermal pad for M.2 SSD",
+      "function": "Transfers heat from SSD to chassis.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "slab",
+      "size": {
+        "w": 0.07,
+        "d": 0.2,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.28,
+        "y": 0.68
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "ssd_bracket",
+      "name": "M.2 SSD bracket",
+      "function": "Metal holder securing the M.2 SSD in its slot.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "frame",
+      "size": {
+        "w": 0.08,
+        "d": 0.1,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.28,
+        "y": 0.85
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "trackpad",
+      "name": "Trackpad",
+      "function": "Precision clickpad in palmrest cutout for cursor control.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 4,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.32,
+        "d": 0.22,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.12
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.93
+    },
+    {
+      "id": "power_button_fpr",
+      "name": "Power button with fingerprint reader",
+      "function": "Power control with integrated match-on-chip fingerprint reader.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "box",
+      "size": {
+        "w": 0.06,
+        "d": 0.05,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.82,
+        "y": 0.88
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Touch Style, Match-on-Chip"
+      },
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "keyboard",
+      "name": "Keyboard",
+      "function": "Backlit keyboard captive to bezel for typing and TrackPoint input.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "keys",
+      "layer": 5,
+      "shape": "keyboard",
+      "size": {
+        "w": 0.8,
+        "d": 0.35,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.68
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.95
+    },
+    {
+      "id": "top_cover",
+      "name": "Keyboard bezel assembly with keyboard",
+      "function": "Top C-cover forming palmrest and keyboard surround.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 6,
+      "shape": "shell_deck",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "Deep Black, Paint"
+      },
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.96
+    },
+    {
+      "id": "lid_cover",
+      "name": "LCD back cover",
+      "function": "Carbon-fiber outer lid protecting display and housing antennas.",
+      "system_id": "enclosure",
+      "assembly": "lid",
+      "finish": "body",
+      "layer": 0,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "Carbon Fiber (Top)"
+      },
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.97
+    },
+    {
+      "id": "display_panel",
+      "name": "Display panel 14 WUXGA",
+      "function": "14-inch low-power IPS panel displaying image.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "screen",
+      "layer": 1,
+      "shape": "screen",
+      "size": {
+        "w": 0.92,
+        "d": 0.9,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.55
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "size": "14\" WUXGA (1920x1200) IPS 400nits"
+      },
+      "hazard": null,
+      "source_url": "https://www.lenovostore.wien/media/awagimport/lenovo/psreflink/21HM005TGE.pdf",
+      "confidence": 0.97
+    },
+    {
+      "id": "lcd_cable",
+      "name": "LCD / camera cable",
+      "function": "Carries video and camera signals from system board to lid.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cable",
+      "size": {
+        "w": 0.05,
+        "d": 0.3,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.12
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+      "confidence": 0.88
+    }
+  ],
+  "connections": [
+    {
+      "source": "battery",
+      "target": "system_board",
+      "kind": "power",
+      "label": "Battery connector"
+    },
+    {
+      "source": "battery",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Battery 6 screws to chassis"
+    },
+    {
+      "source": "base_cover",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "7 captive screws"
+    },
+    {
+      "source": "system_board",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "8 screws to chassis"
+    },
+    {
+      "source": "cpu",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "Soldered BGA"
+    },
+    {
+      "source": "cpu",
+      "target": "thermal_fan",
+      "kind": "thermal",
+      "label": "CPU heatpipe + grease"
+    },
+    {
+      "source": "memory",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "Soldered LPDDR5"
+    },
+    {
+      "source": "system_board",
+      "target": "thermal_fan",
+      "kind": "power",
+      "label": "Fan power / PWM cable"
+    },
+    {
+      "source": "thermal_fan",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "Heatsink screws over CPU"
+    },
+    {
+      "source": "ssd",
+      "target": "system_board",
+      "kind": "data",
+      "label": "M.2 NVMe slot"
+    },
+    {
+      "source": "ssd",
+      "target": "ssd_thermal_pad",
+      "kind": "thermal",
+      "label": "SSD heat transfer"
+    },
+    {
+      "source": "ssd_bracket",
+      "target": "ssd",
+      "kind": "mechanical",
+      "label": "Bracket securing SSD"
+    },
+    {
+      "source": "ssd_bracket",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "Bracket screwed to board"
+    },
+    {
+      "source": "ssd_thermal_pad",
+      "target": "base_cover",
+      "kind": "mechanical",
+      "label": "Pad contacts chassis"
+    },
+    {
+      "source": "audio_board",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Audio FFC"
+    },
+    {
+      "source": "audio_board",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "2 screws to chassis"
+    },
+    {
+      "source": "usb_board",
+      "target": "system_board",
+      "kind": "data",
+      "label": "USB board FFC"
+    },
+    {
+      "source": "usb_board",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "4 screws to chassis"
+    },
+    {
+      "source": "speaker_left",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Speaker cable woofer"
+    },
+    {
+      "source": "speaker_left",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Speaker screws"
+    },
+    {
+      "source": "speaker_right",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Speaker cable tweeter"
+    },
+    {
+      "source": "speaker_right",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Speaker screws"
+    },
+    {
+      "source": "trackpad",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "4 screws in bezel cutout"
+    },
+    {
+      "source": "trackpad_cable",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Trackpad / P-sensor / NFC to board"
+    },
+    {
+      "source": "trackpad_cable",
+      "target": "trackpad",
+      "kind": "data",
+      "label": "Trackpad flex to trackpad"
+    },
+    {
+      "source": "nfc_module",
+      "target": "trackpad_cable",
+      "kind": "data",
+      "label": "NFC to cable"
+    },
+    {
+      "source": "nfc_module",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "NFC sponge / tape"
+    },
+    {
+      "source": "coin_cell",
+      "target": "system_board",
+      "kind": "power",
+      "label": "CMOS / RTC cable"
+    },
+    {
+      "source": "coin_cell",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Coin cell in holder"
+    },
+    {
+      "source": "wwan_module",
+      "target": "system_board",
+      "kind": "data",
+      "label": "M.2 WWAN slot"
+    },
+    {
+      "source": "wwan_antenna",
+      "target": "wwan_module",
+      "kind": "data",
+      "label": "U.FL antenna leads"
+    },
+    {
+      "source": "wwan_antenna",
+      "target": "lid_cover",
+      "kind": "mechanical",
+      "label": "Antenna routed to lid / hinges"
+    },
+    {
+      "source": "nano_sim_tray",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "SIM tray in slot"
+    },
+    {
+      "source": "power_button_fpr",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Power / FPR cable"
+    },
+    {
+      "source": "power_button_fpr",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "FPR bracket 2 screws"
+    },
+    {
+      "source": "keyboard",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Keyboard flex"
+    },
+    {
+      "source": "keyboard",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Keyboard captive to bezel"
+    },
+    {
+      "source": "display_panel",
+      "target": "lcd_cable",
+      "kind": "data",
+      "label": "Panel to eDP flex"
+    },
+    {
+      "source": "display_panel",
+      "target": "lid_cover",
+      "kind": "mechanical",
+      "label": "Panel mounted in lid"
+    },
+    {
+      "source": "lcd_cable",
+      "target": "system_board",
+      "kind": "data",
+      "label": "eDP display flex"
+    },
+    {
+      "source": "top_cover",
+      "target": "lid_cover",
+      "kind": "mechanical",
+      "label": "Hinge screws"
+    }
+  ],
+  "repair_paths": [],
+  "sources": [
+    "https://www.ifixit.com/Device/Lenovo_X1_Series",
+    "https://download.lenovo.com/pccbbs/mobiles_pdf/x1carbon_gen11_x1yoga_gen8_hmm_en.pdf",
+    "https://www.lenovostore.wien/media/awagimport/lenovo/psreflink/21HM005TGE.pdf",
+    "https://objects.icecat.biz/objects/mmo_125087485_1736253477_5084_3809210.pdf",
+    "https://objects.icecat.biz/objects/mmo_125087486_1736253486_3722_3815333.pdf"
+  ]
+}

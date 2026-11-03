@@ -1,0 +1,791 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "ASUS Zenbook 14 OLED (UX3402ZA)",
+    "variant_id": "zenbook_14_oled_ux3402za_2022",
+    "category": "laptop",
+    "configuration": {
+      "chip": "Intel Core i5-1240P",
+      "memory": "8GB LPDDR5",
+      "storage": "512GB M.2 NVMe SSD",
+      "color": "Ponder Blue"
+    },
+    "dimensions_mm": {
+      "width": 313.6,
+      "depth": 220.6,
+      "height_min": 16.9,
+      "height_max": 16.9
+    },
+    "color": {
+      "name": "Ponder Blue",
+      "hex": "#2E4057"
+    },
+    "summary": "2022 thin-and-light 14-inch aluminium ultrabook in Ponder Blue with Intel i5-1240P and 75Wh battery. This 8GB configuration ships with a 14.0-inch WQXGA IPS-level display, while the UX3402 family also offers 2.8K 90Hz OLED variants.",
+    "key_specs": {
+      "Battery": "75Wh, 2S2P, 4-cell Li-ion (C22N2107, 7.74V)",
+      "Display": "14.0-inch WQXGA 2560x1600 16:10 IPS-level, 60Hz, 400nits, 100% sRGB, anti-glare",
+      "Graphics": "Intel Iris Xe Graphics (integrated)",
+      "Memory": "8GB LPDDR5 on board (soldered, max 16GB factory)",
+      "Processor": "Intel Core i5-1240P 1.7 GHz up to 4.4 GHz, 12 cores (4P+8E) / 16 threads",
+      "Storage": "512GB M.2 NVMe PCIe 3.0 SSD (single-sided only, one slot)"
+    }
+  },
+  "provenance": "sourced",
+  "systems": [
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "parent_id": null
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "parent_id": null
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "parent_id": null
+    },
+    {
+      "id": "compute",
+      "name": "Compute",
+      "parent_id": null
+    },
+    {
+      "id": "storage",
+      "name": "Storage",
+      "parent_id": null
+    },
+    {
+      "id": "thermal",
+      "name": "Thermal",
+      "parent_id": null
+    },
+    {
+      "id": "io",
+      "name": "Connectivity / I-O",
+      "parent_id": null
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "parent_id": null
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "bottom_case",
+      "name": "Bottom Cover / Base Cover",
+      "function": "Aluminium bottom enclosure covering battery, board, cooling and SSD.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 0,
+      "shape": "shell_base",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.18
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "fixing": "2x Phillips under feet + 7x Torx, pry from front",
+        "material": "Aluminium"
+      },
+      "hazard": null,
+      "source_url": "https://laptopmedia.com/highlights/inside-asus-zenbook-14-oled-ux3402-disassembly-and-upgrade-options/",
+      "confidence": 0.95
+    },
+    {
+      "id": "top_case",
+      "name": "Top Case / Palmrest Assembly",
+      "function": "Structural upper tub holding keyboard, touchpad, motherboard, battery and speakers.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 6,
+      "shape": "shell_deck",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.18
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "fixing": "Hooks + screws to bottom cover"
+      },
+      "hazard": null,
+      "source_url": "https://manuals.plus/asus/laptop-customer-self-repair-manual",
+      "confidence": 0.9
+    },
+    {
+      "id": "lid_cover",
+      "name": "Display Lid Cover",
+      "function": "Outer aluminium lid with Kintsugi-inspired design protecting the display.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "body",
+      "layer": 0,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "design": "Kintsugi-inspired Ponder Blue"
+      },
+      "hazard": null,
+      "source_url": "https://www.asus.com/au/laptops/for-home/zenbook/zenbook-14-ux3402/techspec/",
+      "confidence": 0.9
+    },
+    {
+      "id": "display_panel",
+      "name": "14.0-inch Display Panel",
+      "function": "14.0-inch panel displaying image; hinges, webcam and antennas route to base.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "screen",
+      "layer": 1,
+      "shape": "screen",
+      "size": {
+        "w": 0.9,
+        "d": 0.88,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.52
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "brightness": "400nits",
+        "gamut": "100% sRGB",
+        "refresh": "60Hz",
+        "resolution": "2560 x 1600",
+        "size": "14.0-inch WQXGA 16:10 IPS-level"
+      },
+      "hazard": null,
+      "source_url": "https://www.asus.com/au/laptops/for-home/zenbook/zenbook-14-ux3402/techspec/",
+      "confidence": 0.85
+    },
+    {
+      "id": "battery_pack",
+      "name": "Battery Pack C22N2107",
+      "function": "4-cell rechargeable Li-ion pack powering the laptop.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.65,
+        "d": 0.38,
+        "h": 0.25
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.32
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "75Wh / 9702mAh",
+        "cells": "4-cell 2S2P Li-ion",
+        "model": "C22N2107",
+        "voltage": "7.74V"
+      },
+      "hazard": "lithium_battery",
+      "source_url": "https://www.asus.com/au/laptops/for-home/zenbook/zenbook-14-ux3402/techspec/",
+      "confidence": 0.98
+    },
+    {
+      "id": "motherboard",
+      "name": "Motherboard / Main Board",
+      "function": "Central logic board interconnecting CPU, RAM, SSD, I/O, display and power.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.6,
+        "d": 0.24,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.45,
+        "y": 0.8
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "part_no": "UX3402ZA NB5936 Rev 3.0"
+      },
+      "hazard": null,
+      "source_url": "https://laptopmedia.com/highlights/inside-asus-zenbook-14-oled-ux3402-disassembly-and-upgrade-options/",
+      "confidence": 0.92
+    },
+    {
+      "id": "cpu",
+      "name": "Intel Core i5-1240P SoC",
+      "function": "12-core mobile SoC with integrated Iris Xe graphics and I/O control.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.08,
+        "d": 0.08,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.45,
+        "y": 0.8
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "cores": "12 cores (4P+8E) / 16 threads",
+        "frequency": "1.7 GHz up to 4.4 GHz, 12M Cache",
+        "package": "BGA 1744 soldered"
+      },
+      "hazard": null,
+      "source_url": "https://www.asus.com/au/laptops/for-home/zenbook/zenbook-14-ux3402/techspec/",
+      "confidence": 0.98
+    },
+    {
+      "id": "ram_module",
+      "name": "8GB LPDDR5 Memory (Onboard)",
+      "function": "System memory soldered around the CPU for OS and applications.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.14,
+        "d": 0.06,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.32,
+        "y": 0.82
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "capacity": "8 GB",
+        "type": "LPDDR5 on board, 4800MHz, no slots, 16GB factory max"
+      },
+      "hazard": null,
+      "source_url": "https://www.asus.com/au/laptops/for-home/zenbook/zenbook-14-ux3402/techspec/",
+      "confidence": 0.96
+    },
+    {
+      "id": "ssd_drive",
+      "name": "512GB M.2 NVMe SSD",
+      "function": "Boot and data storage via single M.2 PCIe slot for single-sided drives only.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.07,
+        "d": 0.28,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.25,
+        "y": 0.74
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "512GB M.2 NVMe PCIe 3.0 SSD",
+        "form": "M.2 single-sided only, one slot"
+      },
+      "hazard": null,
+      "source_url": "https://laptopmedia.com/highlights/inside-asus-zenbook-14-oled-ux3402-disassembly-and-upgrade-options/",
+      "confidence": 0.95
+    },
+    {
+      "id": "ssd_bracket",
+      "name": "SSD Bracket / Shield + Thermal Pad",
+      "function": "Metal retention bracket and reusable thermal pad securing and cooling the SSD.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "box",
+      "size": {
+        "w": 0.09,
+        "d": 0.3,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.25,
+        "y": 0.74
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "fixing": "2x Phillips bracket + 1x SSD screw, pad reused"
+      },
+      "hazard": null,
+      "source_url": "https://laptopmedia.com/highlights/inside-asus-zenbook-14-oled-ux3402-disassembly-and-upgrade-options/",
+      "confidence": 0.9
+    },
+    {
+      "id": "cooling_assembly",
+      "name": "Cooling Assembly (Fan + Heat Pipe + Heatsink)",
+      "function": "Active and passive assembly moving CPU heat to rear exhaust fins.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "box",
+      "size": {
+        "w": 0.38,
+        "d": 0.18,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.6,
+        "y": 0.82
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "includes": "1x heat pipe, heatsink/fins, 1x fan"
+      },
+      "hazard": null,
+      "source_url": "https://laptopmedia.com/highlights/inside-asus-zenbook-14-oled-ux3402-disassembly-and-upgrade-options/",
+      "confidence": 0.9
+    },
+    {
+      "id": "vrm_spreader",
+      "name": "VRM Heat Spreader",
+      "function": "Passive plate spreading VRM heat into the main cooling path.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "slab",
+      "size": {
+        "w": 0.15,
+        "d": 0.08,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.55,
+        "y": 0.74
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "cooling": "VRM heat spreader"
+      },
+      "hazard": null,
+      "source_url": "https://laptopmedia.com/highlights/inside-asus-zenbook-14-oled-ux3402-disassembly-and-upgrade-options/",
+      "confidence": 0.75
+    },
+    {
+      "id": "wireless_card",
+      "name": "Wireless Card (Wi-Fi 6E + Bluetooth 5.3)",
+      "function": "Wi-Fi and Bluetooth radio with antenna leads routed to the lid.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.08,
+        "d": 0.08,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.78,
+        "y": 0.78
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Wi-Fi 6E 802.11ax 2x2 + Bluetooth 5.3"
+      },
+      "hazard": null,
+      "source_url": "https://www.asus.com/au/laptops/for-home/zenbook/zenbook-14-ux3402/techspec/",
+      "confidence": 0.8
+    },
+    {
+      "id": "speaker_pair",
+      "name": "Stereo Speakers (harman/kardon)",
+      "function": "Twin smart-amp speakers for Dolby Atmos audio output.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.7,
+        "d": 0.08,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.1
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "audio": "Smart Amp, harman/kardon, Dolby Atmos, twin speakers"
+      },
+      "hazard": null,
+      "source_url": "https://www.asus.com/au/laptops/for-home/zenbook/zenbook-14-ux3402/techspec/",
+      "confidence": 0.85
+    },
+    {
+      "id": "keyboard",
+      "name": "Backlit Chiclet Keyboard (ErgoSense)",
+      "function": "Backlit ErgoSense keyboard with 1.4mm travel for typing.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "keys",
+      "layer": 5,
+      "shape": "keyboard",
+      "size": {
+        "w": 0.85,
+        "d": 0.34,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.6
+      },
+      "serviceability": "not_serviceable",
+      "specs": {
+        "travel": "1.4mm Key-travel",
+        "type": "Backlit Chiclet ErgoSense"
+      },
+      "hazard": null,
+      "source_url": "https://www.asus.com/au/laptops/for-home/zenbook/zenbook-14-ux3402/techspec/",
+      "confidence": 0.95
+    },
+    {
+      "id": "touchpad",
+      "name": "Touchpad with NumberPad 2.0",
+      "function": "Precision glass touchpad with LED numeric overlay for pointing and numeric input.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 5,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.3,
+        "d": 0.19,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.22
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Precision touchpad, ASUS NumberPad 2.0"
+      },
+      "hazard": null,
+      "source_url": "https://www.asus.com/au/laptops/for-home/zenbook/zenbook-14-ux3402/techspec/",
+      "confidence": 0.93
+    },
+    {
+      "id": "io_ports",
+      "name": "Wired I/O Cluster (Soldered Ports)",
+      "function": "Edge-soldered USB-A, Thunderbolt 4, HDMI, audio and MicroSD ports for connectivity.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.18,
+        "d": 0.06,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.12,
+        "y": 0.7
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "ports": "1x USB 3.2 Gen2 Type-A, 2x Thunderbolt 4 DP/PD 40Gbps, 1x HDMI 2.1 TMDS, 1x 3.5mm Combo, MicroSD"
+      },
+      "hazard": null,
+      "source_url": "https://www.asus.com/au/laptops/for-home/zenbook/zenbook-14-ux3402/techspec/",
+      "confidence": 0.9
+    },
+    {
+      "id": "power_button",
+      "name": "Power Button with Fingerprint Sensor",
+      "function": "Power key with integrated fingerprint reader for power and biometric login.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 5,
+      "shape": "box",
+      "size": {
+        "w": 0.08,
+        "d": 0.04,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.85,
+        "y": 0.6
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "security": "Fingerprint integrated with Power Key, TPM"
+      },
+      "hazard": null,
+      "source_url": "https://www.asus.com/au/laptops/for-home/zenbook/zenbook-14-ux3402/techspec/",
+      "confidence": 0.85
+    },
+    {
+      "id": "fasteners_kit",
+      "name": "Fasteners, Feet and Tapes Kit",
+      "function": "Torx/Phillips screws, rubber feet and tapes securing covers, battery and SSD.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "screw",
+      "size": {
+        "w": 0.06,
+        "d": 0.06,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.85,
+        "y": 0.15
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "includes": "7x Torx + 2x Phillips base, 6x Phillips battery, 2x bracket + 1x SSD"
+      },
+      "hazard": null,
+      "source_url": "https://manuals.plus/asus/laptop-customer-self-repair-manual",
+      "confidence": 0.88
+    }
+  ],
+  "connections": [
+    {
+      "source": "battery_pack",
+      "target": "motherboard",
+      "kind": "power",
+      "label": "Battery connector"
+    },
+    {
+      "source": "io_ports",
+      "target": "motherboard",
+      "kind": "power",
+      "label": "USB-C PD charging input"
+    },
+    {
+      "source": "motherboard",
+      "target": "cooling_assembly",
+      "kind": "power",
+      "label": "Fan power header"
+    },
+    {
+      "source": "display_panel",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "eDP display flex"
+    },
+    {
+      "source": "wireless_card",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "Wi-Fi / BT interconnect"
+    },
+    {
+      "source": "wireless_card",
+      "target": "display_panel",
+      "kind": "data",
+      "label": "Antenna coax leads"
+    },
+    {
+      "source": "keyboard",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "Keyboard flex"
+    },
+    {
+      "source": "touchpad",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "Touchpad flex"
+    },
+    {
+      "source": "speaker_pair",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "Speaker cables"
+    },
+    {
+      "source": "power_button",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "Power / fingerprint flex"
+    },
+    {
+      "source": "ssd_drive",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "M.2 PCIe NVMe edge"
+    },
+    {
+      "source": "cpu",
+      "target": "cooling_assembly",
+      "kind": "thermal",
+      "label": "CPU heat pipe contact"
+    },
+    {
+      "source": "vrm_spreader",
+      "target": "cooling_assembly",
+      "kind": "thermal",
+      "label": "VRM heat path"
+    },
+    {
+      "source": "ssd_bracket",
+      "target": "ssd_drive",
+      "kind": "thermal",
+      "label": "SSD thermal pad contact"
+    },
+    {
+      "source": "cpu",
+      "target": "motherboard",
+      "kind": "mechanical",
+      "label": "BGA soldered SoC"
+    },
+    {
+      "source": "ram_module",
+      "target": "motherboard",
+      "kind": "mechanical",
+      "label": "Soldered LPDDR5 chips"
+    },
+    {
+      "source": "ssd_drive",
+      "target": "motherboard",
+      "kind": "mechanical",
+      "label": "M.2 retention screw"
+    },
+    {
+      "source": "ssd_bracket",
+      "target": "motherboard",
+      "kind": "mechanical",
+      "label": "SSD bracket screws"
+    },
+    {
+      "source": "cooling_assembly",
+      "target": "motherboard",
+      "kind": "mechanical",
+      "label": "Heatsink / fan screws"
+    },
+    {
+      "source": "vrm_spreader",
+      "target": "motherboard",
+      "kind": "mechanical",
+      "label": "Spreader screw mount"
+    },
+    {
+      "source": "io_ports",
+      "target": "motherboard",
+      "kind": "mechanical",
+      "label": "Soldered edge ports"
+    },
+    {
+      "source": "motherboard",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Board standoffs"
+    },
+    {
+      "source": "battery_pack",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Battery screws"
+    },
+    {
+      "source": "speaker_pair",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Speaker screws"
+    },
+    {
+      "source": "keyboard",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Keyboard integrated in top case"
+    },
+    {
+      "source": "touchpad",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Touchpad screws"
+    },
+    {
+      "source": "power_button",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Power key mount"
+    },
+    {
+      "source": "display_panel",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Hinge screws"
+    },
+    {
+      "source": "lid_cover",
+      "target": "display_panel",
+      "kind": "mechanical",
+      "label": "Panel mounted in lid"
+    },
+    {
+      "source": "bottom_case",
+      "target": "top_case",
+      "kind": "mechanical",
+      "label": "Base cover hooks + screws"
+    },
+    {
+      "source": "fasteners_kit",
+      "target": "bottom_case",
+      "kind": "mechanical",
+      "label": "Base cover Torx / Phillips screws"
+    },
+    {
+      "source": "fasteners_kit",
+      "target": "battery_pack",
+      "kind": "mechanical",
+      "label": "Battery screws kit"
+    }
+  ],
+  "repair_paths": [],
+  "sources": [
+    "https://www.ifixit.com/Device/Asus_ZenBook",
+    "https://laptopmedia.com/highlights/inside-asus-zenbook-14-oled-ux3402-disassembly-and-upgrade-options/",
+    "https://manuals.plus/asus/laptop-customer-self-repair-manual",
+    "https://www.asus.com/au/laptops/for-home/zenbook/zenbook-14-ux3402/techspec/"
+  ]
+}

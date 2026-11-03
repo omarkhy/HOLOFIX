@@ -32,6 +32,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 import { buildShape, ABSOLUTE_SHAPES } from './shapes.js';
+import { addDevice, hasDevice, setLastViewed } from './library.js';
 
 // ---------- Settings ----------
 
@@ -45,7 +46,8 @@ const MM = 0.01;
 const FALLBACK_DIMENSIONS = { width: 300, depth: 210, height_min: 5, height_max: 16 };
 
 const LID_OPEN_DEG = 108;        // how far the screen is opened
-const LAYER_GAP = 0.44;          // base: extra height per layer when fully exploded
+const LAYER_GAP = 0.44;          // base: extra height per layer when fully exploded (for a 4-layer device)
+const MAX_LIFT = LAYER_GAP * 4;  // the whole stack never rises more than this, however many layers
 const SPREAD = 0.22;             // base: parts also move outwards from the centre (armor feel)
 const LID_GAP = 0.5;             // lid: each layer moves towards the viewer
 const STAGGER = 0.35;            // outer layers start moving before inner ones
@@ -217,6 +219,42 @@ function buildDevice(graph) {
   };
 }
 
+// ---------- 2b. Physical rules: everything stays attached ----------
+
+/**
+ * The AI gives coarse positions; code enforces physical common sense before anything is drawn,
+ * so no part floats outside the device (works on old cached graphs too):
+ *  - shells (bottom case, top case) are the full footprint;
+ *  - every part's footprint is kept inside the chassis / lid, with a small margin;
+ *  - the big lid panels (back cover, screen) fill the lid, so the lid is one solid piece on the hinge;
+ *  - small lid parts (camera, sensors) are set into the top bezel, on the screen's layer, so they
+ *    move with the screen instead of floating.
+ */
+function enforcePhysicalRules(g) {
+  const clamp = (v, lo, hi) => (lo > hi ? 0.5 : Math.min(hi, Math.max(lo, v)));
+  const M = 0.015;   // margin from the edges, as a fraction of the device
+  const screen = g.parts.find(p => p.assembly === 'lid' && p.shape === 'screen');
+  for (const p of g.parts) {
+    const s = p.size, pos = p.position, lid = (p.assembly || 'base') === 'lid';
+    if (ABSOLUTE_SHAPES.has(p.shape)) { pos.x = 0.5; pos.y = 0.5; s.w = 1; s.d = 1; continue; }
+    s.w = clamp(s.w, 0.01, 0.98);
+    s.d = clamp(s.d, 0.01, 0.98);
+    if (lid && (p.shape === 'screen' || (p.shape === 'rounded_slab' && s.w > 0.6))) {
+      // Big lid panels span the lid and start AT the hinge (no gap between lid and chassis).
+      s.w = Math.max(s.w, 0.985); s.d = Math.max(s.d, 0.985);
+      pos.x = 0.5; pos.y = s.d / 2;
+      continue;
+    }
+    if (lid && s.w < 0.2 && s.d < 0.2) {               // camera, light sensor…
+      pos.y = 1 - s.d / 2 - M;                         // in the top bezel
+      s.h = Math.min(s.h, 0.5);
+      if (screen) p.layer = screen.layer;              // explodes together with the screen
+    }
+    pos.x = clamp(pos.x, s.w / 2 + M, 1 - s.w / 2 - M);
+    pos.y = clamp(pos.y, s.d / 2 + M, 1 - s.d / 2 - M);
+  }
+}
+
 // ---------- 3. Parts -> 3D objects ----------
 
 /**
@@ -260,7 +298,11 @@ function buildPart(part) {
     : new THREE.LineSegments(new THREE.EdgesGeometry(geo, 20), new THREE.LineBasicMaterial({ color, transparent: true, clippingPlanes: [holoClip] }));
 
   const group = new THREE.Group();
-  group.add(solid, fill, edges);
+  // Outlines for the real-colour view: thin darker edges so parts read apart (trackpad vs case…).
+  const outline = new THREE.LineSegments(new THREE.EdgesGeometry(geo, 30), new THREE.LineBasicMaterial({
+    color: part.finish === 'body' ? '#7f848b' : '#59606a', clippingPlanes: [solidClip],
+  }));
+  group.add(solid, outline, fill, edges);
   if (lines) {   // detail lines: board traces, screen area, camera
     const detail = new THREE.LineSegments(lines, new THREE.LineBasicMaterial({ color, transparent: true, clippingPlanes: [holoClip] }));
     detail.userData.isTrace = true;
@@ -273,7 +315,7 @@ function buildPart(part) {
   // Anchor = centre of the part's geometry; fibres attach here.
   geo.computeBoundingBox();
   const anchor = geo.boundingBox.getCenter(new THREE.Vector3());
-  return { part, group, solid, fill, edges, anchor };
+  return { part, group, solid, outline, fill, edges, anchor };
 }
 
 // ---------- 4. Layout: where every part sits for the current explode value ----------
@@ -286,6 +328,12 @@ function buildPart(part) {
 function staggered(E, rank) {
   const delay = STAGGER * (1 - rank);
   return THREE.MathUtils.clamp((E - delay) / (1 - STAGGER), 0, 1);
+}
+
+/** Exploded height of a base part: proportional to its layer RANK, capped at MAX_LIFT. */
+function lift(part) {
+  const top = state.dev.maxLayer.base;
+  return Math.min(part.layer * LAYER_GAP, (part.layer / top) * MAX_LIFT);
 }
 
 function layoutParts() {
@@ -310,7 +358,7 @@ function layoutParts() {
 
     if (ABSOLUTE_SHAPES.has(part.shape)) {
       // Shells are modelled in device coordinates; they only move up.
-      group.position.set(0, e * part.layer * LAYER_GAP, 0);
+      group.position.set(0, e * lift(part), 0);
       continue;
     }
 
@@ -324,11 +372,13 @@ function layoutParts() {
     const t = THREE.MathUtils.clamp((part.layer - 1) / (topInternal - 1), 0, 1);
     const yClosed = floor + s.h / 2 + t * (room - s.h);
     // Exploded: up by layer, and outwards from the centre.
-    group.position.set(x0 * (1 + e * SPREAD), yClosed + e * part.layer * LAYER_GAP, z0 * (1 + e * SPREAD));
+    group.position.set(x0 * (1 + e * SPREAD), yClosed + e * lift(part), z0 * (1 + e * SPREAD));
   }
 
   // The lid moves back and up as the base opens, so the two never collide.
-  lidPivot.position.set(0, baseTopAt(-D / 2) + E * 0.3, -D / 2 - E * 1.7);
+  // Closed: the hinge sits slightly down and into the back edge, so the lid meets the chassis
+  // like a real hinge instead of resting on top of it. Exploded: the lid moves back and up.
+  lidPivot.position.set(0, baseTopAt(-D / 2) - lidT * 0.6 + E * 0.3, -D / 2 + lidT * 0.35 - E * 1.7);
 
   updateFibres();
 }
@@ -362,7 +412,7 @@ function applyScan() {
   solidClip.constant = -y;                // real device visible above y
   scanLine.position.y = y;
   scanLine.visible = T > 0 && T < 1;
-  for (const e of state.parts.values()) e.solid.visible = T < 1;
+  for (const e of state.parts.values()) { e.solid.visible = T < 1; e.outline.visible = T < 1; }
   bloom.strength = BLOOM_STRENGTH * T;
   if (T !== state.holoT) { state.holoT = T; refreshLooks(); }
 }
@@ -560,6 +610,16 @@ const HAZARD_TEXT = {
 
 const escapeHtml = (s) => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+/** "Add to your devices" (stored in this browser, see library.js). Not shown for the demo sample. */
+function saveButton() {
+  if (DATA_URL.includes('/samples/')) return '';
+  return hasDevice(DATA_URL) ? '' : '<button class="btn" id="save-device">Add to your devices</button>';
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target.id === 'save-device') { addDevice(state.graph, DATA_URL); renderPanel(); }
+});
+
 function renderPanel() {
   const g = state.graph;
   const unverified = g.provenance === 'generated';
@@ -572,7 +632,7 @@ function renderPanel() {
     panelEl.innerHTML = `
       ${provenance}
       <p class="kicker">${system ? escapeHtml(system.name) : 'Exhibit'}</p>
-      <h1>${escapeHtml(g.device.model_name)}</h1>
+      <h1>${escapeHtml(g.device.model_name)}${hasDevice(DATA_URL) && !DATA_URL.includes('/samples/') ? '<span class="saved-tag">Saved ✓</span>' : ''}</h1>
       <div class="stats">
         <div><b>${parts.length}</b><span>parts</span></div>
         <div><b>${n('replaceable') + n('glued')}</b><span>replaceable</span></div>
@@ -581,6 +641,7 @@ function renderPanel() {
       ${g.device.summary && !system ? `<p class="lead">${escapeHtml(g.device.summary)}</p>` : ''}
       ${Object.keys(g.device.key_specs || {}).length && !system ? `<h2>At a glance</h2>
       <dl class="specs">${Object.entries(g.device.key_specs).map(([k, v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join('')}</dl>` : ''}
+      ${saveButton()}
       <p class="quiet hint">Select a part to see what it does, whether you can replace it, and where the information comes from.</p>
       <h2>Your configuration</h2>
       <dl class="specs">${Object.entries(g.device.configuration).map(([k, v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join('')}</dl>`;
@@ -647,8 +708,11 @@ function animate() {
   // Ease the drawn explode value towards the slider. Time-based exponential smoothing:
   // the same speed on a 30 Hz laptop and a 120 Hz screen.
   const gap = state.target - state.explode;
-  if (Math.abs(gap) > 0.0005) {
-    state.explode += REDUCED_MOTION ? gap : gap * (1 - Math.exp(-EASE_RATE * dt));
+  if (gap !== 0) {
+    // Close enough: land exactly on the target (exponential easing never reaches it by itself,
+    // and a value stuck at 0.0001 would leave the scan line visible under the real device).
+    state.explode = (Math.abs(gap) < 0.001 || REDUCED_MOTION) ? state.target
+      : state.explode + gap * (1 - Math.exp(-EASE_RATE * dt));
     layoutParts();
   }
   for (const f of state.fibres) {
@@ -665,6 +729,7 @@ function animate() {
 // ---------- Boot ----------
 
 async function main() {
+  if (document.body.classList.contains('mode-home')) return;   // home page: no device to show (home.js)
   try {
     state.graph = await loadGraph(DATA_URL);
   } catch (err) {
@@ -675,6 +740,9 @@ async function main() {
   document.getElementById('stage-status').remove();
 
   const g = state.graph;
+  setLastViewed(DATA_URL);
+  if (!DATA_URL.includes('/samples/') && !hasDevice(DATA_URL)) addDevice(g, DATA_URL);   // auto-save
+  enforcePhysicalRules(g);
   state.dev = buildDevice(g);
   document.title = `HOLOFIX · ${g.device.model_name}`;
   // Colour + the configuration values (skipping the chip line and anything repeated, e.g. the colour).

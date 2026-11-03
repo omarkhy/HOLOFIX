@@ -10,7 +10,7 @@ Routes (the website calls them in this order):
   GET  /api/health          is the server up, which model is configured
   POST /api/identify        {"query": "MacBook Air 2020"}            -> variants to choose from
   POST /api/configure       {"variant": {...}}                      -> purchase options
-  POST /api/extract         {"variant": {...}, "configuration": {}} -> PartsGraph for the viewer
+  POST /api/extract         {"variant": {...}, "configuration": {}} -> {path} of the saved PartsGraph
   GET  /                    the website (frontend/)
   GET  /data/...            samples, templates, cached graphs
 """
@@ -22,9 +22,8 @@ from pydantic import BaseModel
 from backend import config
 from backend.meta_client import MetaAPIError
 from backend.pipeline.configure import ConfigOptions, configure
-from backend.pipeline.extract import extract
+from backend.pipeline.extract import _graph_path, extract
 from backend.pipeline.identify import IdentifyResult, Variant, identify
-from backend.schemas import PartsGraph
 
 app = FastAPI(title="HOLOFIX")
 
@@ -71,10 +70,18 @@ def api_configure(req: ConfigureRequest):
         raise _upstream(e)
 
 
-@app.post("/api/extract", response_model=PartsGraph)
+class ExtractResponse(BaseModel):
+    path: str            # URL of the saved graph, e.g. /data/cache/graphs/<variant>__<config>.json
+    provenance: str
+    parts: int
+
+
+@app.post("/api/extract", response_model=ExtractResponse)
 def api_extract(req: ExtractRequest):
     # extract() never raises on API errors: it falls back to a labelled generic template.
-    return extract(req.variant, req.configuration)
+    graph = extract(req.variant, req.configuration)
+    rel = _graph_path(req.variant.variant_id, req.configuration).relative_to(config.DATA_DIR)
+    return ExtractResponse(path=f"/data/{rel.as_posix()}", provenance=graph.provenance.value, parts=len(graph.parts))
 
 
 # Static files last, so /api/* routes take priority.

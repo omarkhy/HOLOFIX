@@ -1,0 +1,807 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "Surface Laptop 5 13.5\"",
+    "variant_id": "surface_laptop_5_13_consumer",
+    "category": "laptop",
+    "configuration": {
+      "chip": "Intel Core i5-1235U",
+      "memory": "8GB",
+      "storage": "256GB",
+      "color": "Platinum with Alcantara"
+    },
+    "dimensions_mm": {
+      "width": 308.0,
+      "depth": 223.0,
+      "height_min": 14.5,
+      "height_max": 14.5
+    },
+    "color": {
+      "name": "Platinum with Alcantara",
+      "hex": "#DAD9D7"
+    },
+    "summary": "Thin aluminium clamshell with 3:2 PixelSense touch display and 12th Gen Intel Evo processors. The 13.5-inch model uniquely offers a warm Alcantara palm rest in Platinum, plus Thunderbolt 4 and removable M.2 2230 SSD.",
+    "key_specs": {
+      "Battery": "47.4 Wh, up to 18 hours typical device usage",
+      "Display": "13.5in PixelSense 2256 x 1504 (201 PPI), 3:2, sRGB, Dolby Vision IQ, 10-point touch",
+      "Graphics": "Intel Iris Xe Graphics 80EU integrated",
+      "Memory": "8 GB LPDDR5x soldered",
+      "Processor": "12th Gen Intel Core i5-1235U, 10 cores / 12 threads up to 4.4 GHz, Intel Evo",
+      "Storage": "256 GB removable M.2 2230 NVMe SSD"
+    }
+  },
+  "provenance": "sourced",
+  "systems": [
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "parent_id": null
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "parent_id": null
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "parent_id": null
+    },
+    {
+      "id": "compute",
+      "name": "Compute",
+      "parent_id": null
+    },
+    {
+      "id": "storage",
+      "name": "Storage",
+      "parent_id": null
+    },
+    {
+      "id": "thermal",
+      "name": "Thermal",
+      "parent_id": null
+    },
+    {
+      "id": "io",
+      "name": "I/O Ports",
+      "parent_id": null
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "parent_id": null
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "bottom_case",
+      "name": "Lower chassis",
+      "function": "Aluminium lower enclosure that houses all base internals and is supplied fused to the battery.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 0,
+      "shape": "shell_base",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "Aluminum",
+        "part_number": "U1L-00001 Platinum"
+      },
+      "hazard": null,
+      "source_url": "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+      "confidence": 0.95
+    },
+    {
+      "id": "feet_set",
+      "name": "Feet set",
+      "function": "Rubber non-skid feet covering the chassis screws, with different front and rear clip designs.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 0,
+      "shape": "slab",
+      "size": {
+        "w": 0.75,
+        "d": 0.8,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "part_number": "Platinum Feet RPW-00003"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/Microsoft+Surface+Laptop+5+(13.5-inch)+Battery+Replacement/157212",
+      "confidence": 0.9
+    },
+    {
+      "id": "battery_pack",
+      "name": "Battery pack",
+      "function": "Stores energy in Li-ion pouch cells to power the device portably.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.7,
+        "d": 0.45,
+        "h": 0.25
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.32
+      },
+      "serviceability": "glued",
+      "specs": {
+        "capacity": "47.4 Wh",
+        "type": "Li-ion rechargeable 3-cell"
+      },
+      "hazard": "lithium_battery",
+      "source_url": "https://www.ifixit.com/Guide/Microsoft+Surface+Laptop+5+(13.5-inch)+Battery+Replacement/157212",
+      "confidence": 0.95
+    },
+    {
+      "id": "left_speaker",
+      "name": "Left speaker",
+      "function": "Outputs left-channel stereo sound with Dolby Atmos.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.12,
+        "d": 0.12,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.15,
+        "y": 0.15
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Omnisonic with Dolby Atmos"
+      },
+      "hazard": null,
+      "source_url": "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+      "confidence": 0.85
+    },
+    {
+      "id": "right_speaker",
+      "name": "Right speaker",
+      "function": "Outputs right-channel stereo sound with Dolby Atmos.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.12,
+        "d": 0.12,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.85,
+        "y": 0.15
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Omnisonic with Dolby Atmos"
+      },
+      "hazard": null,
+      "source_url": "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+      "confidence": 0.85
+    },
+    {
+      "id": "motherboard",
+      "name": "Motherboard / PCBA",
+      "function": "Primary circuit board carrying CPU, RAM, Wi-Fi, ports and all internal connectors.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.85,
+        "d": 0.25,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.8
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "variant": "i5, 8GB RAM Consumer U1M-00001"
+      },
+      "hazard": null,
+      "source_url": "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+      "confidence": 0.95
+    },
+    {
+      "id": "ssd_256gb",
+      "name": "rSSD 256GB",
+      "function": "Removable 22x30 mm NVMe solid-state drive storing OS and user data.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.07,
+        "d": 0.13,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.58
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "256 GB",
+        "form": "M.2 2230 NVMe PCIe 3.0 x4"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/Microsoft+Surface+Laptop+5+(13.5-inch)+SSD+Replacement/157206",
+      "confidence": 0.95
+    },
+    {
+      "id": "surflink_port",
+      "name": "Surflink / Surface Connect port",
+      "function": "Proprietary magnetic charging port module for Surface Connect power.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.08,
+        "d": 0.1,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.9,
+        "y": 0.65
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "part_number": "Surflink U1K-00001"
+      },
+      "hazard": null,
+      "source_url": "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "battery_contact_cable",
+      "name": "Battery contact cable",
+      "function": "Flat flex routing battery power to the motherboard with spacers between cells.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "cable",
+      "size": {
+        "w": 0.05,
+        "d": 0.3,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.35,
+        "y": 0.45
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "type": "Battery contact flex"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/Guide/Microsoft+Surface+Laptop+5+(13.5-inch)+Battery+Replacement/157212",
+      "confidence": 0.85
+    },
+    {
+      "id": "motherboard_shield_bracket",
+      "name": "Motherboard bracket and shields",
+      "function": "Stamped metal bracket, port cover and shields retaining and shielding the motherboard.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "frame",
+      "size": {
+        "w": 0.3,
+        "d": 0.2,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.3,
+        "y": 0.8
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "fasteners": "2x 3mm bracket, 3x 2.1mm port cover, clips"
+      },
+      "hazard": null,
+      "source_url": "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "soc_i5_1235u",
+      "name": "Intel Core i5-1235U SoC",
+      "function": "Computes and renders graphics with integrated Iris Xe on the same die.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.08,
+        "d": 0.08,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.45,
+        "y": 0.8
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "cores": "10 cores / 12 threads up to 4.4 GHz",
+        "graphics": "Intel Iris Xe Graphics 80EU"
+      },
+      "hazard": null,
+      "source_url": "https://support.microsoft.com/en-au/surface/surface-laptop-5-features-0816e45e-6a4c-4c9e-8365-ef755a2e34d2",
+      "confidence": 0.95
+    },
+    {
+      "id": "ram_8gb",
+      "name": "8GB LPDDR5x RAM",
+      "function": "Provides soldered low-power system memory around the SoC.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.1,
+        "d": 0.06,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.58,
+        "y": 0.8
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "capacity": "8 GB",
+        "type": "LPDDR5x soldered"
+      },
+      "hazard": null,
+      "source_url": "https://support.microsoft.com/en-au/surface/surface-laptop-5-features-0816e45e-6a4c-4c9e-8365-ef755a2e34d2",
+      "confidence": 0.9
+    },
+    {
+      "id": "heatsink",
+      "name": "Heatsink",
+      "function": "Spreads CPU heat through copper heat-pipes to the fan exhaust.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "box",
+      "size": {
+        "w": 0.6,
+        "d": 0.2,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.45,
+        "y": 0.82
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "fasteners": "9 screws, thermal paste, conductive tape"
+      },
+      "hazard": null,
+      "source_url": "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "fan",
+      "name": "Fan",
+      "function": "Blower that forces air across the heatsink to cool the SoC.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.15,
+        "d": 0.15,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.78,
+        "y": 0.82
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "connector": "ZIF with locking flap"
+      },
+      "hazard": null,
+      "source_url": "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "keyboard",
+      "name": "Keyboard",
+      "function": "Backlit moving-keys keyboard for typing and function controls.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "keys",
+      "layer": 4,
+      "shape": "keyboard",
+      "size": {
+        "w": 0.85,
+        "d": 0.35,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.65
+      },
+      "serviceability": "not_serviceable",
+      "specs": {
+        "backlight": "Backlit moving keys, F1-F12",
+        "layout": "English America / Asia"
+      },
+      "hazard": null,
+      "source_url": "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "trackpad",
+      "name": "Trackpad",
+      "function": "Precision touchpad for cursor control in the front-centre of the deck.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 4,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.32,
+        "d": 0.18,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.25
+      },
+      "serviceability": "not_serviceable",
+      "specs": {
+        "type": "Precision touchpad"
+      },
+      "hazard": null,
+      "source_url": "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "top_cover",
+      "name": "Top cover / C-cover Assembly",
+      "function": "Top enclosure with Alcantara palm rest integrating keyboard and touchpad, closing the base.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 5,
+      "shape": "shell_deck",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "color": "Platinum with Alcantara",
+        "part_number": "U1T-00001 Fabric"
+      },
+      "hazard": null,
+      "source_url": "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+      "confidence": 0.95
+    },
+    {
+      "id": "lid_back_cover",
+      "name": "Display back cover / AB-cover",
+      "function": "Aluminium outer lid shell protecting the display rear.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "body",
+      "layer": 0,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.3
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "color": "Platinum",
+        "part_number": "U1S-00001"
+      },
+      "hazard": null,
+      "source_url": "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+      "confidence": 0.9
+    },
+    {
+      "id": "display_panel",
+      "name": "Display panel / TDM",
+      "function": "13.5-inch touch display module showing image and receiving pen and touch input.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "screen",
+      "layer": 1,
+      "shape": "screen",
+      "size": {
+        "w": 0.92,
+        "d": 0.88,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.55
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "glass": "Gorilla Glass 3 on Alcantara model",
+        "resolution": "2256 x 1504 (201 PPI) 3:2"
+      },
+      "hazard": null,
+      "source_url": "https://support.microsoft.com/en-au/surface/surface-laptop-5-features-0816e45e-6a4c-4c9e-8365-ef755a2e34d2",
+      "confidence": 0.95
+    },
+    {
+      "id": "front_camera",
+      "name": "Front camera and mics",
+      "function": "Front cameras, mics and ambient sensor enabling Hello sign-in and video calls.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.08,
+        "d": 0.03,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.92
+      },
+      "serviceability": "not_serviceable",
+      "specs": {
+        "camera": "720p HD + Windows Hello, Dual far-field mics"
+      },
+      "hazard": null,
+      "source_url": "https://support.microsoft.com/en-au/surface/surface-laptop-5-features-0816e45e-6a4c-4c9e-8365-ef755a2e34d2",
+      "confidence": 0.8
+    }
+  ],
+  "connections": [
+    {
+      "source": "battery_pack",
+      "target": "battery_contact_cable",
+      "kind": "power",
+      "label": "Battery cells to contact flex"
+    },
+    {
+      "source": "battery_pack",
+      "target": "bottom_case",
+      "kind": "mechanical",
+      "label": "Adhesive + spacers glued to lower chassis"
+    },
+    {
+      "source": "battery_contact_cable",
+      "target": "motherboard",
+      "kind": "power",
+      "label": "Battery connector"
+    },
+    {
+      "source": "surflink_port",
+      "target": "motherboard",
+      "kind": "power",
+      "label": "Surflink cable with locking connector"
+    },
+    {
+      "source": "surflink_port",
+      "target": "bottom_case",
+      "kind": "mechanical",
+      "label": "Retained at side edge"
+    },
+    {
+      "source": "display_panel",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "eDP display flex - 4x press connectors"
+    },
+    {
+      "source": "display_panel",
+      "target": "bottom_case",
+      "kind": "mechanical",
+      "label": "Hinge to base rear edge"
+    },
+    {
+      "source": "keyboard",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "Keyboard FPC magnetic connector"
+    },
+    {
+      "source": "keyboard",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Integrated into C-cover"
+    },
+    {
+      "source": "trackpad",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "Touchpad FPC magnetic connector"
+    },
+    {
+      "source": "trackpad",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Mounted front-centre of deck"
+    },
+    {
+      "source": "left_speaker",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "Left speaker wire connector"
+    },
+    {
+      "source": "left_speaker",
+      "target": "bottom_case",
+      "kind": "mechanical",
+      "label": "Mounted front-left corner chassis"
+    },
+    {
+      "source": "right_speaker",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "Right speaker wire connector"
+    },
+    {
+      "source": "right_speaker",
+      "target": "bottom_case",
+      "kind": "mechanical",
+      "label": "Mounted front-right corner chassis"
+    },
+    {
+      "source": "ssd_256gb",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "M.2 2230 NVMe edge socket"
+    },
+    {
+      "source": "ssd_256gb",
+      "target": "motherboard",
+      "kind": "mechanical",
+      "label": "1x screw to standoff"
+    },
+    {
+      "source": "ssd_256gb",
+      "target": "top_cover",
+      "kind": "thermal",
+      "label": "Thermal pad to upper case"
+    },
+    {
+      "source": "front_camera",
+      "target": "motherboard",
+      "kind": "data",
+      "label": "Camera flex via display harness"
+    },
+    {
+      "source": "front_camera",
+      "target": "display_panel",
+      "kind": "mechanical",
+      "label": "Mounted in top display bezel"
+    },
+    {
+      "source": "soc_i5_1235u",
+      "target": "motherboard",
+      "kind": "mechanical",
+      "label": "Soldered BGA to motherboard"
+    },
+    {
+      "source": "soc_i5_1235u",
+      "target": "heatsink",
+      "kind": "thermal",
+      "label": "Thermal paste CPU to heatsink"
+    },
+    {
+      "source": "ram_8gb",
+      "target": "motherboard",
+      "kind": "mechanical",
+      "label": "Soldered LPDDR5x to motherboard"
+    },
+    {
+      "source": "motherboard",
+      "target": "bottom_case",
+      "kind": "mechanical",
+      "label": "6x T3 screws to chassis"
+    },
+    {
+      "source": "motherboard_shield_bracket",
+      "target": "motherboard",
+      "kind": "mechanical",
+      "label": "Bracket and shields retaining motherboard"
+    },
+    {
+      "source": "heatsink",
+      "target": "motherboard",
+      "kind": "mechanical",
+      "label": "9x screws + centering peg"
+    },
+    {
+      "source": "fan",
+      "target": "motherboard",
+      "kind": "power",
+      "label": "Fan cable ZIF connector"
+    },
+    {
+      "source": "fan",
+      "target": "heatsink",
+      "kind": "mechanical",
+      "label": "Blower mounted to heatsink assembly"
+    },
+    {
+      "source": "top_cover",
+      "target": "bottom_case",
+      "kind": "mechanical",
+      "label": "4x screws + magnets closing base"
+    },
+    {
+      "source": "feet_set",
+      "target": "bottom_case",
+      "kind": "mechanical",
+      "label": "Clipped + adhesive covering chassis screws"
+    },
+    {
+      "source": "lid_back_cover",
+      "target": "display_panel",
+      "kind": "mechanical",
+      "label": "Outer lid shell protecting display rear"
+    }
+  ],
+  "repair_paths": [],
+  "sources": [
+    "https://download.microsoft.com/download/9/3/5/93501ba4-9f8f-430b-97ca-9d603f42a0b7/Surface%20Laptop%205%20English%20Service%20Guide.pdf",
+    "https://support.microsoft.com/en-au/surface/surface-laptop-5-features-0816e45e-6a4c-4c9e-8365-ef755a2e34d2",
+    "https://www.ifixit.com/Guide/Microsoft+Surface+Laptop+5+(13.5-inch)+Battery+Replacement/157212",
+    "https://www.ifixit.com/Guide/Microsoft+Surface+Laptop+5+(13.5-inch)+SSD+Replacement/157206"
+  ]
+}

@@ -1,0 +1,895 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "XPS 13 9310",
+    "variant_id": "xps_13_9310_2020",
+    "category": "laptop",
+    "configuration": {
+      "chip": "Intel Core i3-1115G4",
+      "memory": "8 GB",
+      "storage": "256 GB",
+      "color": "Platinum Silver + Black"
+    },
+    "dimensions_mm": {
+      "width": 295.7,
+      "depth": 198.7,
+      "height_min": 14.8,
+      "height_max": 14.8
+    },
+    "color": {
+      "name": "Platinum Silver + Black",
+      "hex": "#C8CCD1"
+    },
+    "summary": "Late-2020 InfinityEdge ultrabook on 11th Gen Intel Tiger Lake; this base i3 configuration pairs a 13.4-inch 16:10 FHD+ display with machined-aluminum Platinum Silver exterior and black carbon-fiber interior in a 1.2 kg chassis.",
+    "key_specs": {
+      "Battery": "4-cell 52 Wh smart lithium-ion, 7.6 VDC",
+      "Display": "13.4-inch FHD+ 1920x1200, 60 Hz, non-touch, 500 nits, sRGB 100%",
+      "Graphics": "Intel UHD Graphics, integrated, shared system memory",
+      "Memory": "8 GB LPDDR4x 4267 MHz dual-channel, soldered",
+      "Processor": "11th Gen Intel Core i3-1115G4, 2 cores / 4 threads, up to 4.10 GHz, 15W",
+      "Storage": "256 GB M.2 PCIe Gen3 x4 NVMe SSD",
+      "Weight": "Starting 1.20 kg non-touch, 1.27 kg touch"
+    }
+  },
+  "provenance": "sourced",
+  "systems": [
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "parent_id": null
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "parent_id": null
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "parent_id": null
+    },
+    {
+      "id": "compute",
+      "name": "Compute",
+      "parent_id": null
+    },
+    {
+      "id": "storage",
+      "name": "Storage",
+      "parent_id": null
+    },
+    {
+      "id": "thermal",
+      "name": "Thermal",
+      "parent_id": null
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "parent_id": null
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "parent_id": null
+    },
+    {
+      "id": "io",
+      "name": "I/O and Connectivity",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "base_cover",
+      "name": "Base cover",
+      "function": "Aluminum bottom enclosure that closes the chassis.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 0,
+      "shape": "shell_base",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "fasteners": "8x M2x3 Torx T5 + clips",
+        "material": "Aluminum"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/major-components-of-xps-13-9310?guid=guid-e1689dba-27fc-432d-ac41-bc03d20ec9e6&lang=en-us",
+      "confidence": 0.95
+    },
+    {
+      "id": "battery",
+      "name": "Battery",
+      "function": "Primary power source for the laptop.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.86,
+        "d": 0.45,
+        "h": 0.4
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.3
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "52 Wh",
+        "type": "4-cell smart lithium-ion",
+        "voltage": "7.60 VDC",
+        "weight": "0.22 kg"
+      },
+      "hazard": "lithium_battery",
+      "source_url": "https://www.ifixit.com/Guide/Dell+XPS+13+9310+Battery+Replacement/154772",
+      "confidence": 0.92
+    },
+    {
+      "id": "left_speaker",
+      "name": "Left speaker",
+      "function": "Provides stereo audio output from the front-left slot.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.15,
+        "d": 0.1,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.15,
+        "y": 0.18
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "power": "2W average"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/major-components-of-xps-13-9310?guid=guid-e1689dba-27fc-432d-ac41-bc03d20ec9e6&lang=en-us",
+      "confidence": 0.9
+    },
+    {
+      "id": "right_speaker",
+      "name": "Right speaker",
+      "function": "Provides stereo audio output from the front-right slot.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.15,
+        "d": 0.1,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.85,
+        "y": 0.18
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "power": "2W average"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/major-components-of-xps-13-9310?guid=guid-e1689dba-27fc-432d-ac41-bc03d20ec9e6&lang=en-us",
+      "confidence": 0.9
+    },
+    {
+      "id": "system_board",
+      "name": "System board",
+      "function": "Main PCB hosting CPU, memory, WLAN and I/O controllers.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.7,
+        "d": 0.35,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.78
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "fasteners": "11 screws to palm-rest",
+        "wireless": "Intel AX1650 WiFi 6 + Bluetooth 5.1 integrated"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/removing-the-system-board?guid=guid-66d3ae11-8763-40db-b8fe-0d2827929afa&lang=en-us",
+      "confidence": 0.95
+    },
+    {
+      "id": "cpu",
+      "name": "Intel Core i3-1115G4",
+      "function": "Runs compute and integrated graphics for this configuration.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.08,
+        "d": 0.08,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.8
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "cache": "6 MB",
+        "cores": "2",
+        "model": "Intel Core i3-1115G4",
+        "speed": "Up to 4.10 GHz",
+        "threads": "4",
+        "wattage": "15 W"
+      },
+      "hazard": null,
+      "source_url": "https://dl.dell.com/topicspdf/xps-13-9310-laptop_setup-guide_en-us.pdf",
+      "confidence": 0.95
+    },
+    {
+      "id": "ram",
+      "name": "Memory 8GB LPDDR4x",
+      "function": "System memory soldered around the CPU.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.15,
+        "d": 0.1,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.38,
+        "y": 0.76
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "capacity": "8 GB",
+        "speed": "4267 MHz",
+        "type": "LPDDR4x-SDRAM dual-channel"
+      },
+      "hazard": null,
+      "source_url": "https://dl.dell.com/topicspdf/xps-13-9310-laptop_setup-guide_en-us.pdf",
+      "confidence": 0.92
+    },
+    {
+      "id": "ssd",
+      "name": "Solid-state drive 256GB",
+      "function": "Boot and data storage on a single M.2 slot.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.27,
+        "d": 0.11,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.62,
+        "y": 0.76
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "256 GB",
+        "form": "M.2 2230 / 2280",
+        "interface": "PCIe Gen3 x4 NVMe"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/major-components-of-xps-13-9310?guid=guid-e1689dba-27fc-432d-ac41-bc03d20ec9e6&lang=en-us",
+      "confidence": 0.93
+    },
+    {
+      "id": "ssd_shield",
+      "name": "Solid-state drive shield",
+      "function": "Covers and shields the SSD on the system board.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "slab",
+      "size": {
+        "w": 0.3,
+        "d": 0.14,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.62,
+        "y": 0.77
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/major-components-of-xps-13-9310?guid=guid-e1689dba-27fc-432d-ac41-bc03d20ec9e6&lang=en-us",
+      "confidence": 0.9
+    },
+    {
+      "id": "heatsink",
+      "name": "Heat sink (i3)",
+      "function": "Spreads CPU heat to the dual fans.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "slab",
+      "size": {
+        "w": 0.25,
+        "d": 0.2,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "fasteners": "Captive screws",
+        "note": "Separate from fans on i3-1115G4"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/major-components-of-xps-13-9310?guid=guid-e1689dba-27fc-432d-ac41-bc03d20ec9e6&lang=en-us",
+      "confidence": 0.88
+    },
+    {
+      "id": "left_fan",
+      "name": "Left fan",
+      "function": "Active blower exhausting heat from the left-rear corner.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.18,
+        "d": 0.18,
+        "h": 0.25
+      },
+      "position": {
+        "x": 0.16,
+        "y": 0.85
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "note": "Separate unit on i3-1115G4"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/major-components-of-xps-13-9310?guid=guid-e1689dba-27fc-432d-ac41-bc03d20ec9e6&lang=en-us",
+      "confidence": 0.9
+    },
+    {
+      "id": "right_fan",
+      "name": "Right fan",
+      "function": "Active blower exhausting heat from the right-rear corner.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.18,
+        "d": 0.18,
+        "h": 0.25
+      },
+      "position": {
+        "x": 0.84,
+        "y": 0.85
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "note": "Separate unit on i3-1115G4"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/major-components-of-xps-13-9310?guid=guid-e1689dba-27fc-432d-ac41-bc03d20ec9e6&lang=en-us",
+      "confidence": 0.9
+    },
+    {
+      "id": "left_antenna",
+      "name": "Left antenna",
+      "function": "Left WiFi/Bluetooth antenna routed toward the hinge.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "cable",
+      "size": {
+        "w": 0.08,
+        "d": 0.25,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.2,
+        "y": 0.92
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "wireless": "WiFi 6 802.11ax + Bluetooth 5.1"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/removing-the-system-board?guid=guid-66d3ae11-8763-40db-b8fe-0d2827929afa&lang=en-us",
+      "confidence": 0.85
+    },
+    {
+      "id": "right_antenna",
+      "name": "Right antenna",
+      "function": "Right WiFi/Bluetooth antenna routed toward the hinge.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "cable",
+      "size": {
+        "w": 0.08,
+        "d": 0.25,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.8,
+        "y": 0.92
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "wireless": "WiFi 6 802.11ax + Bluetooth 5.1"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/removing-the-system-board?guid=guid-66d3ae11-8763-40db-b8fe-0d2827929afa&lang=en-us",
+      "confidence": 0.85
+    },
+    {
+      "id": "display_cable_bracket",
+      "name": "Display-cable bracket",
+      "function": "Metal hold-down securing the display cable connector.",
+      "system_id": "display",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "slab",
+      "size": {
+        "w": 0.08,
+        "d": 0.05,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.92
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "fasteners": "1x M1.6x3 captive"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/major-components-of-xps-13-9310?guid=guid-e1689dba-27fc-432d-ac41-bc03d20ec9e6&lang=en-us",
+      "confidence": 0.88
+    },
+    {
+      "id": "keyboard",
+      "name": "Keyboard",
+      "function": "Backlit QWERTY input integrated in the palm-rest.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "keys",
+      "layer": 6,
+      "shape": "keyboard",
+      "size": {
+        "w": 0.8,
+        "d": 0.35,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.65
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "layout": "QWERTY backlit",
+        "type": "Standard backlit"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/removing-the-system-board?guid=guid-66d3ae11-8763-40db-b8fe-0d2827929afa&lang=en-us",
+      "confidence": 0.9
+    },
+    {
+      "id": "touchpad",
+      "name": "Touchpad",
+      "function": "Precision pointer below the keyboard.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 6,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.38,
+        "d": 0.32,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.12
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "size": "112.30 mm x 64.15 mm"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/removing-the-system-board?guid=guid-66d3ae11-8763-40db-b8fe-0d2827929afa&lang=en-us",
+      "confidence": 0.9
+    },
+    {
+      "id": "power_button",
+      "name": "Power button with fingerprint reader",
+      "function": "Power control with capacitive fingerprint login.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 6,
+      "shape": "slab",
+      "size": {
+        "w": 0.08,
+        "d": 0.05,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.85,
+        "y": 0.75
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "sensor": "Capacitive 500 PPI"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/removing-the-system-board?guid=guid-66d3ae11-8763-40db-b8fe-0d2827929afa&lang=en-us",
+      "confidence": 0.85
+    },
+    {
+      "id": "palmrest_assembly",
+      "name": "Palm-rest and keyboard assembly",
+      "function": "Carbon-fiber top enclosure holding keyboard and touchpad.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 7,
+      "shape": "shell_deck",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "interior": "Black carbon fiber",
+        "material": "Carbon fiber palm-rest"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/major-components-of-xps-13-9310?guid=guid-e1689dba-27fc-432d-ac41-bc03d20ec9e6&lang=en-us",
+      "confidence": 0.93
+    },
+    {
+      "id": "lid_cover",
+      "name": "Display back cover",
+      "function": "Platinum Silver aluminum outer lid cover.",
+      "system_id": "enclosure",
+      "assembly": "lid",
+      "finish": "body",
+      "layer": 0,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.15
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "color": "Platinum Silver",
+        "material": "Machined aluminum"
+      },
+      "hazard": null,
+      "source_url": "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/major-components-of-xps-13-9310?guid=guid-e1689dba-27fc-432d-ac41-bc03d20ec9e6&lang=en-us",
+      "confidence": 0.92
+    },
+    {
+      "id": "display_panel",
+      "name": "Display panel 13.4-inch FHD+",
+      "function": "13.4-inch InfinityEdge panel for image output.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "screen",
+      "layer": 1,
+      "shape": "screen",
+      "size": {
+        "w": 0.92,
+        "d": 0.9,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "luminance": "500 nits",
+        "refresh": "60 Hz",
+        "resolution": "1920x1200",
+        "size": "13.4-inch 16:10",
+        "touch": "No"
+      },
+      "hazard": null,
+      "source_url": "https://dl.dell.com/topicspdf/xps-13-9310-laptop_setup-guide_en-us.pdf",
+      "confidence": 0.93
+    },
+    {
+      "id": "webcam",
+      "name": "Camera",
+      "function": "Front RGB/IR camera with mics for video and login.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.05,
+        "d": 0.03,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.95
+      },
+      "serviceability": "not_serviceable",
+      "specs": {
+        "video": "1280x720 at 30fps"
+      },
+      "hazard": null,
+      "source_url": "https://dl.dell.com/topicspdf/xps-13-9310-laptop_setup-guide_en-us.pdf",
+      "confidence": 0.85
+    }
+  ],
+  "connections": [
+    {
+      "source": "base_cover",
+      "target": "palmrest_assembly",
+      "kind": "mechanical",
+      "label": "8x M2x3 + clips"
+    },
+    {
+      "source": "battery",
+      "target": "system_board",
+      "kind": "power",
+      "label": "Battery connector"
+    },
+    {
+      "source": "battery",
+      "target": "palmrest_assembly",
+      "kind": "mechanical",
+      "label": "5x battery screws in recess"
+    },
+    {
+      "source": "left_speaker",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Left speaker cable"
+    },
+    {
+      "source": "left_speaker",
+      "target": "palmrest_assembly",
+      "kind": "mechanical",
+      "label": "slot fit in palm-rest"
+    },
+    {
+      "source": "right_speaker",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Right speaker cable"
+    },
+    {
+      "source": "right_speaker",
+      "target": "palmrest_assembly",
+      "kind": "mechanical",
+      "label": "slot fit in palm-rest"
+    },
+    {
+      "source": "system_board",
+      "target": "palmrest_assembly",
+      "kind": "mechanical",
+      "label": "11x board screws to palm-rest"
+    },
+    {
+      "source": "cpu",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "soldered BGA to board"
+    },
+    {
+      "source": "cpu",
+      "target": "heatsink",
+      "kind": "thermal",
+      "label": "CPU heat to sink"
+    },
+    {
+      "source": "ram",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "soldered LPDDR4x"
+    },
+    {
+      "source": "ssd",
+      "target": "system_board",
+      "kind": "data",
+      "label": "M.2 NVMe edge"
+    },
+    {
+      "source": "ssd",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "M.2 retaining screw"
+    },
+    {
+      "source": "ssd_shield",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "shield over SSD"
+    },
+    {
+      "source": "heatsink",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "4x captive M2x3"
+    },
+    {
+      "source": "left_fan",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "fan screws to board"
+    },
+    {
+      "source": "left_fan",
+      "target": "system_board",
+      "kind": "power",
+      "label": "Left fan cable"
+    },
+    {
+      "source": "right_fan",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "fan screws to board"
+    },
+    {
+      "source": "right_fan",
+      "target": "system_board",
+      "kind": "power",
+      "label": "Right fan cable"
+    },
+    {
+      "source": "left_antenna",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Left antenna coax"
+    },
+    {
+      "source": "left_antenna",
+      "target": "palmrest_assembly",
+      "kind": "mechanical",
+      "label": "routing guides to hinge"
+    },
+    {
+      "source": "right_antenna",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Right antenna coax"
+    },
+    {
+      "source": "right_antenna",
+      "target": "palmrest_assembly",
+      "kind": "mechanical",
+      "label": "routing guides to hinge"
+    },
+    {
+      "source": "display_cable_bracket",
+      "target": "system_board",
+      "kind": "mechanical",
+      "label": "M1.6x3 hold-down"
+    },
+    {
+      "source": "keyboard",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Keyboard flex"
+    },
+    {
+      "source": "keyboard",
+      "target": "palmrest_assembly",
+      "kind": "mechanical",
+      "label": "keyboard screws to palm-rest"
+    },
+    {
+      "source": "touchpad",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Touchpad flex"
+    },
+    {
+      "source": "touchpad",
+      "target": "palmrest_assembly",
+      "kind": "mechanical",
+      "label": "touchpad mount"
+    },
+    {
+      "source": "power_button",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Power/FPR cable"
+    },
+    {
+      "source": "power_button",
+      "target": "palmrest_assembly",
+      "kind": "mechanical",
+      "label": "button mount in palm-rest"
+    },
+    {
+      "source": "display_panel",
+      "target": "system_board",
+      "kind": "data",
+      "label": "eDP display flex"
+    },
+    {
+      "source": "display_panel",
+      "target": "lid_cover",
+      "kind": "mechanical",
+      "label": "panel in lid"
+    },
+    {
+      "source": "lid_cover",
+      "target": "palmrest_assembly",
+      "kind": "mechanical",
+      "label": "hinges 4x M2.5x3 to palm-rest"
+    },
+    {
+      "source": "webcam",
+      "target": "system_board",
+      "kind": "data",
+      "label": "Camera cable"
+    },
+    {
+      "source": "webcam",
+      "target": "lid_cover",
+      "kind": "mechanical",
+      "label": "camera mount in lid"
+    }
+  ],
+  "repair_paths": [],
+  "sources": [
+    "https://dl.dell.com/topicspdf/xps-13-9310-laptop_setup-guide_en-us.pdf",
+    "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/major-components-of-xps-13-9310?guid=guid-e1689dba-27fc-432d-ac41-bc03d20ec9e6&lang=en-us",
+    "https://www.ifixit.com/Guide/Dell+XPS+13+9310+Battery+Replacement/154772",
+    "https://www.dell.com/support/manuals/en-ca/xps-13-9310-laptop/xps-13-9310-service-manual/removing-the-system-board?guid=guid-66d3ae11-8763-40db-b8fe-0d2827929afa&lang=en-us"
+  ]
+}

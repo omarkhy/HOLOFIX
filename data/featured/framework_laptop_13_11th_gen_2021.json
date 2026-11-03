@@ -1,0 +1,950 @@
+{
+  "schema_version": "1.0",
+  "device": {
+    "model_name": "Framework Laptop (11th Gen Intel Core)",
+    "variant_id": "framework_laptop_13_11th_gen_2021",
+    "category": "laptop",
+    "configuration": {
+      "chip": "Intel Core i5-1135G7",
+      "memory": "8GB (1 x 8GB)",
+      "storage": "256GB NVMe SSD",
+      "color": "Black"
+    },
+    "dimensions_mm": {
+      "width": 296.63,
+      "depth": 228.98,
+      "height_min": 15.85,
+      "height_max": 15.85
+    },
+    "color": {
+      "name": "Black",
+      "hex": "#000000"
+    },
+    "summary": "First fully modular 13.5-inch Framework Laptop with swappable mainboard, expansion cards and magnetic bezel, announced Feb 2021 and shipping Aug 2021.",
+    "key_specs": {
+      "Battery": "55Wh high cycle-life (80% after 1000 cycles)",
+      "Display": "13.5-inch 2256x1504 3:2 IPS",
+      "Graphics": "Intel Iris Xe Graphics 80EU @ 1.30 GHz (UHD in single-channel)",
+      "Memory": "8 GB DDR4-3200 (1 x 8GB)",
+      "Processor": "Intel Core i5-1135G7, 4C/8T up to 4.20 GHz",
+      "Storage": "256GB M.2 2280 NVMe SSD"
+    }
+  },
+  "provenance": "sourced",
+  "systems": [
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "parent_id": null
+    },
+    {
+      "id": "display",
+      "name": "Display",
+      "parent_id": null
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "parent_id": null
+    },
+    {
+      "id": "compute",
+      "name": "Compute",
+      "parent_id": null
+    },
+    {
+      "id": "storage",
+      "name": "Storage",
+      "parent_id": null
+    },
+    {
+      "id": "thermal",
+      "name": "Thermal",
+      "parent_id": null
+    },
+    {
+      "id": "io",
+      "name": "I/O and Expansion",
+      "parent_id": null
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "parent_id": null
+    },
+    {
+      "id": "input",
+      "name": "Input",
+      "parent_id": null
+    }
+  ],
+  "parts": [
+    {
+      "id": "bottom_cover",
+      "name": "Bottom Cover",
+      "function": "Aluminum tub forming the underside and holding battery, speakers and mainboard.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 0,
+      "shape": "shell_base",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "fastening": "5x T5 Torx captive",
+        "material": "Aluminum formed / CNC"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.95
+    },
+    {
+      "id": "main_battery",
+      "name": "Main Battery 55Wh",
+      "function": "55Wh power source that slides into the mainboard receptacle.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.75,
+        "d": 0.32,
+        "h": 0.25
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.28
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "55 Wh",
+        "model": "FRANBBAT01"
+      },
+      "hazard": "lithium_battery",
+      "source_url": "https://guides.frame.work/Guide/Battery+Replacement+Guide/85",
+      "confidence": 0.95
+    },
+    {
+      "id": "speaker_left",
+      "name": "Speaker Left",
+      "function": "Left channel stereo output ported to the side.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.12,
+        "d": 0.12,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.15,
+        "y": 0.12
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "power": "2W"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.85
+    },
+    {
+      "id": "speaker_right",
+      "name": "Speaker Right",
+      "function": "Right channel stereo output ported to the side.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 1,
+      "shape": "box",
+      "size": {
+        "w": 0.12,
+        "d": 0.12,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.85,
+        "y": 0.12
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "power": "2W"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.85
+    },
+    {
+      "id": "mainboard",
+      "name": "Mainboard",
+      "function": "Central PCB hosting CPU, RAM, SSD, WiFi and all connectors.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.7,
+        "d": 0.35,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.72
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "ports": "4x USB-C soldered"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.95
+    },
+    {
+      "id": "audio_board",
+      "name": "Audio Board",
+      "function": "Provides 3.5mm combo headphone jack interconnect.",
+      "system_id": "audio",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "board",
+      "size": {
+        "w": 0.08,
+        "d": 0.15,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.1,
+        "y": 0.68
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.8
+    },
+    {
+      "id": "expansion_cards_left",
+      "name": "Expansion Cards Left",
+      "function": "Hot-swap modules converting USB-C to HDMI, USB-A and others on left side.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.08,
+        "d": 0.28,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.04,
+        "y": 0.65
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://framewiki.net/products/framework-laptop-13/11th-gen",
+      "confidence": 0.85
+    },
+    {
+      "id": "expansion_cards_right",
+      "name": "Expansion Cards Right",
+      "function": "Hot-swap modules converting USB-C to HDMI, USB-A and others on right side.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.08,
+        "d": 0.28,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.96,
+        "y": 0.65
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://framewiki.net/products/framework-laptop-13/11th-gen",
+      "confidence": 0.85
+    },
+    {
+      "id": "hinges",
+      "name": "Hinges",
+      "function": "Friction hinges holding lid angle and joining top to bottom.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "frame",
+      "size": {
+        "w": 0.7,
+        "d": 0.06,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.96
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "rating": "3.3kg hinges"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/63257/framework-laptop-a-framework-for-a-repairable-future",
+      "confidence": 0.85
+    },
+    {
+      "id": "cpu",
+      "name": "CPU Intel i5-1135G7",
+      "function": "Soldered Tiger Lake compute with integrated graphics and Thunderbolt.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "chip",
+      "size": {
+        "w": 0.08,
+        "d": 0.08,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.73
+      },
+      "serviceability": "soldered",
+      "specs": {
+        "boost": "up to 4.20 GHz",
+        "cores": "4",
+        "model": "Intel Core i5-1135G7",
+        "threads": "8"
+      },
+      "hazard": null,
+      "source_url": "https://framewiki.net/products/framework-laptop-13/11th-gen",
+      "confidence": 0.9
+    },
+    {
+      "id": "ram_module",
+      "name": "RAM 8GB DDR4",
+      "function": "System memory for this 8GB single-channel configuration.",
+      "system_id": "compute",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.2,
+        "d": 0.1,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.35,
+        "y": 0.68
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "8 GB",
+        "configuration": "1 x 8GB DDR4-3200",
+        "slots": "2x SO-DIMM, 1 populated"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.9
+    },
+    {
+      "id": "ssd_256gb",
+      "name": "SSD 256GB NVMe",
+      "function": "Boot and data NVMe storage for this 256GB configuration.",
+      "system_id": "storage",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.22,
+        "d": 0.07,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.62,
+        "y": 0.68
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "capacity": "256 GB",
+        "form_factor": "M.2 2280 NVMe"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.95
+    },
+    {
+      "id": "wifi_card",
+      "name": "Wireless Card",
+      "function": "WiFi 6 and Bluetooth connectivity with lid antennas.",
+      "system_id": "io",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "board",
+      "size": {
+        "w": 0.1,
+        "d": 0.08,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.78,
+        "y": 0.75
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "form_factor": "M.2 2230",
+        "standard": "WiFi 6"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.85
+    },
+    {
+      "id": "rtc_battery",
+      "name": "RTC Battery ML1220",
+      "function": "Keeps clock powered when main battery is disconnected.",
+      "system_id": "power",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 3,
+      "shape": "cylinder",
+      "size": {
+        "w": 0.04,
+        "d": 0.04,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.55,
+        "y": 0.62
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "model": "ML1220 rechargeable lithium"
+      },
+      "hazard": null,
+      "source_url": "https://framewiki.net/products/framework-laptop-13/11th-gen",
+      "confidence": 0.8
+    },
+    {
+      "id": "heatsink_fan",
+      "name": "Heatsink and Fan Kit",
+      "function": "Cools 28W continuous / 60W turbo CPU with fan and heatpipes.",
+      "system_id": "thermal",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "box",
+      "size": {
+        "w": 0.6,
+        "d": 0.16,
+        "h": 0.18
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.86
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "fan": "65mm x 5.5mm",
+        "heatpipes": "dual 5mm"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.9
+    },
+    {
+      "id": "keyboard",
+      "name": "Keyboard",
+      "function": "Backlit typing input with 1.5mm travel.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "keys",
+      "layer": 4,
+      "shape": "keyboard",
+      "size": {
+        "w": 0.75,
+        "d": 0.32,
+        "h": 0.08
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.62
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "keys": "78-key backlit",
+        "travel": "1.5mm"
+      },
+      "hazard": null,
+      "source_url": "https://framewiki.net/products/framework-laptop-13/11th-gen",
+      "confidence": 0.9
+    },
+    {
+      "id": "touchpad",
+      "name": "Touchpad",
+      "function": "Pointing device centered below the keyboard.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 4,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 0.38,
+        "d": 0.18,
+        "h": 0.06
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.18
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "size": "115 x 76.6mm"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.9
+    },
+    {
+      "id": "touchpad_cable",
+      "name": "Touchpad Cable",
+      "function": "Carries touchpad signals to the mainboard.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "internal",
+      "layer": 4,
+      "shape": "cable",
+      "size": {
+        "w": 0.05,
+        "d": 0.28,
+        "h": 0.04
+      },
+      "position": {
+        "x": 0.65,
+        "y": 0.35
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.8
+    },
+    {
+      "id": "fingerprint_reader",
+      "name": "Fingerprint Reader / Power Button",
+      "function": "Power button with biometric login and side LEDs.",
+      "system_id": "input",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 4,
+      "shape": "box",
+      "size": {
+        "w": 0.06,
+        "d": 0.04,
+        "h": 0.03
+      },
+      "position": {
+        "x": 0.82,
+        "y": 0.58
+      },
+      "serviceability": "replaceable",
+      "specs": {},
+      "hazard": null,
+      "source_url": "https://framewiki.net/products/framework-laptop-13/11th-gen",
+      "confidence": 0.8
+    },
+    {
+      "id": "input_cover",
+      "name": "Input Cover",
+      "function": "Palmrest deck with keyboard and touchpad openings held by magnets.",
+      "system_id": "enclosure",
+      "assembly": "base",
+      "finish": "body",
+      "layer": 5,
+      "shape": "shell_deck",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "Aluminum"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.9
+    },
+    {
+      "id": "top_cover",
+      "name": "Top Cover / Display Lid",
+      "function": "Aluminum lid housing holding display, webcam and hinges.",
+      "system_id": "enclosure",
+      "assembly": "lid",
+      "finish": "body",
+      "layer": 0,
+      "shape": "rounded_slab",
+      "size": {
+        "w": 1.0,
+        "d": 1.0,
+        "h": 0.12
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "material": "Aluminum"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/63257/framework-laptop-a-framework-for-a-repairable-future",
+      "confidence": 0.9
+    },
+    {
+      "id": "display_panel",
+      "name": "Display Panel",
+      "function": "Main visual output 13.5-inch 3:2 display.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "screen",
+      "layer": 1,
+      "shape": "screen",
+      "size": {
+        "w": 0.9,
+        "d": 0.85,
+        "h": 0.1
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "aspect": "3:2",
+        "resolution": "2256x1504",
+        "size": "13.5 inch"
+      },
+      "hazard": null,
+      "source_url": "https://framewiki.net/products/framework-laptop-13/11th-gen",
+      "confidence": 0.95
+    },
+    {
+      "id": "display_bezel",
+      "name": "Display Bezel Black",
+      "function": "Magnetic plastic frame around the screen in black for this config.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "body",
+      "layer": 2,
+      "shape": "frame",
+      "size": {
+        "w": 0.95,
+        "d": 0.9,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "color": "Black",
+        "mounting": "Magnetic"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.9
+    },
+    {
+      "id": "webcam_module",
+      "name": "Webcam Module",
+      "function": "1080p webcam with mics and hardware privacy switches.",
+      "system_id": "display",
+      "assembly": "lid",
+      "finish": "internal",
+      "layer": 2,
+      "shape": "box",
+      "size": {
+        "w": 0.2,
+        "d": 0.05,
+        "h": 0.05
+      },
+      "position": {
+        "x": 0.5,
+        "y": 0.92
+      },
+      "serviceability": "replaceable",
+      "specs": {
+        "resolution": "1080p 60fps"
+      },
+      "hazard": null,
+      "source_url": "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+      "confidence": 0.85
+    }
+  ],
+  "connections": [
+    {
+      "source": "main_battery",
+      "target": "mainboard",
+      "kind": "power",
+      "label": "Battery connector"
+    },
+    {
+      "source": "main_battery",
+      "target": "bottom_cover",
+      "kind": "mechanical",
+      "label": "3 captive screws"
+    },
+    {
+      "source": "rtc_battery",
+      "target": "mainboard",
+      "kind": "power",
+      "label": "RTC holder trickle charge"
+    },
+    {
+      "source": "mainboard",
+      "target": "bottom_cover",
+      "kind": "mechanical",
+      "label": "5 mainboard screws"
+    },
+    {
+      "source": "bottom_cover",
+      "target": "input_cover",
+      "kind": "mechanical",
+      "label": "5 captive T5 + magnets"
+    },
+    {
+      "source": "cpu",
+      "target": "mainboard",
+      "kind": "mechanical",
+      "label": "Soldered BGA"
+    },
+    {
+      "source": "cpu",
+      "target": "heatsink_fan",
+      "kind": "thermal",
+      "label": "CPU to heatpipes / fan"
+    },
+    {
+      "source": "heatsink_fan",
+      "target": "mainboard",
+      "kind": "mechanical",
+      "label": "Heatsink screws"
+    },
+    {
+      "source": "mainboard",
+      "target": "heatsink_fan",
+      "kind": "power",
+      "label": "Fan header power"
+    },
+    {
+      "source": "ram_module",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "DDR4 SO-DIMM slot"
+    },
+    {
+      "source": "ssd_256gb",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "M.2 NVMe slot"
+    },
+    {
+      "source": "ssd_256gb",
+      "target": "mainboard",
+      "kind": "mechanical",
+      "label": "M.2 retaining screw"
+    },
+    {
+      "source": "wifi_card",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "M.2 2230 slot"
+    },
+    {
+      "source": "wifi_card",
+      "target": "top_cover",
+      "kind": "data",
+      "label": "Antenna coax to lid"
+    },
+    {
+      "source": "display_panel",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "eDP display flex"
+    },
+    {
+      "source": "display_panel",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "4 display screws"
+    },
+    {
+      "source": "webcam_module",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "Webcam cable"
+    },
+    {
+      "source": "webcam_module",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "2 webcam screws"
+    },
+    {
+      "source": "display_bezel",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Magnetic bezel"
+    },
+    {
+      "source": "hinges",
+      "target": "top_cover",
+      "kind": "mechanical",
+      "label": "Hinge to lid screws"
+    },
+    {
+      "source": "hinges",
+      "target": "bottom_cover",
+      "kind": "mechanical",
+      "label": "Hinge to base screws"
+    },
+    {
+      "source": "keyboard",
+      "target": "input_cover",
+      "kind": "mechanical",
+      "label": "Keyboard screws"
+    },
+    {
+      "source": "keyboard",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "Keyboard pogo pins"
+    },
+    {
+      "source": "touchpad",
+      "target": "input_cover",
+      "kind": "mechanical",
+      "label": "4 touchpad screws"
+    },
+    {
+      "source": "touchpad",
+      "target": "touchpad_cable",
+      "kind": "data",
+      "label": "Touchpad flex"
+    },
+    {
+      "source": "touchpad_cable",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "Touchpad Cable to mainboard"
+    },
+    {
+      "source": "fingerprint_reader",
+      "target": "input_cover",
+      "kind": "mechanical",
+      "label": "Power button in deck"
+    },
+    {
+      "source": "fingerprint_reader",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "Fingerprint / power pogo"
+    },
+    {
+      "source": "speaker_left",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "Speaker cable"
+    },
+    {
+      "source": "speaker_left",
+      "target": "bottom_cover",
+      "kind": "mechanical",
+      "label": "Speaker posts"
+    },
+    {
+      "source": "speaker_right",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "Speaker cable"
+    },
+    {
+      "source": "speaker_right",
+      "target": "bottom_cover",
+      "kind": "mechanical",
+      "label": "Speaker posts"
+    },
+    {
+      "source": "audio_board",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "Audio Board Cable"
+    },
+    {
+      "source": "audio_board",
+      "target": "bottom_cover",
+      "kind": "mechanical",
+      "label": "Audio board captive screw"
+    },
+    {
+      "source": "expansion_cards_left",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "USB-C Thunderbolt data"
+    },
+    {
+      "source": "expansion_cards_left",
+      "target": "mainboard",
+      "kind": "power",
+      "label": "USB-PD charging"
+    },
+    {
+      "source": "expansion_cards_right",
+      "target": "mainboard",
+      "kind": "data",
+      "label": "USB-C Thunderbolt data"
+    },
+    {
+      "source": "expansion_cards_right",
+      "target": "mainboard",
+      "kind": "power",
+      "label": "USB-PD charging"
+    }
+  ],
+  "repair_paths": [],
+  "sources": [
+    "https://frame.work/products/laptop-chromebook-12-gen-intel?ref=steemhunt",
+    "https://framewiki.net/products/framework-laptop-13/11th-gen",
+    "https://manuals.plus/framework/franbp0000-laptop-manual.pdf",
+    "https://guides.frame.work/Guide/Battery+Replacement+Guide/85",
+    "https://www.ifixit.com/News/51614/framework-laptop-teardown-10-10-but-is-it-perfect",
+    "https://www.ifixit.com/News/63257/framework-laptop-a-framework-for-a-repairable-future"
+  ]
+}
