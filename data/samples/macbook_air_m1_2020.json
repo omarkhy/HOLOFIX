@@ -14,6 +14,19 @@
       "depth": 212.4,
       "height_min": 4.1,
       "height_max": 16.1
+    },
+    "color": {
+      "name": "Silver",
+      "hex": "#E3E4E5"
+    },
+    "summary": "Apple's first MacBook Air built on its own M1 chip instead of Intel. It has no fan, and its memory and storage are built into the chip package and the logic board.",
+    "key_specs": {
+      "Processor": "Apple M1, 8-core CPU (4 performance + 4 efficiency)",
+      "Graphics": "7-core GPU, integrated in the M1",
+      "Display": "13.3-inch Retina, 2560 \u00d7 1600",
+      "Battery": "49.9 Wh, up to 18 h video playback (Apple)",
+      "Weight": "1.29 kg",
+      "Released": "November 2020"
     }
   },
   "provenance": "generated",
@@ -83,7 +96,8 @@
       "hazard": null,
       "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
       "confidence": 0.8,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "body"
     },
     {
       "id": "battery",
@@ -109,7 +123,8 @@
       "hazard": "lithium_battery",
       "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
       "confidence": 0.85,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "internal"
     },
     {
       "id": "logic_board",
@@ -134,7 +149,8 @@
       "hazard": null,
       "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
       "confidence": 0.75,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "internal"
     },
     {
       "id": "m1_soc",
@@ -161,7 +177,8 @@
       "hazard": null,
       "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
       "confidence": 0.9,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "internal"
     },
     {
       "id": "ssd_nand",
@@ -186,7 +203,8 @@
       "hazard": null,
       "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
       "confidence": 0.9,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "internal"
     },
     {
       "id": "heat_spreader",
@@ -211,7 +229,8 @@
       "hazard": null,
       "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
       "confidence": 0.7,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "internal"
     },
     {
       "id": "usb_c_board",
@@ -236,7 +255,8 @@
       "hazard": null,
       "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
       "confidence": 0.7,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "internal"
     },
     {
       "id": "audio_board",
@@ -259,7 +279,8 @@
       "hazard": null,
       "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
       "confidence": 0.6,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "internal"
     },
     {
       "id": "speaker_left",
@@ -282,7 +303,8 @@
       "hazard": null,
       "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
       "confidence": 0.55,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "internal"
     },
     {
       "id": "speaker_right",
@@ -305,19 +327,20 @@
       "hazard": null,
       "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
       "confidence": 0.55,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "internal"
     },
     {
       "id": "trackpad",
       "name": "Force Touch trackpad",
       "function": "Pressure-sensing trackpad with haptic feedback instead of a mechanical click.",
       "system_id": "input",
-      "layer": 2,
+      "layer": 3,
       "shape": "rounded_slab",
       "size": {
         "w": 0.42,
         "d": 0.27,
-        "h": 0.12
+        "h": 0.4
       },
       "position": {
         "x": 0.5,
@@ -328,7 +351,8 @@
       "hazard": null,
       "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
       "confidence": 0.75,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "body"
     },
     {
       "id": "keyboard",
@@ -340,7 +364,7 @@
       "size": {
         "w": 0.86,
         "d": 0.37,
-        "h": 0.25
+        "h": 0.6
       },
       "position": {
         "x": 0.5,
@@ -353,7 +377,8 @@
       "hazard": null,
       "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
       "confidence": 0.65,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "keys"
     },
     {
       "id": "touch_id",
@@ -378,7 +403,8 @@
       "hazard": null,
       "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
       "confidence": 0.6,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "internal"
     },
     {
       "id": "top_case",
@@ -403,7 +429,8 @@
       "hazard": null,
       "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
       "confidence": 0.7,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "body"
     },
     {
       "id": "display_cable",
@@ -428,7 +455,8 @@
       "hazard": null,
       "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
       "confidence": 0.55,
-      "assembly": "base"
+      "assembly": "base",
+      "finish": "internal"
     },
     {
       "id": "display_back_cover",
@@ -453,7 +481,8 @@
       "hazard": null,
       "source_url": "https://www.ifixit.com/Device/MacBook_Air_13%22_Late_2020",
       "confidence": 0.7,
-      "assembly": "lid"
+      "assembly": "lid",
+      "finish": "body"
     },
     {
       "id": "display_panel",
@@ -481,7 +510,8 @@
       "hazard": null,
       "source_url": "https://everymac.com/systems/apple/macbook-air/specs/macbook-air-m1-8-core-7-core-gpu-13-retina-display-2020-specs.html",
       "confidence": 0.85,
-      "assembly": "lid"
+      "assembly": "lid",
+      "finish": "screen"
     }
   ],
   "connections": [

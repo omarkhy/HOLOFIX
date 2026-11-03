@@ -86,6 +86,20 @@ class Difficulty(str, Enum):
 
 # ---------- Building blocks ----------
 
+class Finish(str, Enum):
+    """How the part looks in the assembled (real-colour) view. Only visible surfaces matter."""
+    body = "body"          # outer shell: uses Device.color, metallic
+    screen = "screen"      # black glass
+    keys = "keys"          # black keycaps
+    internal = "internal"  # anything hidden inside: neutral dark grey
+
+
+class DeviceColor(BaseModel):
+    """Official colour name from the maker + an approximate hex (makers don't publish hex codes)."""
+    name: str = Field(..., description="e.g. 'Silver', 'Space Gray', 'Gold'")
+    hex: str = Field(..., pattern=r"^#[0-9A-Fa-f]{6}$")
+
+
 class Assembly(str, Enum):
     """Which rigid frame a part belongs to. Laptops: the lid rotates on the hinge."""
     base = "base"
@@ -109,6 +123,12 @@ class Device(BaseModel):
         description="Purchase-time options, e.g. {'ram': '8 GB', 'storage': '256 GB'}",
     )
     dimensions_mm: Optional[Dimensions] = None
+    color: Optional[DeviceColor] = None
+    summary: Optional[str] = Field(None, description="One or two sentences: what makes this model notable")
+    key_specs: dict[str, str] = Field(
+        default_factory=dict,
+        description="About 6 headline specs from the official spec sheet, e.g. {'Processor': 'Apple M1, 8-core CPU'}",
+    )
 
 
 class System(BaseModel):
@@ -140,6 +160,7 @@ class Part(BaseModel):
     function: str = Field(..., description="One sentence: what it does")
     system_id: str
     assembly: Assembly = Assembly.base
+    finish: Finish = Finish.internal
     layer: int = Field(..., ge=0, description="Stack order within the assembly. base: 0 = bottom. lid: 0 = outer back cover.")
     shape: ShapeType
     size: Size

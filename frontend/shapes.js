@@ -39,7 +39,7 @@ function roundedRect(path, cx, cz, w, d, r) {
 
 /** Extrude a flat shape upwards: shape lies on the ground (XZ), thickness goes along +Y from 0 to h. */
 function extrudeUp(shape, h) {
-  const geo = new THREE.ExtrudeGeometry(shape, { depth: h, bevelEnabled: false, curveSegments: 8 });
+  const geo = new THREE.ExtrudeGeometry(shape, { depth: h, bevelEnabled: false, curveSegments: 24 });
   geo.rotateX(-Math.PI / 2);
   return geo;
 }
@@ -52,15 +52,17 @@ function taper(geo, bottomAt, topAt) {
     pos.setY(i, bottomAt(z) + t * (topAt(z) - bottomAt(z)));
   }
   pos.needsUpdate = true;
+  geo.computeVertexNormals();      // sloped faces need fresh normals for correct lighting
   geo.computeBoundingBox(); geo.computeBoundingSphere();
   return geo;
 }
 
-/** mergeGeometries needs all inputs to look alike: non-indexed, same attributes. */
+/** mergeGeometries needs all inputs to look alike: non-indexed, with exactly position + normal. */
 function merge(geos) {
   return mergeGeometries(geos.map(g => {
     const n = g.index ? g.toNonIndexed() : g;
-    for (const name of Object.keys(n.attributes)) if (name !== 'position') n.deleteAttribute(name);
+    if (!n.attributes.normal) n.computeVertexNormals();
+    for (const name of Object.keys(n.attributes)) if (name !== 'position' && name !== 'normal') n.deleteAttribute(name);
     return n;
   }));
 }
@@ -166,7 +168,7 @@ function screen(w, h, d) {
   const pts = [
     [x0, z0, x1, z0], [x1, z0, x1, z1], [x1, z1, x0, z1], [x0, z1, x0, z0],
   ].flatMap(([a, b, c, e]) => [new THREE.Vector3(a, y, b), new THREE.Vector3(c, y, e)]);
-  const cam = new THREE.EllipseCurve(0, d / 2 - topBezel / 2, 0.012, 0.012).getPoints(16);
+  const cam = new THREE.EllipseCurve(0, d / 2 - topBezel / 2, 0.012, 0.012).getPoints(32);
   for (let i = 0; i < cam.length - 1; i++) {
     pts.push(new THREE.Vector3(cam[i].x, y, cam[i].y), new THREE.Vector3(cam[i + 1].x, y, cam[i + 1].y));
   }
@@ -184,7 +186,7 @@ function shellBase(ctx) {
   const wallGeo = taper(extrudeUp(walls, 1), () => 0, z => baseTopAt(z) - deckThickness);
   const floor = extrudeUp(roundedRect(new THREE.Shape(), 0, 0, W, D, radius), 0.006);
   const feet = [[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([sx, sz]) =>
-    new THREE.CylinderGeometry(0.07, 0.07, 0.008, 24).translate(sx * (W / 2 - 0.3), -0.004, sz * (D / 2 - 0.22)));
+    new THREE.CylinderGeometry(0.07, 0.07, 0.008, 48).translate(sx * (W / 2 - 0.3), -0.004, sz * (D / 2 - 0.22)));
   return { geo: merge([wallGeo, floor, ...feet]) };
 }
 
