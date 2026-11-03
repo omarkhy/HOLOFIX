@@ -117,8 +117,8 @@ scene.background = new THREE.Color('#070a0e');
 // Reflections for the metal: a procedural studio room baked into an environment map.
 scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
 // Soft key light from the upper front so the silver reads bright, like product shots.
-scene.add(new THREE.HemisphereLight('#ffffff', '#20242a', 1.4));
-const keyLight = new THREE.DirectionalLight('#ffffff', 1.6);
+scene.add(new THREE.HemisphereLight('#ffffff', '#20242a', 0.8));   // tuned for three.js 0.170
+const keyLight = new THREE.DirectionalLight('#ffffff', 0.9);
 keyLight.position.set(3, 6, 5);
 scene.add(keyLight);
 
@@ -691,6 +691,7 @@ async function main() {
   renderPanel();
   resize();
   animate();
+  await window.holofixBoot;   // let the opening scene finish first (see boot.js)
   introAnimation();
 }
 

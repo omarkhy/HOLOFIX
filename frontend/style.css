@@ -35,22 +35,38 @@ button { font: inherit; color: inherit; }
 .top {
   display: grid;
   grid-template-columns: auto 1fr auto;
+  grid-template-rows: 58px;   /* fixed: nothing loading into the header may move the logo */
   align-items: end;
   gap: 32px;
   padding: 20px 32px 0;
   border-bottom: 1px solid var(--hairline);
 }
 
-.brand { display: flex; align-items: center; gap: 10px; padding-bottom: 14px; }
-.brand-mark {
-  width: 14px; height: 14px;
-  border: 1.5px solid var(--holo);
-  transform: rotate(45deg);
-  box-shadow: 0 0 10px rgba(111, 231, 240, 0.6);
+.brand { display: flex; align-items: center; gap: 8px; padding-bottom: 14px; }
+.brand-cube { display: block; width: 44px; height: 44px; transition: opacity 0.25s ease; }
+.brand-cube canvas { display: block; }
+body.booting .brand-cube { opacity: 0; }   /* revealed when the intro cube lands on it */
+
+/* Dot field behind the top-left corner (drawn in nav.js). Behind everything, never clickable. */
+.corner-dots { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
+.top, .hall, .bottom { position: relative; z-index: 1; }
+
+/* ---------- Opening scene ---------- */
+.boot {
+  position: fixed; inset: 0; z-index: 100;
+  background: var(--bg);
+  transition: background-color 0.4s ease, opacity 0.25s ease;
+  cursor: pointer;
 }
+.boot canvas { display: block; }
+.boot.clear { background-color: transparent; }
+.boot.gone { opacity: 0; }
+.boot-skip { position: absolute; right: 28px; bottom: 22px; color: var(--muted); font-size: 12px; transition: opacity 0.3s; }
+.boot.clear .boot-skip { opacity: 0; }
 .brand-name { font-weight: 600; letter-spacing: 0.14em; font-size: 13px; }
 
 .rail {
+  height: 56px;       /* fixed, before and after the systems load: the logo must not move */
   display: flex;
   justify-content: center;
   gap: 4px;
@@ -58,6 +74,7 @@ button { font: inherit; color: inherit; }
   scrollbar-width: none;
 }
 .rail button {
+  height: 56px;
   background: none;
   border: 0;
   border-bottom: 2px solid transparent;
@@ -213,11 +230,10 @@ kbd {
 /* ---------- Small screens: stack the stage over the panel ---------- */
 /* ---------- Side menu ---------- */
 .menu-btn {
-  background: none; border: 0; cursor: pointer;
-  width: 36px; height: 36px; margin: 0 6px 0 -8px;
-  display: grid; place-items: center; border-radius: 8px;
+  background: none; border: 0; cursor: pointer; padding: 0;
+  width: 44px; height: 44px; margin: -6px 4px -6px -10px;
+  display: grid; place-items: center; border-radius: 10px;
 }
-.menu-btn:hover { background: rgba(233, 228, 216, 0.06); }
 
 .drawer {
   width: 64px;
@@ -259,7 +275,7 @@ body.drawer-open .nav-item .label, body.drawer-open .nav-item em { opacity: 1; }
   body.drawer-open .drawer { width: 240px; padding: 16px 10px; border-right: 1px solid var(--hairline); }
   html, body { height: auto; }
   body { overflow: auto; grid-template-rows: auto auto auto; }
-  .top { grid-template-columns: 1fr auto; padding: 16px 16px 0; }
+  .top { grid-template-columns: 1fr auto; grid-template-rows: 58px auto; padding: 16px 16px 0; }
   .rail { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; }
   .hall { grid-template-columns: 1fr; }
   .stage { height: 60vh; }

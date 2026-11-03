@@ -32,3 +32,29 @@ document.addEventListener('click', (e) => {
   if (phone.matches && isOpen() && !drawer.contains(e.target)) setOpen(false, false);
 });
 phone.addEventListener('change', () => { if (phone.matches) setOpen(false, false); });
+
+// ---------- Dot field in the top-left corner ----------
+// Same look as the intro backdrop: cyan dots above a diagonal, violet below, each dot fading
+// with distance from the corner. Drawn once on a canvas (and again on resize).
+const dots = document.getElementById('corner-dots');
+function drawDots() {
+  const w = Math.min(760, innerWidth), h = 300, dpr = Math.min(devicePixelRatio, 2);
+  dots.width = w * dpr; dots.height = h * dpr;
+  dots.style.width = `${w}px`; dots.style.height = `${h}px`;
+  const g = dots.getContext('2d');
+  g.scale(dpr, dpr);
+  const step = 10;
+  for (let y = step / 2; y < h; y += step) {
+    for (let x = step / 2; x < w; x += step) {
+      // Fade: strongest in the corner, gone by ~95 % of the width / height.
+      const fade = Math.max(0, 1 - Math.hypot(x / (w * 0.95), y / (h * 0.95)));
+      if (fade <= 0) continue;
+      const violet = y > 34 + x * 0.12;                // diagonal split, as in the intro
+      const a = Math.pow(fade, 1.6) * 0.6;
+      g.fillStyle = violet ? `rgba(154,123,255,${a})` : `rgba(111,231,240,${a})`;
+      g.beginPath(); g.arc(x, y, 1.15, 0, Math.PI * 2); g.fill();
+    }
+  }
+}
+drawDots();
+addEventListener('resize', drawDots);
