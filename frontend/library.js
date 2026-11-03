@@ -40,6 +40,27 @@ export function addDevice(graph, path) {
 
 export function removeDevice(path) { write(KEY, listDevices().filter(d => d.path !== path)); }
 
+// ---------- Diagnoses: the last 10, so a finished diagnosis is never lost or paid for twice ----------
+const DIAG = 'holofix.diagnoses';
+const MAX_DIAG = 10;
+
+export function listDiagnoses(path) {
+  const all = read(DIAG, []);
+  return path ? all.filter(d => d.path === path) : all;
+}
+
+/** Save or update a diagnosis session (same device + same symptom = same entry). */
+export function saveDiagnosis(path, model_name, diag) {
+  const all = read(DIAG, []).filter(d => !(d.path === path && d.symptom === diag.symptom));
+  all.unshift({ path, model_name, symptom: diag.symptom, history: diag.history, result: diag.result, open: true, at: new Date().toISOString() });
+  all.forEach((d, i) => { if (i > 0 && d.path === path) d.open = false; });   // one open session per device
+  write(DIAG, all.slice(0, MAX_DIAG));
+}
+
+export function closeDiagnoses(path) {
+  write(DIAG, read(DIAG, []).map(d => (d.path === path ? { ...d, open: false } : d)));
+}
+
 /** The last device opened in the viewer (used by the "Explore" menu entry). */
 export function setLastViewed(path) { write(LAST, path); }
 export function lastViewed() { return read(LAST, null) || DEMO_PATH; }

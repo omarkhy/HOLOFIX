@@ -55,10 +55,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg>
         <span class="label">Explore</span>
       </a>
-      <button class="nav-item" disabled title="Diagnose (soon)">
+      <a class="nav-item" href="/" data-nav="diagnose" title="Diagnose">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
-        <span class="label">Diagnose</span><em>soon</em>
-      </button>
+        <span class="label">Diagnose</span>
+      </a>
       <a class="nav-item" href="/#library" data-nav="library" title="Your devices">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="4" y="4" width="16" height="5" rx="1"/><rect x="4" y="11" width="16" height="9" rx="1"/></svg>
         <span class="label">Your devices</span>
@@ -96,6 +96,12 @@
     </section>
 
     <section class="stage" id="stage" aria-label="3D exploded view">
+      <!-- Symptom bar: always visible above the model, whatever is shown in the panel. -->
+      <form class="diag-bar" id="diag-form">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
+        <input id="symptom" autocomplete="off" placeholder="Something wrong? Describe it, e.g. lines on my screen" aria-label="Describe the problem">
+        <button class="btn primary" type="submit">Diagnose</button>
+      </form>
       <div class="tooltip" id="tooltip" hidden></div>
       <div class="stage-status" id="stage-status">Loading model…</div>
     </section>

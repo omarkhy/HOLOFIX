@@ -32,7 +32,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 import { buildShape, ABSOLUTE_SHAPES } from './shapes.js';
-import { addDevice, hasDevice, setLastViewed } from './library.js';
+import { addDevice, hasDevice, setLastViewed, listDiagnoses, saveDiagnosis, closeDiagnoses } from './library.js';
 
 // ---------- Settings ----------
 
@@ -76,11 +76,14 @@ const COLORS = {
 
 // Opacity of [fill, edges] for each visual state of a part.
 const LOOK = {
+  suspect:  [0.10, 1.0],   // diagnosis: likely culprit (coloured by rank, see SUSPECT_COLORS)
   idle:     [0.02, 0.7],
   hover:    [0.07, 1.0],
   selected: [0.09, 1.0],
   dimmed:   [0.004, 0.08],
 };
+
+const SUSPECT_COLORS = ['#ff5f57', '#ff9a4d', '#ffc857'];   // most likely -> less likely
 
 const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -96,6 +99,8 @@ const state = {
   selectedId: null,
   isolatedSystem: null, // system id or null for "all"
   dev: null,            // device frame: sizes, wedge function, lid pivot (see buildDevice)
+  diag: null,           // diagnosis session: { symptom, history, result, loading, error }
+  suspectRank: new Map(), // part id -> 0 (most likely), 1, 2… while a diagnosis is shown
   holoT: 0,             // 0 = real device, 1 = full hologram (scan progress)
 };
 
@@ -315,7 +320,7 @@ function buildPart(part) {
   // Anchor = centre of the part's geometry; fibres attach here.
   geo.computeBoundingBox();
   const anchor = geo.boundingBox.getCenter(new THREE.Vector3());
-  return { part, group, solid, outline, fill, edges, anchor };
+  return { part, group, solid, outline, fill, edges, anchor, baseColor: color.getHexString ? `#${color.getHexString()}` : color };
 }
 
 // ---------- 4. Layout: where every part sits for the current explode value ----------
@@ -468,12 +473,16 @@ function setLook(entry, look) {
   const [fillOpacity, edgeOpacity] = LOOK[look];
   entry.fill.material.opacity = fillOpacity;
   entry.edges.material.opacity = edgeOpacity;
-  // Real-colour view: hover/selection tints the part cyan; dimmed parts turn see-through.
-  const m = entry.solid.material;
-  m.emissive.set(look === 'hover' || look === 'selected' ? '#1b5a62' : '#000000');
-  const wantTransparent = look === 'dimmed';
-  if (m.transparent !== wantTransparent) { m.transparent = wantTransparent; m.needsUpdate = true; }
-  m.opacity = wantTransparent ? 0.12 : 1;
+  // Hologram colour: suspects take a warning colour by rank, everything else its own colour.
+  const rank = state.suspectRank.get(entry.part.id);
+  const color = look === 'suspect' ? SUSPECT_COLORS[Math.min(rank, 2)] : entry.baseColor;
+  entry.fill.material.color.set(color);
+  // Only the top suspect gets a filled glow; big lower-ranked parts (a whole screen) would drown it.
+  if (look === 'suspect' && rank > 0) entry.fill.material.opacity = 0.025;
+  entry.edges.material.color.set(color);
+  // Real-colour view stays solid (never see-through); highlighted parts get a tint.
+  const tint = { hover: '#1b5a62', selected: '#1b5a62', suspect: '#5a1714' }[look] || '#000000';
+  entry.solid.material.emissive.set(tint);
   for (const child of entry.group.children) {
     if (child.userData.isTrace) child.material.opacity = edgeOpacity * 0.35;
   }
@@ -481,10 +490,12 @@ function setLook(entry, look) {
 
 /** Single place that decides how everything looks, from state. Call after any state change. */
 function refreshLooks() {
+  const diagnosing = state.suspectRank.size > 0;
   for (const [id, entry] of state.parts) {
     let look = 'idle';
     if (!partIsVisible(entry.part)) look = 'dimmed';
     else if (state.selectedId && id !== state.selectedId) look = 'dimmed';
+    else if (diagnosing && !state.selectedId) look = state.suspectRank.has(id) ? 'suspect' : 'dimmed';
     if (id === state.hoveredId && partIsVisible(entry.part)) look = 'hover';
     if (id === state.selectedId) look = 'selected';
     // When a part is selected, keep its direct neighbours readable.
@@ -620,7 +631,115 @@ document.addEventListener('click', (e) => {
   if (e.target.id === 'save-device') { addDevice(state.graph, DATA_URL); renderPanel(); }
 });
 
+// ---------- 5f. Diagnosis ----------
+
+const TIER = { green: 'Do it at home', yellow: 'Needs tools and care', red: 'Technician only' };
+
+async function runDiagnosis() {
+  const d = state.diag;
+  d.loading = true; d.error = null; renderPanel();
+  try {
+    const res = await fetch('/api/diagnose', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: DATA_URL, symptom: d.symptom, history: d.history }) });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.detail || `The server answered ${res.status}.`);
+    d.result = data;
+    saveDiagnosis(DATA_URL, state.graph.device.model_name, d);   // survives tab changes and reloads
+    state.suspectRank = new Map(data.suspects.map((s, i) => [s.part_id, i]));
+    if (state.target < SCAN_END + 0.3) { state.target = 0.85; sliderEl.value = 85; }   // open it up to show the suspects
+  } catch (e) { d.error = e.message; }
+  d.loading = false;
+  state.selectedId = null;
+  refreshLooks(); renderPanel();
+}
+
+function startDiagnosis(symptom) {
+  // Same symptom already diagnosed on this device: reopen it instantly instead of asking again.
+  const saved = listDiagnoses(DATA_URL).find(d => d.symptom.toLowerCase() === symptom.toLowerCase());
+  if (saved) return openDiagnosis(saved);
+  state.diag = { symptom, history: [], result: null, loading: false, error: null };
+  runDiagnosis();
+}
+
+function openDiagnosis(saved) {
+  state.diag = { symptom: saved.symptom, history: saved.history, result: saved.result, loading: false, error: null };
+  state.suspectRank = new Map(saved.result.suspects.map((s, i) => [s.part_id, i]));
+  state.selectedId = null;
+  saveDiagnosis(DATA_URL, state.graph.device.model_name, state.diag);
+  refreshLooks(); renderPanel();
+}
+
+function endDiagnosis() {
+  state.diag = null; state.suspectRank = new Map();
+  closeDiagnoses(DATA_URL);
+  refreshLooks(); renderPanel();
+}
+
+/** "Recent diagnoses" on the overview panel: earlier sessions for this device, one click to reopen. */
+function recentDiagnoses() {
+  const list = listDiagnoses(DATA_URL);
+  if (!list.length) return '';
+  return `<h2>Recent diagnoses</h2><ul class="links">${list.map((d, i) =>
+    `<li><button data-diag="${i}">“${escapeHtml(d.symptom)}”</button> <span class="quiet">${escapeHtml(d.result.suspects[0] ? (state.parts.get(d.result.suspects[0].part_id)?.part.name || '') : '')}</span></li>`).join('')}</ul>`;
+}
+
+panelEl.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-diag]');
+  if (b) openDiagnosis(listDiagnoses(DATA_URL)[+b.dataset.diag]);
+});
+
+function renderDiagnosis() {
+  const d = state.diag, r = d.result, name = (id) => state.parts.get(id)?.part.name || id;
+  let body;
+  if (d.loading) {
+    body = `<div class="wait"><span class="pulse"></span><p>${d.history.length ? 'Updating the diagnosis…' : 'Checking repair guides for this symptom…'}</p></div>`;
+  } else if (d.error) {
+    body = `<div class="error"><p><b>That did not work.</b> ${escapeHtml(d.error)}</p><button class="btn" id="diag-retry">Try again</button></div>`;
+  } else if (r) {
+    body = `
+      ${r.safety_stop ? `<div class="hazard stop"><b>Stop: safety first</b>${escapeHtml(r.safety_stop)}</div>` : ''}
+      <p class="lead">${escapeHtml(r.summary)}</p>
+      <h2>Most likely</h2>
+      <ol class="suspects">${r.suspects.map((s, i) => `
+        <li><button class="suspect" data-part="${s.part_id}">
+          <i style="background:${SUSPECT_COLORS[Math.min(i, 2)]}"></i>
+          <span class="s-name">${escapeHtml(name(s.part_id))}</span>
+          <span class="s-pct">${Math.round(s.likelihood * 100)}%</span>
+          <span class="s-why">${escapeHtml(s.why)}</span>
+        </button></li>`).join('')}</ol>
+      ${r.next_question ? `
+        <div class="question"><p>${escapeHtml(r.next_question.text)}</p>
+          <div class="chips">${r.next_question.options.map(o => `<button class="answer" data-a="${escapeHtml(o)}">${escapeHtml(o)}</button>`).join('')}</div>
+        </div>` : ''}
+      ${r.fixes.length ? `<h2>What to do</h2><div class="fixes">${r.fixes.map(f => `
+        <div class="fix ${f.tier}"><div class="fix-head"><i></i><b>${escapeHtml(f.title)}</b><small>${TIER[f.tier]}</small></div>
+          ${f.steps.length ? `<ol>${f.steps.map(s => `<li>${escapeHtml(s)}</li>`).join('')}</ol>` : ''}</div>`).join('')}</div>` : ''}
+      ${r.sources.length ? `<p class="source">Based on: ${r.sources.slice(0, 4).map(u => { try { return `<a href="${escapeHtml(u)}" target="_blank" rel="noopener">${escapeHtml(new URL(u).hostname.replace('www.', ''))}</a>`; } catch { return ''; } }).join(', ')}</p>` : ''}
+      <p class="source">AI diagnosis: a starting point, not a guarantee. When in doubt, ask a repair shop.</p>`;
+  }
+  panelEl.innerHTML = `
+    <button class="link back" id="diag-close">← ${escapeHtml(state.graph.device.model_name)}</button>
+    <p class="kicker">Diagnosis</p>
+    <h1 class="diag-title">“${escapeHtml(d.symptom)}”</h1>
+    ${d.history.length ? `<ul class="history">${d.history.map(t => `<li>${escapeHtml(t.question)} <b>${escapeHtml(t.answer)}</b></li>`).join('')}</ul>` : ''}
+    ${body}`;
+  document.getElementById('diag-close').addEventListener('click', endDiagnosis);
+  document.getElementById('diag-retry')?.addEventListener('click', runDiagnosis);
+  panelEl.querySelectorAll('.answer').forEach(b => b.addEventListener('click', () => {
+    d.history.push({ question: r.next_question.text, answer: b.dataset.a }); runDiagnosis();
+  }));
+  panelEl.querySelectorAll('.suspect').forEach(b => b.addEventListener('click', () => select(b.dataset.part)));
+}
+
+document.getElementById('diag-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const input = document.getElementById('symptom');
+  const v = input.value.trim();
+  if (v) { startDiagnosis(v); input.value = ''; input.blur(); }
+});
+
 function renderPanel() {
+  if (state.diag && !state.selectedId) return renderDiagnosis();
   const g = state.graph;
   const unverified = g.provenance === 'generated';
   const provenance = `<span class="provenance ${unverified ? 'unverified' : ''}">${unverified ? 'Unverified data: not yet checked against sources' : 'Extracted from cited sources'}</span>`;
@@ -642,6 +761,7 @@ function renderPanel() {
       ${Object.keys(g.device.key_specs || {}).length && !system ? `<h2>At a glance</h2>
       <dl class="specs">${Object.entries(g.device.key_specs).map(([k, v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join('')}</dl>` : ''}
       ${saveButton()}
+      ${recentDiagnoses()}
       <p class="quiet hint">Select a part to see what it does, whether you can replace it, and where the information comes from.</p>
       <h2>Your configuration</h2>
       <dl class="specs">${Object.entries(g.device.configuration).map(([k, v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join('')}</dl>`;
@@ -655,7 +775,7 @@ function renderPanel() {
   const links = g.connections.filter(c => c.source === p.id || c.target === p.id);
 
   panelEl.innerHTML = `
-    ${provenance}
+    ${state.diag ? '<button class="link back" id="back-diag">← Back to the diagnosis</button>' : provenance}
     <p class="kicker">${escapeHtml(system ? system.name : p.system_id)}</p>
     <h1>${escapeHtml(p.name)}</h1>
     <p class="lead">${escapeHtml(p.function)}</p>
@@ -671,6 +791,7 @@ function renderPanel() {
       Confidence ${Math.round(p.confidence * 100)}%
     </p>`;
 
+  document.getElementById('back-diag')?.addEventListener('click', () => select(null));
   // Clicking a connected part jumps to it.
   panelEl.querySelectorAll('button[data-part]').forEach(btn =>
     btn.addEventListener('click', () => select(btn.dataset.part)));
@@ -741,6 +862,7 @@ async function main() {
 
   const g = state.graph;
   setLastViewed(DATA_URL);
+  if (new URLSearchParams(location.search).has('diagnose')) document.getElementById('symptom').focus();
   if (!DATA_URL.includes('/samples/') && !hasDevice(DATA_URL)) addDevice(g, DATA_URL);   // auto-save
   enforcePhysicalRules(g);
   state.dev = buildDevice(g);
@@ -758,7 +880,9 @@ async function main() {
   layoutParts();
   refreshLooks();
   renderRail();
-  renderPanel();
+  // Reopen the diagnosis that was open on this device (e.g. after visiting another page).
+  const open = listDiagnoses(DATA_URL).find(d => d.open && d.result);
+  if (open) openDiagnosis(open); else renderPanel();
   resize();
   animate();
   await window.holofixBoot;   // let the opening scene finish first (see boot.js)

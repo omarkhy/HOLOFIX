@@ -11,6 +11,7 @@ Routes (the website calls them in this order):
   POST /api/identify        {"query": "MacBook Air 2020"}            -> variants to choose from
   POST /api/configure       {"variant": {...}}                      -> purchase options
   POST /api/extract         {"variant": {...}, "configuration": {}} -> {path} of the saved PartsGraph
+  POST /api/diagnose        {"path": "/data/...json", "symptom": "...", "history": [...]} -> Diagnosis
   GET  /                    the website (frontend/)
   GET  /data/...            samples, templates, cached graphs
 """
@@ -20,6 +21,8 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from backend import config
+from backend.diagnosis import Diagnosis, Turn, diagnose
+from backend.schemas import PartsGraph
 from backend.meta_client import MetaAPIError
 from backend.pipeline.configure import ConfigOptions, configure
 from backend.pipeline.extract import _graph_path, extract
@@ -82,6 +85,28 @@ def api_extract(req: ExtractRequest):
     graph = extract(req.variant, req.configuration)
     rel = _graph_path(req.variant.variant_id, req.configuration).relative_to(config.DATA_DIR)
     return ExtractResponse(path=f"/data/{rel.as_posix()}", provenance=graph.provenance.value, parts=len(graph.parts))
+
+
+class DiagnoseRequest(BaseModel):
+    path: str                     # the graph shown in the viewer, e.g. /data/featured/x.json
+    symptom: str
+    history: list[Turn] = []
+    grounded: bool = True
+
+
+@app.post("/api/diagnose", response_model=Diagnosis)
+def api_diagnose(req: DiagnoseRequest):
+    if not req.symptom.strip():
+        raise HTTPException(400, "Describe what is wrong, e.g. 'lines on my screen'.")
+    # Only files inside data/ may be read (no path tricks like ../../.env).
+    file = (config.DATA_DIR / req.path.removeprefix("/data/")).resolve()
+    if config.DATA_DIR.resolve() not in file.parents or file.suffix != ".json" or not file.exists():
+        raise HTTPException(400, "Unknown device file.")
+    graph = PartsGraph.model_validate_json(file.read_text())
+    try:
+        return diagnose(graph, req.symptom.strip(), req.history, grounded=req.grounded)
+    except MetaAPIError as e:
+        raise _upstream(e)
 
 
 # Static files last, so /api/* routes take priority.

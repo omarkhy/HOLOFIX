@@ -19,6 +19,12 @@ document.body.classList.toggle('mode-home', isHome);
 
 // Menu entries: real links now.
 document.querySelectorAll('[data-nav="explore"]').forEach(a => { a.href = `/?data=${encodeURIComponent(lastViewed())}`; });
+// Diagnose = the last viewed device, with the symptom box focused.
+document.querySelectorAll('[data-nav="diagnose"]').forEach(a => { a.href = `/?data=${encodeURIComponent(lastViewed())}&diagnose`; });
+if (!isHome && params.has('diagnose')) {
+  document.querySelector('[data-nav="explore"]')?.removeAttribute('aria-current');
+  document.querySelector('[data-nav="diagnose"]')?.setAttribute('aria-current', 'page');
+}
 /** Two pages share this section: "New device" (search) and "Your devices" (#library). */
 function syncPage() {
   const lib = location.hash === '#library';
