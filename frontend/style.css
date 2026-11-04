@@ -70,7 +70,7 @@ button { font: inherit; color: inherit; }
   border-bottom: 1px solid var(--hairline);
 }
 
-.brand { display: flex; align-items: center; gap: 8px; padding-bottom: 14px; }
+.brand { display: flex; align-items: center; gap: 10px; padding-bottom: 10px; }
 .brand-cube { display: block; width: 44px; height: 44px; transition: opacity 0.25s ease; }
 .brand-cube canvas { display: block; }
 body.booting .brand-cube { opacity: 0; }   /* revealed when the intro cube lands on it */
@@ -91,44 +91,30 @@ body.booting .brand-cube { opacity: 0; }   /* revealed when the intro cube lands
 .boot.gone { opacity: 0; }
 .boot-skip { position: absolute; right: 28px; bottom: 22px; color: var(--muted); font-size: 12px; transition: opacity 0.3s; }
 .boot.clear .boot-skip { opacity: 0; }
-/* Wordmark: Syne, with an RGB-split glitch. Calm most of the time; every 3.2 s (the logo's rhythm) a short
-   burst: the colour split jumps left, right, centre, and a thin slice of the word shifts up/down.
-   steps(1) = the jumps are instant, like a bad signal, never a smooth slide. */
+/* Wordmark: "holofix." in Syne, with coloured copies stacked behind it, offset down-left: the same
+   exploded layers as the wrench mark. Like the mark, the layers burst out on load, then every 60 s
+   they pull back into the word and burst out again (about 2 s of motion in each minute). */
 .brand-name {
-  position: relative; display: inline-block;
-  font-family: "Syne", var(--sans); font-weight: 800; letter-spacing: 0.16em; font-size: 14px;
-  --split-a: #6fe7f0; --split-b: #ff5a4e;
-  text-shadow: -1px 0 var(--split-a), 1px 0 var(--split-b);
-  animation: wm-split 3.2s steps(1, end) infinite;
+  display: inline-block;
+  font-family: "Syne", var(--sans); font-weight: 800; letter-spacing: -0.02em; font-size: 26px; line-height: 1;
+  color: #f6f3ec;
+  --l1: #f5b04c; --l2: #ff3f7f; --l3: #2f7bff; --l4: #6fe7f0;   /* front to back */
+  --s: 1.6px;                                                   /* offset between two layers */
+  text-shadow: calc(-1 * var(--s)) var(--s) 0 var(--l1), calc(-2 * var(--s)) calc(2 * var(--s)) 0 var(--l2),
+               calc(-3 * var(--s)) calc(3 * var(--s)) 0 var(--l3), calc(-4 * var(--s)) calc(4 * var(--s)) 0 var(--l4);
+  animation: wm-explode 60s infinite;
+  padding: 0 0 6px 7px;                                         /* room for the layers */
 }
-:root[data-theme="light"] .brand-name { --split-a: #0f6c74; --split-b: #d9822b; }
-.brand-name::after {                      /* the slice: a copy of the word, clipped to a thin band */
-  content: attr(data-text); position: absolute; left: 0; top: 0;
-  color: var(--ink); text-shadow: inherit; opacity: 0;
-  clip-path: inset(44% 0 38% 0);
-  animation: wm-slice 3.2s steps(1, end) infinite;
+:root[data-theme="light"] .brand-name { color: #0b0e12; --l1: #d9822b; --l2: #c8336a; --l3: #2f5fd0; --l4: #0f6c74; }
+@property --s { syntax: "<length>"; inherits: true; initial-value: 1.6px; }   /* lets the offset animate */
+@keyframes wm-explode {
+  0%, 0.5%  { --s: 0px; }
+  1.7%      { --s: 1.85px; animation-timing-function: ease-in-out; }
+  2.2%      { --s: 1.6px; }
+  97.7%     { --s: 1.6px; animation-timing-function: cubic-bezier(0.6, 0, 0.9, 0.5); }
+  99%, 100% { --s: 0px; }
 }
-@keyframes wm-split {
-  0%   { text-shadow: -1px 0 var(--split-a), 1px 0 var(--split-b); transform: none; }
-  76%  { text-shadow: -2px 0 var(--split-a), 0 0 var(--split-b); transform: translateX(-1px); }     /* left */
-  80%  { text-shadow: 0 0 var(--split-a), 2px 0 var(--split-b); transform: translateX(1px); }       /* right */
-  84%  { text-shadow: none; transform: none; }                                                     /* centre */
-  87%  { text-shadow: -2px 0 var(--split-a), 1px 0 var(--split-b); transform: translateX(-1px); }  /* left */
-  90%  { text-shadow: 0 -1px var(--split-a), 0 1px var(--split-b); transform: translateY(-1px); }  /* up */
-  93%  { text-shadow: -1px 0 var(--split-a), 2px 0 var(--split-b); transform: translateX(1px); }   /* right */
-  96%  { text-shadow: 0 1px var(--split-a), 0 -1px var(--split-b); transform: translateY(1px); }   /* down */
-  98%  { text-shadow: -1px 0 var(--split-a), 1px 0 var(--split-b); transform: none; }              /* rest */
-}
-@keyframes wm-slice {
-  0%   { opacity: 0; }
-  76%  { opacity: 1; clip-path: inset(38% 0 44% 0); transform: translateX(5px); }
-  80%  { opacity: 1; clip-path: inset(60% 0 20% 0); transform: translateX(-4px); }
-  84%  { opacity: 0; }
-  90%  { opacity: 1; clip-path: inset(16% 0 66% 0); transform: translate(4px, -1px); }
-  96%  { opacity: 1; clip-path: inset(68% 0 12% 0); transform: translate(-5px, 1px); }
-  98%  { opacity: 0; }
-}
-@media (prefers-reduced-motion: reduce) { .brand-name, .brand-name::after { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .brand-name { animation: none; } }
 
 .rail {
   height: 56px;       /* fixed, before and after the systems load: the logo must not move */
@@ -497,7 +483,7 @@ table.eval td.num { font-family: var(--mono); }
   display: grid; place-items: center; border-radius: 8px;
 }
 .menu-btn:hover { background: rgba(var(--tint), 0.06); }
-.brand-mark { width: 28px; height: 28px; display: block; border-radius: 7px; }
+.brand-mark { width: 40px; height: 40px; display: block; }
 .mark-dark { display: block; }
 .mark-light { display: none; }                                    /* dark theme: cyan/white mark */
 :root[data-theme="light"] .mark-dark { display: none; }          /* light theme: teal/ink mark */

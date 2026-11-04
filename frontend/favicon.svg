@@ -9,7 +9,6 @@
 </mask>
 <g id="w"><rect x="-80" y="-80" width="370" height="370" mask="url(#shape)"/></g>
 </defs>
-<rect x="3" y="3" width="506" height="506" rx="102" fill="#070a0e"/>
-<rect width="512" height="512" rx="102" fill="url(#dots)"/>
+<rect x="3" y="3" width="506" height="506" rx="102" fill="#070a0e"/><rect width="512" height="512" rx="102" fill="url(#dots)"/>
 <g transform="translate(110 64) scale(1.69)"><g transform="translate(-39 39)"><use href="#w" fill="#6fe7f0"/></g><g transform="translate(-26 26)"><use href="#w" fill="#2f7bff"/></g><g transform="translate(-13 13)"><use href="#w" fill="#f5b04c"/></g><g transform="translate(0 0)"><use href="#w" fill="#f6f3ec"/></g></g>
 </svg>

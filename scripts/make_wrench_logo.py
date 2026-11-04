@@ -4,10 +4,11 @@ coloured layers offset down-left, like the parts of a device pulled apart in the
 
     python -m scripts.make_wrench_logo
 
-Writes four files into frontend/ (the page already picks the right one per theme and motion setting):
-    logo.svg / logo-light.svg        animated: on load the layers burst out of the wrench, then every
-                                     60 s they snap back in and burst out again (about 2 s of motion)
-    favicon.svg / favicon-light.svg  the same mark, still (tab icon, and for people who turn motion off)
+Writes six files into frontend/, one of each per theme (-light = the cream theme):
+    logo.svg / logo-light.svg        header mark, no background, animated: on load the layers burst out
+                                     of the wrench, then every 60 s they snap back in and burst out again
+    mark.svg / mark-light.svg        the same header mark, still (for people who turn motion off)
+    favicon.svg / favicon-light.svg  still mark on a rounded tile (browser tab: needs its own background)
 
 The animation is SMIL inside the SVG, so it runs even when the file is shown with a plain <img>.
 """
@@ -56,28 +57,35 @@ def layer(color: str, depth: int, animated: bool) -> str:
             if not anim else f'<g><use href="#w" fill="{color}"/>{anim}</g>')
 
 
-def svg(theme: str, animated: bool) -> str:
+def svg(theme: str, animated: bool, tile: bool) -> str:
     t = THEMES[theme]
     stroke = f' stroke="{t["stroke"]}" stroke-width="6"' if t["stroke"] else ""
     layers = t["layers"]
     # back to front: the deepest layer first, the wrench itself (depth 0) last
     body = "".join(layer(c, len(layers) - 1 - i, animated) for i, c in enumerate(layers))
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="HOLOFIX">
+    if tile:   # wrench + layers placed in the middle of a 512 rounded tile
+        view = "0 0 512 512"
+        back = (f'<rect x="3" y="3" width="506" height="506" rx="102" fill="{t["bg"]}"{stroke}/>'
+                f'<rect width="512" height="512" rx="102" fill="url(#dots)"/>')
+        place = f"translate({TX} {TY}) scale({SCALE})"
+    else:      # transparent, cropped to the wrench and its layers (room for the burst overshoot)
+        view, back, place = "-12 18 192 192", "", "translate(0 0)"
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="{view}" role="img" aria-label="HOLOFIX">
 <defs>
 <pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="8" cy="8" r="1.3" fill="{t["dot"]}" opacity=".12"/></pattern>
 <mask id="shape" maskUnits="userSpaceOnUse" x="-80" y="-80" width="370" height="370"><rect x="-80" y="-80" width="370" height="370" fill="#000"/>{WRENCH}
 </mask>
 <g id="w"><rect x="-80" y="-80" width="370" height="370" mask="url(#shape)"/></g>
 </defs>
-<rect x="3" y="3" width="506" height="506" rx="102" fill="{t["bg"]}"{stroke}/>
-<rect width="512" height="512" rx="102" fill="url(#dots)"/>
-<g transform="translate({TX} {TY}) scale({SCALE})">{body}</g>
+{back}
+<g transform="{place}">{body}</g>
 </svg>
 """
 
 
 if __name__ == "__main__":
     for theme, suffix in (("dark", ""), ("light", "-light")):
-        (OUT / f"logo{suffix}.svg").write_text(svg(theme, animated=True))
-        (OUT / f"favicon{suffix}.svg").write_text(svg(theme, animated=False))
-        print("wrote", f"logo{suffix}.svg", f"favicon{suffix}.svg")
+        (OUT / f"logo{suffix}.svg").write_text(svg(theme, animated=True, tile=False))
+        (OUT / f"mark{suffix}.svg").write_text(svg(theme, animated=False, tile=False))
+        (OUT / f"favicon{suffix}.svg").write_text(svg(theme, animated=False, tile=True))
+        print("wrote", f"logo{suffix}.svg", f"mark{suffix}.svg", f"favicon{suffix}.svg")

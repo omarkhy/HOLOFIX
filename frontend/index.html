@@ -38,16 +38,17 @@
       <button class="menu-btn" id="menu-btn" aria-label="Show menu" aria-expanded="false" aria-controls="drawer">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
-      <!-- Animated mark (CRT sweep): one per theme, CSS shows the right one. Still versions for people who turn motion off. -->
+      <!-- Exploded-wrench mark + exploded wordmark: one per theme, CSS shows the right one.
+           Still versions (mark*.svg) for people who turn motion off. -->
       <picture class="mark-dark">
-        <source media="(prefers-reduced-motion: reduce)" srcset="favicon.svg">
-        <img class="brand-mark" src="logo.svg" alt="" width="28" height="28">
+        <source media="(prefers-reduced-motion: reduce)" srcset="mark.svg">
+        <img class="brand-mark" src="logo.svg" alt="" width="40" height="40">
       </picture>
       <picture class="mark-light">
-        <source media="(prefers-reduced-motion: reduce)" srcset="favicon-light.svg">
-        <img class="brand-mark" src="logo-light.svg" alt="" width="28" height="28">
+        <source media="(prefers-reduced-motion: reduce)" srcset="mark-light.svg">
+        <img class="brand-mark" src="logo-light.svg" alt="" width="40" height="40">
       </picture>
-      <span class="brand-name" data-text="HOLOFIX">HOLOFIX</span>
+      <span class="brand-name">holofix.</span>
     </div>
 
     <!-- Systems rail: like the museum timeline. Click a system to isolate its parts. -->
