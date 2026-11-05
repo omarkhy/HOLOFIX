@@ -124,10 +124,6 @@ Optional: `python -m scripts.prebuild_featured` (pre-extracts the featured devic
 HOLOFIX never gives instructions for dangerous repairs, shows its sources everywhere, labels unverified data, and
 states plainly that AI-written guides can be wrong. Photos are sent to the Meta API only for the analysis requested.
 
-## AI assistance
-
-Code was written with the help of Claude (Anthropic) under the author's direction; design decisions, testing and
-evaluation review by the author.
 
 ## License
 
